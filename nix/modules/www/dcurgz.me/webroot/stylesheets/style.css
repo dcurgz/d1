@@ -1,7 +1,7 @@
-/* shamelessly copied and tweaked from https://causal.agency <3 */
+/* thanks https://causal.agency for the inspiration <3 */
 :root {
-  --bg: #fbf1c7;
-  --bg-darken: #f6ebbe;
+  --bg: #fffbe8;
+  --bg-darken: #fffbe8;
   --fg: #3c3836;
   --c1: #d9865d;
   --c2: #bba481;
@@ -60,7 +60,7 @@ div.head, div.foot { display: flex; justify-content: space-between; }
 .head-vol { flex: 0 1 auto; text-align: center; }
 .head-rtitle, .foot-os { flex: 1; text-align: right; }
 
-html { font-family: monospace; line-height: 1.25em; }
+html { font-family: monospace; line-height: 1.5em; }
 body { max-width: 80ch; margin: 1em auto; padding: 0 1ch; }
 table { border-collapse: collapse; }
 table.Nm code.Nm { padding-right: 1ch; }
@@ -71,24 +71,34 @@ a { color: var(--c4); }
 a.Sx:before {
     content: "→ ";
 }
-a.permalink {
-    color: var(--c3);
-    text-decoration: none;
-    line-height: 1em;
-}
-a.permalink:before { content: "# "; }
-
-code-inline {
-    padding: 3px;
-    border-radius: 3px;
-    border: solid 1px var(--c1);
-    whitespace: nowrap;
-    line-height: 2;
-}
 
 pre {
     padding: 1em;
     border-radius: 6px;
     border: solid 1px var(--c2);
     background-color: var(--bg-darken);
+}
+
+.info pre {
+    border-left: 12px var(--c3) solid;
+    background-color: var(--bg-darken);
+    padding: 1ch;
+    white-space: wrap;
+}
+
+.warn pre {
+    border-left: 12px var(--c2) solid;
+    background-color: var(--bg-darken);
+    padding: 1ch;
+    white-space: wrap;
+}
+
+code.inline {
+    display: inline;
+    padding: 1px;
+    border: solid 1px var(--c1);
+}
+
+ul p {
+    margin: 1ch;
 }

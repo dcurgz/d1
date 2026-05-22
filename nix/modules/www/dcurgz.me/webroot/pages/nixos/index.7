@@ -8,8 +8,105 @@
 .
 .Sh DESCRIPTION
 .Pp
-@series@
-.
+.Bd -literal -decorate info 
+This is a satirical post about a phenomenon I've noticed with Nix. Nix (and
+NixOS, nix-darwin, home-manager, etc...) is incredibly powerful software, but
+it has a habit of taking over all of your machines, and possibly your entire
+life too. You have been warned. ♥
+.Ed
+.Bd -literal -decorate warn
+This page is unpublished: I'm still drafting this post. Check back soon!
+.Ed
+.Ss Month 1 - Self-hosting
+So maybe you're an Arch Linux user. Maybe you've just installed GrapheneOS[1].
+.Dq Wow, what a rush! 
+you exclaim to yourself, probably internally. It feels great to reclaim some
+control and privacy over your device, especially with the ever growing
+influence of technolord monopolies[2] today.
+.Pp
+.Dq I should try out self-hosting too,
+you start thinking, naturally. I mean, you're no longer using Google Photos,
+and you're going to need reliable image backup, right? It can't be that
+difficult. It's just some images on a server in the
+.Sq cloud ,
+whatever that is.
+.Pp
+You purchase a server, or maybe repurpose that old laptop. It's not dead yet.
+Naturally, you're booting straight into your trusty Arch Linux ISO USB stick.
+In under 20 minutes[3], you've mounted the drives, formatted the disk partitions,
+connected to the network, installed essential packages, tweaked the relevant
+configuration files, and successfully provisioned the server.
+.Pp
+Next, you install Immich[4] - in a container, of course. It's just good
+practices.  Maybe Docker, or Podman if you're feeling anti-establishment that
+day, or `systemd-nspawn` if you're feeling manic.
+.Pp
+With a bit of port forwarding and an Nginx reverse proxy, you have a working
+image backup server. But there's a problem: you can only access it at home.
+.Pp
+So you install Tailscale[5] to all of your devices, including your server, and
+use `tailscale cert` to generate an SSL certificate for your server's MagicDNS[6]
+endpoint. At this point, you can access your server from anywhere by visiting
+`https://yourserver.tailXXXXXX.ts.net`. Nice.
+.Pp
+.Dq What else can I self-host?
+you're thinking now. The server is already there. It'd be a waste not to take
+advantage of it. What about those local LLMs? Gemma and Qwen seem to be getting
+pretty good. Plus, what's the point of all this privacy, anyways, if you're
+sending all your data to OpenAI?
+.Pp
+You setup Open WebUI[7] in another container, and spin up an Ollama server.
+Nginx needs some tweaks so that you can host both web-apps from the same
+endpoint. It still works well.
+.Pp
+You start setting up more services; some game-servers for friends and family,
+other miscellaneous web apps to replace the things you used to rely on Google
+for.
+.Ss Month 2 - Proper Isolation
+A fear starts to creep into the back of your mind. 
+.Pp
+.Dq Is it safe to host all of these different services on the same machine?
+.Pp
+Right now, the security boundary between each service is just a container. Each
+service shares the same kernel as the host. Container escape[8] is pretty
+difficult to achieve. But are you __HTML<i>sure</i>__ENDHTML it won't be an
+issue? Well...
+.Pp
+So you start looking into virtual machine orchestration.
+.Sh SEE ALSO
+.Bl -enum
+.It
+.Lk https://grapheneos.org/ GrapheneOS
+is an Android fork that removes Google spyware, and significantly improves the
+security, of the mobile phone that it runs on.
+.It
+See: Google, Apple, Microsoft, Amazon, Meta.
+.It
+See:
+.Lk https://wiki.archlinux.org/title/Installation_guide The Arch Linux wiki - Installation guide.
+.It
+.Lk https://immich.app/ Immich
+is a self-hosted photo library. It features neat web- and mobile-apps with
+automatic synchronization, and an intuitive, modern UX.
+.It
+.Lk https://tailscale.com/ Tailscale
+is software that automatically configures
+secure, encrypted
+.Lk https://www.wireguard.com/ Wireguard
+tunnels between your devices.
+.It
+.Lk https://tailscale.com/docs/features/magicdns MagicDNS
+is a Tailscale feature that (a) configures a special Tailscale DNS on all of
+your devices, and (b) automatically registers domain names for each of your
+devices based on their hostnames.
+.It
+.Lk https://github.com/open-webui/open-webui Open WebUI
+is a web-app chat interface for Large Language Models, with support for Ollama,
+OpenAI APIs, etc.
+.It
+Container Escape is the process of an program breaking out of the container
+that it is running within.
+.El
 .Pp
 @build-time@
 .Pp

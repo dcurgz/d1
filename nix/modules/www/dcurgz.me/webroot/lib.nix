@@ -27,7 +27,13 @@ in
           $s=~s/&gt;/>/g;
           $s=~s/&lt;/</g;
           $s=~s/&quot;/"/g;
-          $s }gse' \
+          $s
+        }gse' \
+      '';
+
+      # syntax sugar for preformatted inline blocks
+      renderInlineBlock = ''
+        perl -0777 -pe 's{`(.*?)`}{<code class="inline">$1</code>}g' \
       '';
     in
     {
@@ -53,6 +59,7 @@ in
                 cat $src \
                   | mandoc -T html -O style=/style.css \
                   | ${unescapeHtml} \
+                  | ${renderInlineBlock} \
                   > ${name} 
               '';
               # Copy into the out directory.
@@ -77,7 +84,7 @@ in
                 year  = toString Y;
               in
                 "${month} ${day}, ${year}";
-            color-scheme = builtins.readFile ../resources/color-scheme.html;
+            color-scheme = builtins.readFile ./resources/color-scheme.html;
           })
         ]);
     

@@ -63,9 +63,10 @@ in
               # render as mdoc list
               (builtins.map (post: ''
                 .It
-                .Lk ${post.slug} ${post.title} 
-                — ${post.description}
-                .Em (${post.date})
+                .Lk ${post.slug} ${post.title}
+                (${post.date})
+                .Pp
+                ${post.description}
               ''))
               # 
               (lib.strings.join "\n")

@@ -117,15 +117,12 @@ in
 
       users.users.dcurgz = {
         isNormalUser = true;
-        shell = pkgs.fish;
         group = "dcurgz";
         extraGroups = [ "wheel" ];
         home = "/home/dcurgz";
       };
       users.groups.dcurgz = { };
       nix.settings.trusted-users = [ "dcurgz" ];
-
-      programs.fish.enable = true;
 
       age.secrets.tailscale-auth-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/tailscale/hosts/publicproxy.age";
 
