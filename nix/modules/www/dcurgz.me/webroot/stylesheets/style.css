@@ -80,14 +80,16 @@ pre {
 }
 
 .info pre {
-    border-left: 12px var(--c3) solid;
+    border-left: solid 12px var(--c3);
+    border: solid 1px var(--c3);
     background-color: var(--bg-darken);
     padding: 1ch;
     white-space: wrap;
 }
 
 .warn pre {
-    border-left: 12px var(--c2) solid;
+    border-left: solid 12px var(--c2);
+    border: solid 1px var(--c2);
     background-color: var(--bg-darken);
     padding: 1ch;
     white-space: wrap;
@@ -100,10 +102,29 @@ pre {
 
 code.inline {
     display: inline;
-    padding: 1px;
-    border: solid 1px var(--c1);
+    padding: 2px;
+    border: solid 1px var(--c2);
+    border-radius: 6px;
+    font-style: italic;
 }
 
 ul p {
     margin: 1ch;
+}
+
+:target {
+    background-color: #fff6cb;
+    animation-name: targetFadeIn;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+}
+
+@keyframes targetFadeIn {
+    0% {
+        background-color: var(--bg);
+    }
+    100% {
+        background-color: #fff6cb;
+    }
 }
