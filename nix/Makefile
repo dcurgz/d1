@@ -129,3 +129,9 @@ publicproxy:
 # Update flake inputs and lock file
 update:
 	$(NIX) flake update
+
+render-flakegraph:
+	nix build .#packages.x86_64-linux.flakegraph || true
+
+show-flakegraph: render-flakegraph
+	qiv ./result/hosts.png

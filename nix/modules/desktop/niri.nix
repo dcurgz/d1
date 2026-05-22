@@ -30,15 +30,16 @@ in
       ];
 
       home.packages = with pkgs; [
+        alacritty
+        awww
         blueman
         fuzzel
-        alacritty
         libnotify
         nautilus
         nfsm
         nfsm-cli
         pavucontrol
-        awww
+        qiv
         wlsunset
         xwayland-satellite
       ];

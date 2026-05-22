@@ -176,6 +176,7 @@ in
       home.packages = with pkgs; [
         # Socials
         vesktop
+        signal-desktop
         # Editors
         aseprite
         darktable

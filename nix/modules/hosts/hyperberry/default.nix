@@ -21,6 +21,7 @@ in
       one of my nodes.
     '';
     attributes = {
+      services.restic = {};
       uplinks.tailscale0.ipAddress = "100.64.*.*";
       uplinks.wg0.ipAddress = "10.64.0.1";
       uplinks.br0 = {
