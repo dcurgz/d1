@@ -93,6 +93,11 @@ pre {
     white-space: wrap;
 }
 
+.tags {
+    color: var(--c3);
+    font-style: italic;
+}
+
 code.inline {
     display: inline;
     padding: 1px;

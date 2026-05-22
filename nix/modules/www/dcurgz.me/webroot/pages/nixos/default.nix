@@ -26,6 +26,7 @@ in
         rec {
           title = "My experience with Nix";
           description = "Or: how to lose your mind in 13 months.";
+          tags = [ "#nix" "#linux" "#self-hosting" ];
           date = "2026-05-22";
           slug = "posts/NixOS/index.html";
           src = lib.pipe ./index.7 [

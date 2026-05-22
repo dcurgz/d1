@@ -67,6 +67,7 @@ in
                 (${post.date})
                 .Pp
                 ${post.description}
+                __HTML<p class="Pp tags">${lib.strings.join " " post.tags}</p>__ENDHTML
               ''))
               # 
               (lib.strings.join "\n")
