@@ -9,6 +9,8 @@ let
   inherit (args.config) flake;
 
   mkPackages = system: pkgs: with pkgs; [
+    # File tools
+    exiftool
     # Python
     python313
     uv
