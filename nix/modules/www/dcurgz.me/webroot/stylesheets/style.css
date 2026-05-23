@@ -10,9 +10,15 @@
   --c5: #453a4f;
 }
 
-body {
+html {
   font-family: monospace;
-  max-width: 100ch;
+  line-height: 1.5em;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  max-width: 80ch;
   margin: 1em auto;
   padding: 0 1ch;
 }
@@ -28,103 +34,86 @@ body {
   height: 100%;
 }
 
-.colour-box-1 {
-  background-color: var(--c1);
-}
-.colour-box-2 {
-  background-color: var(--c2);
-}
-.colour-box-3 {
-  background-color: var(--c3);
-}
-.colour-box-4 {
-  background-color: var(--c4);
-}
-.colour-box-5 {
-  background-color: var(--c5);
-}
+.colour-box-1 { background-color: var(--c1); }
+.colour-box-2 { background-color: var(--c2); }
+.colour-box-3 { background-color: var(--c3); }
+.colour-box-4 { background-color: var(--c4); }
+.colour-box-5 { background-color: var(--c5); }
 
 table.head, table.foot { width: 100%; }
 td.head-rtitle, td.foot-os { text-align: right; }
 td.head-vol { text-align: center; }
-div.Pp { margin: 1ex 0ex; }
+div.Pp { margin: 1ex 0; }
 div.Nd, div.Bf, div.Op { display: inline; }
 span.Pa, span.Ad { font-style: italic; }
 span.Ms { font-weight: bold; }
 dl.Bl-diag > dt { font-weight: bold; }
 code.Nm, code.Fl, code.Cm, code.Ic, code.In, code.Fd, code.Fn,
-code.Cd { font-weight: bold; font-family: inherit; }
+code.Cd {
+  font-weight: bold;
+  font-family: inherit;
+}
 
-div.head, div.foot { display: flex; justify-content: space-between; }
+div.head, div.foot {
+  display: flex;
+  justify-content: space-between;
+}
 .head-ltitle, .foot-date { flex: 1; }
-.head-vol { flex: 0 1 auto; text-align: center; }
-.head-rtitle, .foot-os { flex: 1; text-align: right; }
+.head-vol {
+  flex: 0 1 auto;
+  text-align: center;
+}
+.head-rtitle, .foot-os {
+  flex: 1;
+  text-align: right;
+}
 
-html { font-family: monospace; line-height: 1.5em; }
-body { max-width: 80ch; margin: 1em auto; padding: 0 1ch; }
 table { border-collapse: collapse; }
 table.Nm code.Nm { padding-right: 1ch; }
 table.foot { margin-top: 1em; }
 
-html { background-color: var(--bg); color: var(--fg); }
 a { color: var(--c4); }
-a.Sx:before {
-    content: "→ ";
-}
+a.Sx:before { content: "→ "; }
 
 pre {
-    padding: 1em;
-    border-radius: 6px;
-    border: solid 1px var(--c2);
-    background-color: var(--bg-darken);
+  padding: 1em;
+  border-radius: 6px;
+  border: 1px solid var(--c2);
+  background-color: var(--bg-darken);
 }
 
-.info pre {
-    border-left: solid 12px var(--c3);
-    border: solid 1px var(--c3);
-    background-color: var(--bg-darken);
-    padding: 1ch;
-    white-space: wrap;
-}
-
+.info pre,
 .warn pre {
-    border-left: solid 12px var(--c2);
-    border: solid 1px var(--c2);
-    background-color: var(--bg-darken);
-    padding: 1ch;
-    white-space: wrap;
+  border: 1px solid;
+  border-left-width: 12px;
+  background-color: var(--bg-darken);
+  padding: 1ch;
+  white-space: pre-wrap;
 }
+
+.info pre { border-color: var(--c3); }
+.warn pre { border-color: var(--c2); }
 
 .tags {
-    color: var(--c3);
-    font-style: italic;
+  color: var(--c3);
+  font-style: italic;
 }
 
 code.inline {
-    display: inline;
-    padding: 2px;
-    border: solid 1px var(--c2);
-    border-radius: 6px;
-    font-style: italic;
+  padding: 2px;
+  border: 1px solid var(--c2);
+  border-radius: 6px;
+  font-style: italic;
 }
 
-ul p {
-    margin: 1ch;
-}
+ul p { margin: 1ch; }
 
 :target {
-    background-color: #fff6cb;
-    animation-name: targetFadeIn;
-    animation-iteration-count: 1;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
+  background-color: #fff6cb;
+  animation: targetFadeIn 0.5s linear;
 }
 
 @keyframes targetFadeIn {
-    0% {
-        background-color: var(--bg);
-    }
-    100% {
-        background-color: #fff6cb;
-    }
+  0% { background-color: var(--bg); }
+  100% { background-color: #fff6cb; }
 }
