@@ -1,0 +1,140 @@
+diff --git a/mdoc.c b/mdoc.c
+index 4618409..085ae4b 100644
+--- a/mdoc.c
++++ b/mdoc.c
+@@ -148,6 +148,7 @@ mdoc_elem_alloc(struct roff_man *mdoc, int line, int pos,
+ 
+ 	switch (tok) {
+ 	case MDOC_An:
++    case MDOC_Pp:
+ 		p->norm = mandoc_calloc(1, sizeof(union mdoc_data));
+ 		break;
+ 	default:
+diff --git a/mdoc.h b/mdoc.h
+index 0393fc7..720223c 100644
+--- a/mdoc.h
++++ b/mdoc.h
+@@ -140,6 +140,10 @@ struct	mdoc_rs {
+ 	int		  quote_T; /* whether to quote %T */
+ };
+ 
++struct	mdoc_pp {
++    const char *decorate; /* -decorate */
++};
++
+ /*
+  * Consists of normalised node arguments.  These should be used instead
+  * of iterating through the mdoc_arg pointers of a node: defaults are
+@@ -152,6 +156,7 @@ union	mdoc_data {
+ 	struct mdoc_bl	  Bl;
+ 	struct roff_node *Es;
+ 	struct mdoc_rs	  Rs;
++    struct mdoc_pp    Pp;
+ };
+ 
+ /* Names of macro args.  Index is enum mdocargt. */
+diff --git a/mdoc_argv.c b/mdoc_argv.c
+index 52fbd1a..1a85480 100644
+--- a/mdoc_argv.c
++++ b/mdoc_argv.c
+@@ -146,13 +146,18 @@ static	const enum mdocargt args_Bl[] = {
+ 	MDOC_ARG_MAX
+ };
+ 
++static	const enum mdocargt args_Pp[] = {
++	MDOC_Decorate,
++	MDOC_ARG_MAX
++};
++
+ static	const struct mdocarg mdocargs[MDOC_MAX - MDOC_Dd] = {
+ 	{ ARGSFL_NONE, NULL }, /* Dd */
+ 	{ ARGSFL_NONE, NULL }, /* Dt */
+ 	{ ARGSFL_NONE, NULL }, /* Os */
+ 	{ ARGSFL_NONE, NULL }, /* Sh */
+ 	{ ARGSFL_NONE, NULL }, /* Ss */
+-	{ ARGSFL_NONE, NULL }, /* Pp */
++	{ ARGSFL_NONE, args_Pp }, /* Pp */
+ 	{ ARGSFL_DELIM, NULL }, /* D1 */
+ 	{ ARGSFL_DELIM, NULL }, /* Dl */
+ 	{ ARGSFL_NONE, args_Bd }, /* Bd */
+diff --git a/mdoc_html.c b/mdoc_html.c
+index e4eb4ca..a548b4f 100644
+--- a/mdoc_html.c
++++ b/mdoc_html.c
+@@ -1245,6 +1245,7 @@ static int
+ mdoc_pp_pre(MDOC_ARGS)
+ {
+ 	char	*id;
++    char    buf[20];
+ 
+ 	if (n->flags & NODE_NOFILL) {
+ 		print_endline(h);
+@@ -1257,7 +1258,17 @@ mdoc_pp_pre(MDOC_ARGS)
+ 	} else {
+ 		html_close_paragraph(h);
+ 		id = n->flags & NODE_ID ? html_make_id(n, 1) : NULL;
+-		print_otag(h, TAG_P, "ci", "Pp", id);
++
++		(void)strlcpy(buf, "Pp", sizeof(buf));
++
++        /* Handle the -decorate flag */
++        if (n->norm->Pp.decorate != NULL) {
++            (void)strlcat(buf, " ", sizeof(buf));
++            (void)strlcat(buf, n->norm->Pp.decorate, sizeof(buf));
++        }
++
++        print_otag(h, TAG_P, "ci", buf, id);
++
+ 		free(id);
+ 	}
+ 	return 0;
+diff --git a/mdoc_validate.c b/mdoc_validate.c
+index b7aa1d9..64ad208 100644
+--- a/mdoc_validate.c
++++ b/mdoc_validate.c
+@@ -2759,15 +2759,40 @@ post_prevpar(POST_ARGS)
+ static void
+ post_par(POST_ARGS)
+ {
+-	struct roff_node *np;
++	struct roff_node *n;
++	struct mdoc_argv *argv;
++	int		  i;
+ 
+ 	fn_prio = TAG_STRONG;
+ 	post_prevpar(mdoc);
+ 
+-	np = mdoc->last;
+-	if (np->child != NULL)
+-		mandoc_msg(MANDOCERR_ARG_SKIP, np->line, np->pos,
+-		    "%s %s", roff_name[np->tok], np->child->string);
++	n = mdoc->last;
++
++    if (n->child != NULL)
++        mandoc_msg(MANDOCERR_ARG_SKIP, n->line, n->pos,
++                "%s %s", roff_name[n->tok], n->child->string);
++
++	for (i = 0; n->args && i < (int)n->args->argc; i++) {
++		argv = n->args->argv + i;
++
++		switch (argv->arg) {
++		case MDOC_Decorate:
++			if (0 == argv->sz) {
++				mandoc_msg(MANDOCERR_ARG_EMPTY,
++				    argv->line, argv->pos, "Pp -decorate");
++				break;
++			}
++			if (NULL != n->norm->Pp.decorate)
++				mandoc_msg(MANDOCERR_ARG_REP,
++				    argv->line, argv->pos,
++				    "Pp -decorate %s", argv->value[0]);
++			rewrite_macro2len(mdoc, argv->value);
++			n->norm->Pp.decorate = argv->value[0];
++			break;
++		default:
++            break;
++		}
++	}
+ }
+ 
+ static void

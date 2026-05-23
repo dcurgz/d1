@@ -727,7 +727,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-WBlb8ffG5bvs1yXv1KzERkyl881of1hQO618sB+aAec=",
+        "narHash": "sha256-9KYb/6Q6vx08oaXq2+RFUJe2GODShFVvp6XjFPNb1pY=",
         "path": "./vendor/mandoc",
         "type": "path"
       },

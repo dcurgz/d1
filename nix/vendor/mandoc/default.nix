@@ -1,17 +1,20 @@
 {
-  pkgs ? import <nixpkgs>,
+  pkgs ? import <nixpkgs> { },
+  lib ? (import <nixpkgs> { }).lib,
   ...
 }:
 
 pkgs.mandoc.overrideAttrs (final: prev:
   let
-    decorate = ./decorate.patch;
+    patches = lib.filesystem.listFilesRecursive ./patches;
   in
   {
     pname = "mandoc-fork";
 
     nativeBuildInputs = with pkgs; [ git ];
-    preBuild = (prev.preBuild or "") + ''
-              git apply ${decorate}
-    '';
+    preBuild = (prev.preBuild or "") +
+      lib.pipe patches [
+        (builtins.map (path: "git apply ${path}"))
+        (lib.strings.join "\n")
+      ];
   })
