@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
-bwrap \
+#!/usr/bin/env bash
+set -euo pipefail
+
+USER_PWD="$(pwd)"
+SANDBOX_HOME="$HOME/.claude-sandbox"
+mkdir -p "$SANDBOX_HOME"
+
+exec bwrap \
   --ro-bind /etc /etc \
   --ro-bind /nix /nix \
   --ro-bind /run /run \
@@ -12,10 +19,10 @@ bwrap \
   --share-net \
   --die-with-parent \
   --new-session \
-  --bind "$HOME/.claude.json" /claude/.claude.json \
-  --bind "$HOME/.claude" /claude/.claude \
-  --setenv HOME /claude \
+  --cap-drop ALL \
+  --bind "$USER_PWD" /workspace \
+  --bind "$SANDBOX_HOME" "$SANDBOX_HOME" \
+  --setenv HOME "$SANDBOX_HOME" \
   --setenv IS_SANDBOX 1 \
-  --bind "$(pwd)" "$(pwd)" \
-  --chdir "$(pwd)" \
+  --chdir /workspace \
   claude --dangerously-skip-permissions "$@"
