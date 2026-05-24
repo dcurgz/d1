@@ -1,0 +1,286 @@
+@header@
+.Pp
+@back@
+.
+.Sh NAME
+.Nm @title@
+.Nd @description@
+.
+.Sh DESCRIPTION
+.Pp
+.Bd -decorate info 
+This is a satirical post about a phenomenon I've noticed with Nix. Nix (and
+NixOS, nix-darwin, home-manager, etc...) is incredibly powerful software, but
+it has a habit of taking over all of your machines, and possibly your entire
+life too. You have been warned. ♥
+.Ed
+.Bd -decorate warn
+This page is unpublished: I'm still drafting this post. Check back soon!
+.Ed
+.Ss Month 1 - Self-hosting
+So maybe you're an Arch Linux user. Maybe you've just installed
+.Sm off
+.Lk #GrapheneOS GrapheneOS
+__HTML<sup>1</sup>__ENDHTML
+.Sm on
+.Dq Wow, what a rush! 
+you exclaim to yourself, probably internally, acutely aware that your
+enthusiasm for privacy mostly likely presents as paranoid schizophrenia to
+normal people. It feels great to reclaim some control and privacy over your
+device, especially with the ever growing influence of
+.Sm off
+.Lk #monopolies "technolord monopolies"
+__HTML<sup>2</sup>__ENDHTML
+.Sm on
+today.
+.Pp
+.Dq I should try out self-hosting too,
+you start thinking, naturally. I mean, you're no longer using Google Photos,
+and you're going to need reliable image backup, right? It can't be that
+difficult. It's just some images on a server in the
+.Sq cloud ,
+whatever that is.
+.Pp
+You purchase a server, or maybe repurpose that old laptop. It's not dead yet.
+Naturally, you're booting straight into your trusty Arch Linux ISO USB stick.
+In under
+.Sm off
+.Lk #Installation "20 minutes"
+__HTML<sup>3</sup>__ENDHTML,
+.Sm on
+you've mounted the drives, formatted the disk partitions, connected to the
+network, installed essential packages, tweaked the relevant configuration
+files, and successfully provisioned the server.
+.Pp
+Next, you install
+.Sm off
+.Lk #Immich Immich
+__HTML<sup>4</sup>__ENDHTML
+.Sm on
+— in a container, of course. It's just good form.
+Maybe Docker, or Podman if you're feeling anti-establishment that day, or
+`systemd-nspawn` if you're feeling manic.
+.Pp
+With a bit of port forwarding and an Nginx reverse proxy, you have a working
+image backup server. But there's a problem: you can only access it at home.
+.Pp
+So you install
+.Sm off
+.Lk #Tailscale Tailscale
+__HTML<sup>5</sup>__ENDHTML
+.Sm on
+to all of your devices, including your server, and use `tailscale cert` to
+generate an SSL certificate for your server's
+.Lk #MagicDNS MagicDNS
+__HTML<sup>6</sup>__ENDHTML
+endpoint. At this point, you can access your server from anywhere by visiting
+.Lk https://example.com https://yourserver.tailXXXXXX.ts.net.
+Nice.
+.Pp
+.Dq What else can I self-host?
+you're thinking now. The server is already there. It'd be a waste not to take
+advantage of it. What about those local LLMs? Gemma and Qwen seem to be getting
+pretty good. Plus, what's the point of all this privacy, anyways, if you're
+sending all your data to OpenAI?
+.Pp
+You setup
+.Sm off
+.Lk #OpenWebUI Open Web UI
+__HTML<sup>7</sup>__ENDHTML
+.Sm on
+in another container, and spin up an Ollama server.
+Nginx needs some tweaks so that you can host both web-apps from the same
+endpoint. It still works well.
+.Pp
+You start setting up more services; some game-servers for friends and family,
+other miscellaneous web apps to replace the things you used to rely on Google
+for.
+.Ss Month 2 - Proper Isolation
+A fear starts to creep into the back of your mind. 
+.Pp
+.Dq Is it safe to host all of these different services on the same machine?
+.Pp
+Right now, the security boundary between each service is just a container. Each
+service shares the same kernel as the host.
+.Sm off
+.Lk #Container "Container escape"
+__HTML<sup>8</sup>__ENDHTML
+.Sm on
+is pretty difficult to achieve. But are you __HTML<i>sure</i>__ENDHTML it won't
+be an issue? Well...
+.Pp
+So you start looking into virtual machine orchestration. At this point, used to
+your pleasant `podman-tui` niceties (or similar), you look for an equivalent
+for virtual machines. Maybe you're wondering if you can setup an interface like
+with Proxmox or Unraid (it'd be too easy to use those), and you settle on
+.Sm off
+.Lk #Cockpit Cockpit
+__HTML<sup>9</sup>__ENDHTML,
+.Sm on
+which isn't half bad. And you start provisioning virtual machines manually as
+Arch Linux `.qcow2` disk images.
+.Pp
+It works. And if you had any respect for your own time, you'd have stopped
+here. Maybe you would setup an automated backup strategy for the `.qcow2`
+images, and put a ready-made provisioned VM template image somewhere safe so
+you can spin up new VMs easily. Then you could use the next 11 months of time
+to develop a new hobby, such as crocheting, and find yourself surrounded by
+hundreds of basketball-sized fabric animals by the end of the year. They would
+make for good Christmas presents. If only.
+.Ss Month 3 - Virtual Machines
+.Dq "Isn't this all slightly inefficient?" ,
+you think to yourself, with notable disdain for your own perfectionist
+tendencies.
+.Pp
+The boot-time of
+.Lk https://www.qemu.org/ QEMU,
+as fantastic as it is, mocks you. The systemd journal, and all of those
+unnecessary services in each of your VMs, makes you uneasy. The sheer weight of
+each VM image, loaded with megabytes of duplicate program configurations and
+binaries, keeps you up at night. This simply won't do.
+.Bd -decorate aside
+As an aside, I wonder whether we could do deduplication without having to
+resort to the madness that follows. Instead of mounting `.qcow2` images as the
+rootfs, a `virtiofs` mount could sit on top of ZFS, which natively supports
+deduplication of blocks in the filesystem. This is pretty much how I use Nix
+MicroVMs today, except that deduplication is an inherent property of the Nix
+store i.e. `/nix/store`. That all said, there are many other benefits to using
+Nix to declare MicroVMs, or just generally using Infrastructure-as-Code to
+provision VMs.
+.Ed
+.Pp
+You start researching into MicroVM technologies.
+.Sm off
+.Lk #firecracker Firecracker
+__HTML<sup>10</sup>__ENDHTML
+.Sm on
+and
+.Sm off
+.Lk #cloud-hypervisor cloud-hypervisor
+__HTML<sup>11</sup>__ENDHTML
+.Sm on
+stand out for their good support of virtalization kernel primitives and overall
+efficiency. A boot-time of a dozen seconds on QEMU can be reduced to just a few
+seconds. This is completely unnecessary for your purposes, but this does not
+dissaude you.
+.Pp
+Briefly, you experiment with running other OSes within your imperative
+provisioning scheme. Docker is able to utilize images based on
+.Sm off
+.Lk #Alpine "Alpine Linux"
+__HTML<sup>12</sup>__ENDHTML
+.Sm on
+to keep containerized workloads lean. The same should be possible with virtual
+machines, though this will require some work.
+.Pp
+As you customize your virtual machines further, you start to worry about
+something else. The customization effort put into these `.qcow2` images is
+completely opaque. It's easy to forget which optimizations you've applied to
+each VM image, and which configuration files you've had to change for specific
+workloads and why, so much so that you consider recreating all of your images
+from scratch just to make sure that you can.
+.Pp
+The core problem is that at this point they are provisioned manually, and
+.Sm off
+.Lk #imperatively imperatively
+__HTML<sup>13</sup>__ENDHTML.
+.Sm on
+When you provision manually, it is a substantial effort to re-provision images
+when required. When you provision imperatively, the internal state of a given
+VM image is unknown, and increasingly so with time. Without careful
+consideration and bookkeeping, images can quickly enter an unpredictable state.
+.Bd -decorate aside
+I did, at this point, look into options to provision VMs automatically, without
+totally giving up an imperative computer model for something like NixOS. In a
+professional setting, it is probably better to use
+.Lk https://developer.hashicorp.com/terraform Terraform ,
+.Lk https://docs.ansible.com/ Ansible ,
+(see
+.Lk https://www.redhat.com/en/topics/automation/ansible-vs-terraform here
+for a comparison) or a native IaC solution offered by a cloud provider. That
+said, I was feeling a similar uncertainty about the reproducibility of the
+hypervisor itself, along with my other machines, so I ended up going with
+NixOS.
+.Ed
+.Sh SEE ALSO
+.Bl -enum
+.Tg GrapheneOS
+.It
+.Lk https://grapheneos.org/ GrapheneOS
+is an Android fork that removes Google spyware and significantly improves the
+security posture of the mobile phone that it runs on.
+.Tg monopolies
+.It
+See: Google, Apple, Microsoft, Amazon, Meta.
+.Tg Installation
+.It
+See:
+.Lk https://wiki.archlinux.org/title/Installation_guide The Arch Linux wiki - Installation guide.
+.Tg Immich
+.It
+.Lk https://immich.app/ Immich
+is a self-hosted photo library. It features neat web- and mobile-apps with
+automatic synchronization, and an intuitive, modern UX.
+.Tg Tailscale
+.It
+.Lk https://tailscale.com/ Tailscale
+is software that automatically configures
+secure, encrypted
+.Lk https://www.wireguard.com/ Wireguard
+tunnels between your devices.
+.Tg MagicDNS
+.It
+.Lk https://tailscale.com/docs/features/magicdns MagicDNS
+is a Tailscale feature that (a) configures a special Tailscale DNS on all of
+your devices, and (b) automatically registers domain names for each of your
+devices based on their hostnames.
+.Tg OpenWebUI
+.It
+.Lk https://github.com/open-webui/open-webui Open WebUI
+is a web-app chat interface for Large Language Models, with support for Ollama,
+OpenAI APIs, etc.
+.Tg Container
+.It
+.Lk "" 
+.Dq Escape to Host (i.e., container escape) enables adversaries to bypass security measures set by virtualized environments, usually allowing them to gain access to the host system’s resources.
+—
+.Lk https://archive.is/40W9R redcanary.com
+.Tg Cockpit
+.It 
+.Lk https://cockpit-project.org/ Cockpit
+is a web interface to manage servers, with first-class support for virtual
+machines.
+.Tg firecracker
+.It
+.Lk https://firecracker-microvm.github.io/ Firecracker
+was developed by Amazon to support their AWS Lambda service. It is a MicroVM
+implementation that focuses on blazing fast boot-times (on the order of
+milliseconds) and cloud-based workloads.
+.Tg cloud-hypervisor
+.It
+.Lk https://www.cloudhypervisor.org/ cloud-hypervisor
+is a MicroVM implementation (a VMM, or Virtual Machine Monitor), that like
+Firecracker is designed to support cloud-based workloads efficiently.
+.Tg Alpine
+.It
+.Lk https://www.alpinelinux.org/ Alpine Linux
+is a minimal Linux distribution. It uses
+.Lk https://musl.libc.org/about.html musl libc,
+a tiny libc implementation as compared to the traditional glibc, and
+.Lk https://wiki.alpinelinux.org/wiki/OpenRC OpenRC
+instead of systemd for its init system.
+.Tg imperatively
+.It
+.Lk ""
+An imperative programming language is a language where the computer is
+instructed step by step. A declarative programming language, on the other hand,
+lets you write code that describes what you want, and the computer figures out
+how to reach that state. When we talk about computer systems, imperative means
+a system where commands and processes update the internal state. A declarative
+system, such as in NixOS, has its state declared as a set of rules and
+definitions that the computer automatically evaluates.
+.El
+.Pp
+@build-time@
+.Pp
+@back@

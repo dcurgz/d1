@@ -42,7 +42,7 @@ in
               path = pkgs.writeText "contact-script" contact-script;
             };
           in ''
-            .Bd -literal -offset indent -compact
+            .Bd -literal
             __HTML${contact-script'}__ENDHTML
             .Ed
           '';
@@ -61,15 +61,22 @@ in
               # take the last 10 posts (assume chronological order)
               (lib.lists.takeEnd 10)
               # render as mdoc list
-              (builtins.map (post: ''
-                .It
-                .Lk ${post.slug} ${post.title}
-                (${post.date})
-                .Pp
-                ${post.description}
-                .Pp -decorate tags
-                ${lib.strings.join " " post.tags}
-              ''))
+              (builtins.map (post:
+                let
+                  tags = lib.pipe post.tags [
+                    (builtins.map (tag: "__HTML<span>${tag}</span>__ENDHTML"))
+                    (lib.strings.join " ")
+                  ];
+                in
+                ''
+                  .It
+                  .Lk ${post.slug} ${post.title}
+                  (${post.date})
+                  .Pp
+                  ${post.description}
+                  .Pp -decorate tags
+                  ${tags}
+                ''))
               # 
               (lib.strings.join "\n")
             ];

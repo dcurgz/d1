@@ -75,28 +75,34 @@ table.foot { margin-top: 1em; }
 a { color: var(--c4); }
 a.Sx:before { content: "→ "; }
 
-pre {
+.Bd {
   padding: 1em;
   border-radius: 6px;
   border: 1px solid var(--c2);
   background-color: var(--bg-darken);
 }
 
-.info pre,
-.warn pre {
+pre { margin: 0; }
+
+.Bd.info,
+.Bd.warn {
   border: 1px solid;
   border-left-width: 12px;
   background-color: var(--bg-darken);
   padding: 1ch;
-  white-space: pre-wrap;
 }
 
-.info pre { border-color: var(--c3); }
-.warn pre { border-color: var(--c2); }
+.Bd.info { border-color: var(--c3); }
+.Bd.warn { border-color: var(--c2); }
 
-.tags {
-  color: var(--c3);
-  font-style: italic;
+
+.Bd.aside { border: 1px dashed var(--c2); }
+
+.tags span {
+  border-radius: 6px;
+  border: 1px dashed var(--c1);
+  color: var(--c1);
+  padding: 2px;
 }
 
 code.inline {
@@ -107,6 +113,13 @@ code.inline {
 }
 
 ul p { margin: 1ch; }
+
+sup {
+  font-size: 0.7em;
+  vertical-align: top;
+  position: relative;
+  top: -0.5em;
+}
 
 :target {
   background-color: #fff6cb;

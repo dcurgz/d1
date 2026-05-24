@@ -29,7 +29,7 @@ in
           tags = [ "#nix" "#linux" "#self-hosting" ];
           date = "2026-05-22";
           slug = "posts/NixOS/index.html";
-          src = lib.pipe ./index.7 [
+          src = lib.pipe ./001-experience-with-nix.7 [
             (path: replaceOptionalVars path { inherit title description slug; })
             (path: replaceOptionalVars path templates)
             (path: lib'.renderMdoc "index.html" path)
