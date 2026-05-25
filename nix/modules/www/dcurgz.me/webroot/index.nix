@@ -27,7 +27,8 @@ in
           title = "DCURGZ.ME";
           description = "Site Index";
           date = "2026-05-12";
-          slug = "index.html";
+          slug = "/";
+          permalink = null;
           src = lib.pipe ./index.7 [
             (path: replaceOptionalVars path templates)
             (path: lib'.renderMdoc "index.html" path)

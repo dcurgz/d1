@@ -35,6 +35,7 @@ in
               tags        = lib.mkOption { type = lib.types.listOf lib.types.str; };
               date        = lib.mkOption { type = lib.types.str; };
               slug        = lib.mkOption { type = lib.types.str; };
+              permalink   = lib.mkOption { type = lib.types.nullOr lib.types.str; };
               src         = lib.mkOption { type = lib.types.package; };
             };
           });
@@ -50,10 +51,18 @@ in
       config.by.websites.sites.${domain}.web-server.webroot =
         let
           cfg = config.by.www.${domain};
+
+          removeLeadingSlash = uri:
+            lib.strings.substring 1 (builtins.stringLength uri) uri;
+
           files = builtins.map (page: {
-            name = page.slug;
+            name = (removeLeadingSlash page.slug) + "index.html";
             path = page.src;
           }) cfg.pages;
+          permalinks = builtins.map (page: {
+            name = (removeLeadingSlash page.permalink) + "index.html";
+            path = page.src;
+          }) (builtins.filter (x: x.permalink != null) cfg.pages);
           resources = [
             {
               name = "style.css";
@@ -76,7 +85,7 @@ in
             }
           ];
         in
-        pkgs.linkFarm "webroot" (files ++ resources);
+        pkgs.linkFarm "webroot" (files ++ permalinks ++ resources);
     });
 }
 

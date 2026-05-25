@@ -155,9 +155,10 @@ sup {
     position: absolute;
     position-visibility: always;
     font-size: small;
-    right: calc(((100vw - 80ch) / 4) - 10em);
     width: 30ch;
     top: anchor(top);
+    left: anchor(right);
+    margin-left: 5ch;
 }
 
 @media only screen and (max-width: 1300px) {

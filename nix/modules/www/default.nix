@@ -191,6 +191,12 @@ in
                 ];
                 serverName = site.domain;
                 root = site.web-server.webroot;
+                locations."/" = {
+                  tryFiles = "$uri $uri.html $uri/ =404";
+                }; 
+                extraConfig = ''
+                  port_in_redirect off;
+                '';
               };
             }) cfg.sites);
           };

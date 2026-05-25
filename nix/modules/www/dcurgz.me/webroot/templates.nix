@@ -30,6 +30,11 @@ in
           .Lk https://github.com/dcurgz/d1/blob/master/nix/modules/www/dcurgz.me/default.nix link .
           This page was last built declaratively on `@nix-rfc822@`.
         '';
+        thoughts = ''
+          .Pp
+          My thoughts are my own and do not represent any current or former
+          employer, obviously.
+        '';
         contact =
           let
             contact-script = ''
@@ -55,7 +60,7 @@ in
           let
             posts = lib.pipe cfg.pages [
               # only show posts
-              (builtins.filter (post: pkgs.by.lib.strings.startsWith "posts/" post.slug))
+              (builtins.filter (post: pkgs.by.lib.strings.startsWith "/posts/" post.slug))
               # sort by date
               (builtins.sort (a: b: a < b))
               # take the last 10 posts (assume chronological order)
