@@ -20,19 +20,14 @@ life too. You have been warned. ♥
 .Ed
 .Ss Month 1 - Self-hosting
 So maybe you're an Arch Linux user. Maybe you've just installed
-.Sm off
-.Lk #GrapheneOS GrapheneOS
-__HTML<sup>1</sup>__ENDHTML
-.Sm on
+__REF{grapheneos GrapheneOS}.
 .Dq Wow, what a rush! 
 you exclaim to yourself, probably internally. You're acutely aware that your
 enthusiasm for privacy most likely presents as paranoid schizophrenia to normal
-people. Still, it feels great to reclaim some control and privacy, especially
-with the ever growing influence of
-.Sm off
-.Lk #monopolies "technolord monopolies"
-__HTML<sup>2</sup>__ENDHTML
-.Sm on
+people. Still, it feels great to claim back some control from the
+__REF{panoslopticon panoslopticon},
+especially with the ever growing influence of
+__REF{technolord_monopolies technolord monopolies}
 today.
 .Pp
 .Dq I should try out self-hosting too,
@@ -45,19 +40,13 @@ whatever that is.
 You purchase a server, or maybe repurpose that old laptop. It's not dead yet.
 Naturally, you're booting straight into your trusty Arch Linux ISO USB stick.
 In under
-.Sm off
-.Lk #Installation "20 minutes"
-__HTML<sup>3</sup>__ENDHTML,
-.Sm on
+__REF{installation 20 minutes}
 you've mounted the drives, formatted the disk partitions, connected to the
 network, installed essential packages, tweaked the relevant configuration
 files, and successfully provisioned the server.
 .Pp
 Next, you install
-.Sm off
-.Lk #Immich Immich
-__HTML<sup>4</sup>__ENDHTML
-.Sm on
+__REF{immich Immich}
 — in a container, of course. It's just good form.
 Maybe Docker, or Podman if you're feeling anti-establishment that day, or
 `systemd-nspawn` if you're feeling manic.
@@ -66,14 +55,10 @@ With a bit of port forwarding and an Nginx reverse proxy, you have a working
 image backup server. But there's a problem: you can only access it at home.
 .Pp
 So you install
-.Sm off
-.Lk #Tailscale Tailscale
-__HTML<sup>5</sup>__ENDHTML
-.Sm on
+__REF{tailscale Tailscale}
 to all of your devices, including your server, and use `tailscale cert` to
 generate an SSL certificate for your server's
-.Lk #MagicDNS MagicDNS
-__HTML<sup>6</sup>__ENDHTML
+__REF{magicdns MagicDNS}
 endpoint. At this point, you can access your server from anywhere by visiting
 .Lk https://example.com https://yourserver.tailXXXXXX.ts.net.
 Nice.
@@ -85,10 +70,7 @@ pretty good. Plus, what's the point of all this privacy, anyways, if you're
 sending all your data to OpenAI?
 .Pp
 You setup
-.Sm off
-.Lk #OpenWebUI Open Web UI
-__HTML<sup>7</sup>__ENDHTML
-.Sm on
+__REF{openwebui Open Web UI}
 in another container, and spin up an Ollama server.
 Nginx needs some tweaks so that you can host both web-apps from the same
 endpoint. It still works well.
@@ -103,10 +85,7 @@ A fear starts to creep into the back of your mind.
 .Pp
 Right now, the security boundary between each service is just a container. Each
 service shares the same kernel as the host.
-.Sm off
-.Lk #Container "Container escape"
-__HTML<sup>8</sup>__ENDHTML
-.Sm on
+__REF{container_escape Container Escape}
 is pretty difficult to achieve. But are you __HTML<i>sure</i>__ENDHTML it won't
 be an issue? Well...
 .Pp
@@ -114,10 +93,7 @@ So you start looking into virtual machine orchestration. At this point, used to
 your pleasant `podman-tui` niceties (or similar), you look for an equivalent
 for virtual machines. Maybe you're wondering if you can setup an interface like
 with Proxmox or Unraid (it'd be too easy to use those), and you settle on
-.Sm off
-.Lk #Cockpit Cockpit
-__HTML<sup>9</sup>__ENDHTML,
-.Sm on
+__REF{cockpit Cockpit}
 which isn't half bad. And you start provisioning virtual machines manually as
 Arch Linux `.qcow2` disk images.
 .Pp
@@ -149,15 +125,9 @@ approach will perform deduplication "for free" at build time.
 .Ed
 .Pp
 You start researching into MicroVM technologies.
-.Sm off
-.Lk #firecracker Firecracker
-__HTML<sup>10</sup>__ENDHTML
-.Sm on
+__REF{firecracker Firecracker}
 and
-.Sm off
-.Lk #cloud-hypervisor cloud-hypervisor
-__HTML<sup>11</sup>__ENDHTML
-.Sm on
+__REF{cloud_hypervisor cloud-hypervisor}
 stand out for their good support of virtalization kernel primitives and overall
 efficiency. A boot-time of a dozen seconds on QEMU can be reduced to just a few
 seconds. This is completely unnecessary for your purposes, but this does not
@@ -165,10 +135,7 @@ dissaude you.
 .Pp
 Briefly, you experiment with running other OSes within your imperative
 provisioning scheme. Docker is able to utilize images based on
-.Sm off
-.Lk #Alpine "Alpine Linux"
-__HTML<sup>12</sup>__ENDHTML
-.Sm on
+__REF{alpine_linux Alpine Linux}
 to keep containerized workloads lean. The same should be possible with virtual
 machines, though this will require some work.
 .Pp
@@ -180,10 +147,8 @@ workloads and why, so much so that you consider recreating all of your images
 from scratch just to make sure that you can.
 .Pp -decorate anchor-2
 The core problem is that at this point they are provisioned manually, and
-.Sm off
-.Lk #imperatively imperatively
-__HTML<sup>13</sup>__ENDHTML.
-.Sm on
+__REF{imperative_versus_declarative imperatively}
+\.
 When you provision manually, it is a substantial effort to re-provision images
 when required. When you provision imperatively, the internal state of a given
 VM image is unknown, and increasingly so with time. Without careful
@@ -196,66 +161,128 @@ or
 .Lk https://docs.ansible.com/ Ansible
 rather than take a trip down the NixOS rabbit hole.
 .Ed
-.Sh SEE ALSO
+.Pp
+Unfortunately, at this point, you learn about NixOS.
+.Ss Month 4 - Down the NixOS rabbit hole
+.Pp
+test
+.Pp -decorate anchor-3
+The benefits of NixOS to this usecase are as follows:
 .Bl -enum
-.Tg GrapheneOS
+.It
+NixOS allows you to declare a system configuration, such as the set of
+customizations previously applied to your Alpine Linux VMs, with code. Further, the same thing is trivially possible with the hypervisor as well as the VMs.
+.It
+NixOS has a rich set of libraries that target service isolation. For example,
+OCI containers (Docker and Podman) and `systemd-nspawn` containers can be
+trivially declared via the
+.Lk https://search.nixos.org/options?channel=unstable&query=oci#show=option%253Avirtualisation.oci-containers.containers virtualisation.oci-containers.containers
+option and the
+.Lk https://search.nixos.org/options?channel=unstable&query=containers#show=option%253Acontainers.%253Cname%253E.config containers
+option respectively.
+.It 
+Further, the amazing
+.Lk https://github.com/microvm-nix/microvm.nix microvm.nix
+project allows you to define virtual machines
+-
+from the programs and services installed on them, to the vCPUs and memory that
+should be allocated when running them
+-
+of various hypervisors (QEMU, cloud-hypervisor, firecracker, crosvm, etc...)
+and orchestrate them as part of the host NixOS configuration.
+.It
+NixOS is built for, and wholeheartedly encourages you to, make declarative
+systems, as opposed to imperative ones. This means that the state of the
+machine is always well-known and described by the Nix source code that built
+it.
+.El
+.Bd -decorate "aside aside-3"
+You can also use the `microvm.nix` library to build virtual machine images as
+artifacts that you can export into any virtual machine orchestration tool,
+instead of using the `microvm-runner` commands and/or systemd service
+integrations, though this will lose the benefit of declaring vCPUs, memory, and
+`virtio-*` devices as part of the configuration.
+.Ed
+.Sh SEE ALSO
+.Bd -decorate aside
+You can click on the '↩' to jump back to where you were. ♡
+.Ed
+.Bl -enum
+.Tg grapheneos
 .It
 .Lk https://grapheneos.org/ GrapheneOS
 is an Android fork that removes Google spyware and significantly improves the
 security posture of the mobile phone that it runs on.
-.Tg monopolies
+.Lk #b1 ↩
+.Tg panoslopticon
+.It
+.Lk ""
+I can't take credit for this one. panoslopticon = slop +
+.Lk https://en.wikipedia.org/wiki/Panopticon panopticon .
+.Lk #b2 ↩
+.Tg technolord_monopolies
 .It
 See: Google, Apple, Microsoft, Amazon, Meta.
-.Tg Installation
+.Lk #b3 ↩
+.Tg installation
 .It
 See:
 .Lk https://wiki.archlinux.org/title/Installation_guide The Arch Linux wiki - Installation guide.
-.Tg Immich
+.Lk #b4 ↩
+.Tg immich
 .It
 .Lk https://immich.app/ Immich
 is a self-hosted photo library. It features neat web- and mobile-apps with
 automatic synchronization, and an intuitive, modern UX.
-.Tg Tailscale
+.Lk #b5 ↩
+.Tg tailscale
 .It
 .Lk https://tailscale.com/ Tailscale
 is software that automatically configures
 secure, encrypted
 .Lk https://www.wireguard.com/ Wireguard
 tunnels between your devices.
-.Tg MagicDNS
+.Lk #b6 ↩
+.Tg magicdns
 .It
 .Lk https://tailscale.com/docs/features/magicdns MagicDNS
 is a Tailscale feature that (a) configures a special Tailscale DNS on all of
 your devices, and (b) automatically registers domain names for each of your
 devices based on their hostnames.
-.Tg OpenWebUI
+.Lk #b7 ↩
+.Tg openwebui
 .It
 .Lk https://github.com/open-webui/open-webui Open WebUI
 is a web-app chat interface for Large Language Models, with support for Ollama,
 OpenAI APIs, etc.
-.Tg Container
+.Lk #b8 ↩
+.Tg container_escape
 .It
 .Lk "" 
 .Dq Escape to Host (i.e., container escape) enables adversaries to bypass security measures set by virtualized environments, usually allowing them to gain access to the host system’s resources.
 —
 .Lk https://archive.is/40W9R redcanary.com
-.Tg Cockpit
+.Lk #b9 ↩
+.Tg cockpit
 .It 
 .Lk https://cockpit-project.org/ Cockpit
 is a web interface to manage servers, with first-class support for virtual
 machines.
+.Lk #b10 ↩
 .Tg firecracker
 .It
 .Lk https://firecracker-microvm.github.io/ Firecracker
 was developed by Amazon to support their AWS Lambda service. It is a MicroVM
 implementation that focuses on blazing fast boot-times (on the order of
 milliseconds) and cloud-based workloads.
-.Tg cloud-hypervisor
+.Lk #b11 ↩
+.Tg cloud_hypervisor
 .It
 .Lk https://www.cloudhypervisor.org/ cloud-hypervisor
 is a MicroVM implementation (a VMM, or Virtual Machine Monitor), that like
 Firecracker is designed to support cloud-based workloads efficiently.
-.Tg Alpine
+.Lk #b12 ↩
+.Tg alpine_linux
 .It
 .Lk https://www.alpinelinux.org/ Alpine Linux
 is a minimal Linux distribution. It uses
@@ -263,7 +290,8 @@ is a minimal Linux distribution. It uses
 a tiny libc implementation as compared to the traditional glibc, and
 .Lk https://wiki.alpinelinux.org/wiki/OpenRC OpenRC
 instead of systemd for its init system.
-.Tg imperatively
+.Lk #b13 ↩
+.Tg imperative_versus_declarative
 .It
 .Lk ""
 An imperative programming language is a language where the computer is
@@ -273,6 +301,7 @@ how to reach that state. When we talk about computer systems, imperative means
 a system where commands and processes update the internal state. A declarative
 system, such as in NixOS, has its state declared as a set of rules and
 definitions that the computer automatically evaluates.
+.Lk #b14 ↩
 .El
 .Pp
 @build-time@

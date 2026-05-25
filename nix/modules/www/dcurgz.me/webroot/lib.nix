@@ -18,7 +18,14 @@ in
     let
       inherit (pkgs.by.lib) replaceOptionalVars;
       inherit (inputs) nix-time;
-    
+
+      # so i don't have to manually manage reference indices
+      renderReferences = ''
+        perl -0777 -pe 's{__REF\{([a-zA-Z_]+)\s+([^\}]+)\}} {
+          "<a id=\"b" . (++''$i) . "\" href=\"#''$1\">''$2</a><sup>''$i</sup>"
+        }gse' \
+     '';
+
       # mandoc escapes HTML in its '-T html' output mode. This reverses it.
       unescapeHtml = ''
         perl -0777 -pe 's{__HTML(.*?)__ENDHTML}{
@@ -60,6 +67,7 @@ in
                   | mandoc -T html -O style=/style.css \
                   | ${unescapeHtml} \
                   | ${renderInlineBlock} \
+                  | ${renderReferences} \
                   > ${name} 
               '';
               # Copy into the out directory.
