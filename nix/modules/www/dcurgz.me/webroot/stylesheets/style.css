@@ -103,8 +103,10 @@ pre { margin: 0; }
 .Bd.info { border-color: var(--c3); }
 .Bd.warn { border-color: var(--c2); }
 
-
 .Bd.aside { border: 1px dashed var(--c2); }
+
+/* prevent bottom margin when using paragraphs inside display blocks */
+.Bd .Pp { margin-bottom: 0; }
 
 .tags span {
   border-radius: 6px;
