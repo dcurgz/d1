@@ -26,9 +26,9 @@ in
         '';
         build-time = ''
           .Pp
-          This site was built
-          .Lk https://github.com/dcurgz/nix/blob/master/presets/www/dcurgz.me/default.nix declaratively
-          on __HTML<code-inline>@nix-rfc822@</code-inline>__ENDHTML.
+          The source code for this website is available:
+          .Lk https://github.com/dcurgz/d1/blob/master/nix/modules/www/dcurgz.me/default.nix link .
+          This page was last built declaratively on `@nix-rfc822@`.
         '';
         contact =
           let
