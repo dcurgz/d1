@@ -293,8 +293,20 @@ configurations, and enumerate some techniques I've used that to address issues
 that come up in server administration, virtual machine orchestration, and
 device management. ♥
 .Ed
-.Ss Down the rabbit hole
-TODO
+.Ss ...
+.Ss Month 5 - Down the rabbit hole
+You hear the advice loud and clear: the benefits of NixOS scale with the amount
+that you use it. It's time to re-provision the server.
+.Pp
+Nix flakes, despite the fact that they're confusingly experimental, seem like
+the best bet. Most of the examples you can find seem to use flakes in some capacity.
+.Pp
+The entrypoint to a Nix flake is the `flake.nix` file. The `flake.nix` file
+follows a well-defined schema (for the most part):
+.Bd -literal
+__HTML
+@flake-schema'@__ENDHTML
+.Ed
 .Sh SEE ALSO
 .Bd -decorate aside
 You can click on the '↩' to jump back to where you were. ♡
