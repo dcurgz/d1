@@ -131,22 +131,20 @@ make for good Christmas presents. If only.
 .Dq "Isn't this all slightly inefficient?" ,
 you think to yourself, with notable disdain for your own perfectionist
 tendencies.
-.Pp
+.Pp -decorate anchor-1
 The boot-time of
 .Lk https://www.qemu.org/ QEMU,
 as fantastic as it is, mocks you. The systemd journal, and all of those
 unnecessary services in each of your VMs, makes you uneasy. The sheer weight of
 each VM image, loaded with megabytes of duplicate program configurations and
 binaries, keeps you up at night. This simply won't do.
-.Bd -decorate aside
+.Bd -decorate "aside aside-1"
 As an aside, I wonder whether we could do deduplication without having to
 resort to the madness that follows. Instead of mounting `.qcow2` images as the
 rootfs, a `virtiofs` mount could sit on top of ZFS, which natively supports
 deduplication of blocks in the filesystem. This is pretty much how I use Nix
 MicroVMs today, except that deduplication is an inherent property of the Nix
-store i.e. `/nix/store`. That all said, there are many other benefits to using
-Nix to declare MicroVMs, or just generally using Infrastructure-as-Code to
-provision VMs.
+store.
 .Ed
 .Pp
 You start researching into MicroVM technologies.
@@ -179,7 +177,7 @@ completely opaque. It's easy to forget which optimizations you've applied to
 each VM image, and which configuration files you've had to change for specific
 workloads and why, so much so that you consider recreating all of your images
 from scratch just to make sure that you can.
-.Pp
+.Pp -decorate anchor-2
 The core problem is that at this point they are provisioned manually, and
 .Sm off
 .Lk #imperatively imperatively
@@ -189,7 +187,7 @@ When you provision manually, it is a substantial effort to re-provision images
 when required. When you provision imperatively, the internal state of a given
 VM image is unknown, and increasingly so with time. Without careful
 consideration and bookkeeping, images can quickly enter an unpredictable state.
-.Bd -decorate aside
+.Bd -decorate "aside aside-2"
 I did, at this point, look into options to provision VMs automatically, without
 totally giving up an imperative computer model for something like NixOS. In a
 professional setting, it is probably better to use
