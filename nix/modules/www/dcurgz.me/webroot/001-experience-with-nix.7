@@ -9,14 +9,14 @@
 .
 .Sh DESCRIPTION
 .Pp
-.Bd -decorate info 
+.Bd -decorate warn
+This page is unpublished: I'm still drafting this post. Check back soon!
+.Ed
+.Bd -decorate aside 
 This is a satirical post about a phenomenon I've noticed with Nix. Nix (and
 NixOS, nix-darwin, home-manager, etc...) is incredibly powerful software, but
 it has a habit of taking over all of your machines, and possibly your entire
 life too. You have been warned. ♥
-.Ed
-.Bd -decorate warn
-This page is unpublished: I'm still drafting this post. Check back soon!
 .Ed
 .Ss Month 1 - Self-hosting
 So maybe you're an Arch Linux user. Maybe you've just installed
@@ -25,10 +25,10 @@ So maybe you're an Arch Linux user. Maybe you've just installed
 __HTML<sup>1</sup>__ENDHTML
 .Sm on
 .Dq Wow, what a rush! 
-you exclaim to yourself, probably internally, acutely aware that your
-enthusiasm for privacy mostly likely presents as paranoid schizophrenia to
-normal people. It feels great to reclaim some control and privacy over your
-device, especially with the ever growing influence of
+you exclaim to yourself, probably internally. You're acutely aware that your
+enthusiasm for privacy most likely presents as paranoid schizophrenia to normal
+people. Still, it feels great to reclaim some control and privacy, especially
+with the ever growing influence of
 .Sm off
 .Lk #monopolies "technolord monopolies"
 __HTML<sup>2</sup>__ENDHTML
@@ -140,10 +140,12 @@ unnecessary services in each of your VMs, makes you uneasy. The sheer weight of
 each VM image, loaded with megabytes of duplicate program configurations and
 binaries, keeps you up at night. This simply won't do.
 .Bd -decorate "aside aside-1"
-Deduplication of program binaries is a nice side effect of the Nix store.
-However, you could probably achieve the same effect across traditional virtual
-machines with a `virtiofs` mount on top of ZFS, which supports block-level data
-deduplication natively.
+You could probably achieve the same effect across traditional virtual machines
+with a `virtiofs` mount for `/` on top of
+.Lk https://en.wikipedia.org/wiki/ZFS ZFS ,
+which supports block-level data deduplication natively. However, this will
+incur a performance cost on the host machine, whereas a shared Nix store
+approach will perform deduplication "for free" at build time.
 .Ed
 .Pp
 You start researching into MicroVM technologies.
@@ -187,16 +189,12 @@ when required. When you provision imperatively, the internal state of a given
 VM image is unknown, and increasingly so with time. Without careful
 consideration and bookkeeping, images can quickly enter an unpredictable state.
 .Bd -decorate "aside aside-2"
-You can get a lot of the benefit here by making provision a hands-off process,
-even if the VM is still imperatively managed. For most usecases, it is
-probably better to use
+You can get a lot of the benefit here just by making provision a hands-off
+process. For most usecases, it is probably better to use
 .Lk https://developer.hashicorp.com/terraform Terraform
 or
 .Lk https://docs.ansible.com/ Ansible
-(see
-.Lk https://www.redhat.com/en/topics/automation/ansible-vs-terraform here
-for a comparison). NixOS is incredibly powerful, but the maintenance cost is
-rarely worthwhile for getting stuff done. Hence the losing your mind.
+rather than take a trip down the NixOS rabbit hole.
 .Ed
 .Sh SEE ALSO
 .Bl -enum

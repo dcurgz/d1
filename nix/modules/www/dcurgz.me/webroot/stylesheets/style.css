@@ -1,3 +1,4 @@
+/* vim: ts=2:sw=2
 /* thanks https://causal.agency for the inspiration <3 */
 :root {
   --bg: #fffbe8;
@@ -77,6 +78,7 @@ a { color: var(--c4); }
 a.Sx:before { content: "→ "; }
 
 .Bd {
+  margin: 1em 0;
   padding: 1em;
   border-radius: 6px;
   border: 1px solid var(--c2);
@@ -152,16 +154,29 @@ sup {
 .Bd.aside-8 { position: absolute; position-anchor: --anchor-8; }
 .Bd.aside-9 { position: absolute; position-anchor: --anchor-9; }
 
+/* aside styling */
 .Bd.aside {
-    color: var(--fg-lighten);
-    position: absolute;
-    position-visibility: always;
-    font-size: smaller;
-    font-style: italic;
-    width: 30ch;
-    top: anchor(top);
-    left: anchor(right);
-    margin-left: 8ch;
+  color: var(--fg-lighten);
+  font-size: smaller;
+  font-style: italic;
+}
+
+/* aside positioning */
+.Bd.aside-1,
+.Bd.aside-2,
+.Bd.aside-3,
+.Bd.aside-4,
+.Bd.aside-5,
+.Bd.aside-6,
+.Bd.aside-7,
+.Bd.aside-8,
+.Bd.aside-9 { 
+  position: absolute;
+  position-visibility: always;
+  width: 30ch;
+  top: anchor(top);
+  left: anchor(right);
+  margin-left: 8ch;
 }
 
 /* alternate side */
@@ -169,16 +184,17 @@ sup {
 .Bd.aside-4,
 .Bd.aside-6,
 .Bd.aside-8 {
-    left: 0;
-    right: anchor(left);
-    margin-left: auto;
-    margin-right: 8ch;
+  left: 0;
+  right: anchor(left);
+  margin-left: auto;
+  margin-right: 8ch;
 }
 
 @media only screen and (max-width: 1225px) {
+  /* disable aside positioning */
   .Bd.aside {
     position: static;
-    width: fit-content;
+    width: auto;
     margin-left: 0;
     margin-right: 0;
   }
