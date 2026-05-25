@@ -1,1 +1,2 @@
 [ ] Write a custom macro for superscript reference phrases.
+[ ] Consider disabling .Em permalink generation.

@@ -88,14 +88,18 @@ service shares the same kernel as the host.
 __REF{container_escape Container Escape}
 is pretty difficult to achieve. But are you __HTML<i>sure</i>__ENDHTML it won't
 be an issue? Well...
-.Pp
+.Pp -decorate anchor-1
 So you start looking into virtual machine orchestration. At this point, used to
 your pleasant `podman-tui` niceties (or similar), you look for an equivalent
 for virtual machines. Maybe you're wondering if you can setup an interface like
-with Proxmox or Unraid (it'd be too easy to use those), and you settle on
+Proxmox or Unraid has, and you settle on
 __REF{cockpit Cockpit}
 which isn't half bad. And you start provisioning virtual machines manually as
 Arch Linux `.qcow2` disk images.
+.Bd -decorate "aside aside-1"
+You should almost definitely just use Proxmox if you aren't insane, and can
+live with your hypervisor running on Debian.
+.Ed
 .Pp
 It works. And if you had any respect for your own time, you'd have stopped
 here. Maybe you would setup an automated backup strategy for the `.qcow2`
@@ -108,14 +112,14 @@ make for good Christmas presents. If only.
 .Dq "Isn't this all slightly inefficient?" ,
 you think to yourself, with notable disdain for your own perfectionist
 tendencies.
-.Pp -decorate anchor-1
+.Pp -decorate anchor-2
 The boot-time of
 .Lk https://www.qemu.org/ QEMU,
 as fantastic as it is, mocks you. The systemd journal, and all of those
 unnecessary services in each of your VMs, makes you uneasy. The sheer weight of
 each VM image, loaded with megabytes of duplicate program configurations and
 binaries, keeps you up at night. This simply won't do.
-.Bd -decorate "aside aside-1"
+.Bd -decorate "aside aside-2"
 You could probably achieve the same effect across traditional virtual machines
 with a `virtiofs` mount for `/` on top of
 .Lk https://en.wikipedia.org/wiki/ZFS ZFS ,
@@ -145,15 +149,14 @@ completely opaque. It's easy to forget which optimizations you've applied to
 each VM image, and which configuration files you've had to change for specific
 workloads and why, so much so that you consider recreating all of your images
 from scratch just to make sure that you can.
-.Pp -decorate anchor-2
+.Pp -decorate anchor-3
 The core problem is that at this point they are provisioned manually, and
-__REF{imperative_versus_declarative imperatively}
-\.
+__REF{imperative_versus_declarative imperatively}.
 When you provision manually, it is a substantial effort to re-provision images
 when required. When you provision imperatively, the internal state of a given
 VM image is unknown, and increasingly so with time. Without careful
 consideration and bookkeeping, images can quickly enter an unpredictable state.
-.Bd -decorate "aside aside-2"
+.Bd -decorate "aside aside-3"
 You can get a lot of the benefit here just by making provision a hands-off
 process. For most usecases, it is probably better to use
 .Lk https://developer.hashicorp.com/terraform Terraform
@@ -165,13 +168,14 @@ rather than take a trip down the NixOS rabbit hole.
 Unfortunately, at this point, you learn about NixOS.
 .Ss Month 4 - Down the NixOS rabbit hole
 .Pp
-test
-.Pp -decorate anchor-3
-The benefits of NixOS to this usecase are as follows:
+You begin to evaluate NixOS for your usecase.
+.Pp -decorate anchor-4
+The advantages of switching to NixOS in this case:
 .Bl -enum
 .It
 NixOS allows you to declare a system configuration, such as the set of
-customizations previously applied to your Alpine Linux VMs, with code. Further, the same thing is trivially possible with the hypervisor as well as the VMs.
+customizations previously applied to your Alpine Linux VMs, or the systemd
+units that orchestrate your OCI containers, with declarative code. 
 .It
 NixOS has a rich set of libraries that target service isolation. For example,
 OCI containers (Docker and Podman) and `systemd-nspawn` containers can be
@@ -181,27 +185,99 @@ option and the
 .Lk https://search.nixos.org/options?channel=unstable&query=containers#show=option%253Acontainers.%253Cname%253E.config containers
 option respectively.
 .It 
-Further, the amazing
+Further, the
 .Lk https://github.com/microvm-nix/microvm.nix microvm.nix
-project allows you to define virtual machines
+project allows you to define virtual machines declaratively
 -
-from the programs and services installed on them, to the vCPUs and memory that
-should be allocated when running them
--
-of various hypervisors (QEMU, cloud-hypervisor, firecracker, crosvm, etc...)
-and orchestrate them as part of the host NixOS configuration.
+from the programs and services installed on them, to the vCPUs, memory and
+`virtiofs-*` devices that should be allocated and assigned when running them.
+The project supports many hypervisors (QEMU, cloud-hypervisor, firecracker,
+crosvm, etc...), and will optionally install `microvm-runner` scripts as
+systemd services in the host NixOS configuration. These VM images are inner
+NixOS installs, which means that configurations and binaries on the host and
+the guest machines both live in the Nix store; this allows us to do
+deduplication of program binaries across guest images and reclaim disk space.
 .It
-NixOS is built for, and wholeheartedly encourages you to, make declarative
-systems, as opposed to imperative ones. This means that the state of the
-machine is always well-known and described by the Nix source code that built
-it.
+NixOS is built for and wholeheartedly encourages you to make systems that are
+declarative as opposed to imperative. This means that the state of the machine
+is always well-known and described by the Nix source code that built it.
 .El
-.Bd -decorate "aside aside-3"
+.Bd -decorate "aside aside-4"
 You can also use the `microvm.nix` library to build virtual machine images as
 artifacts that you can export into any virtual machine orchestration tool,
 instead of using the `microvm-runner` commands and/or systemd service
 integrations, though this will lose the benefit of declaring vCPUs, memory, and
 `virtio-*` devices as part of the configuration.
+.Ed
+.Pp -decorate anchor-5
+However, it's not a free lunch, by any means.
+.Bl -enum
+.It
+Nix and NixOS have a steep learning curve. It's not too bad, but in practice,
+you will need to commit time and effort to build a sufficient mental model of
+Nix: the programming language, the evaluator, activation, the daemon,
+derivations and Nix store semantics, the module system. In addition, you must
+pick a side;
+.Bf -emphasis
+stable Nix,
+.Ef
+where you are required to criticize Flakes on the internet regularly, or
+.Bf -emphasis
+experimental Nix,
+.Ef
+where you are required to criticize Flakes on the internet occasionally.
+.It
+The benefits of NixOS compound as you use it for more and more of your
+infrastructure. To fully utilize those benefits, you may choose to use it for
+everything. It is a fundamental change in mental model as compared to
+traditional Linux distributions, such as Ubuntu, Debian, or Arch Linux. This is
+a real disadvantage when you try to install programs and services which weren't
+already packaged for Nix by the upstream maintainers or clever Nix enthusiasts.
+You may have to understand the functional details of a piece of software to a
+ridiculous degree in order to make it work on NixOS.
+.It
+NixOS comes with its own limitations that are particular to the context in
+which it exists; what is easily possible in NixOS depends on its support in
+nixpkgs, the package repository for Nix which is maintained by the community.
+It is the largest package repository in the world, but it has its limitations.
+For example, nearly every option is written with the assumption that you're
+running systemd as your process supervisor. In practice, this means you're
+going to want to use systemd, and you won't be able to use leaner init systems
+like OpenRC under Alpine.
+.El
+.Bd -decorate "aside aside-5"
+Nix flakes are a contentious topic in Nix communities. They are an experimental
+feature in upstream Nix, despite being widely used. From what I've seen, most
+people can understand why; Nix flakes are poorly implemented in many respects.
+But until a group of people come along and push through many proposals and
+changesets, carefully thinking about the existing ecosystem which largely acts
+like flakes are stable, this is unlikely to change. Many people reject flakes,
+and opt for specialized tools instead (like
+.Lk https://github.com/andir/npins npins
+for dependency pinning) to fulfill specific roles where flakes try to do
+everything. This is an issue you will become intimately familiar with if you do
+decide to use Nix.
+.Ed
+.Pp -decorate anchor-6
+The results of your evaluation are clear; it sounds cool, but nearly every
+person who uses NixOS recommends that you do not use it. This is not
+particularly encouraging. However, as an Arch Linux user, the prospect of
+challenge and its potential rewards speaks to you, possibly in a very real and
+psychotic sense. 
+.Pp
+You decide to go down the rabbit hole.
+.Bd -decorate "aside aside-6"
+On the topic of systemd on NixOS, I've heard about
+.Lk https://media.ccc.de/v/38c3-sixos-a-nix-os-without-systemd sixos ,
+and recently
+.Lk https://github.com/finix-community/finix/tree/main finix ,
+which are successfully using the
+.Lk https://skarnet.org/software/s6/ s6
+and
+.Lk https://github.com/finit-project/finit finit
+supervisors respectively on NixOS. I don't personally know about their
+usability at this time. It's encouraging that there's ongoing work in this
+space.
 .Ed
 .Sh SEE ALSO
 .Bd -decorate aside
@@ -217,7 +293,10 @@ security posture of the mobile phone that it runs on.
 .Tg panoslopticon
 .It
 .Lk ""
-I can't take credit for this one. panoslopticon = slop +
+I can't take credit for this one, and my source(s) prefer to remain unnamed at
+this time, despite their impressive knack for encoding dystopia into made up
+words.
+panoslopticon = slop +
 .Lk https://en.wikipedia.org/wiki/Panopticon panopticon .
 .Lk #b2 ↩
 .Tg technolord_monopolies

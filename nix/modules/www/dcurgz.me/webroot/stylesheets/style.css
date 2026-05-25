@@ -80,6 +80,8 @@ table.foot { margin-top: 1em; }
 a { color: var(--c4); }
 a.Sx:before { content: "→ "; }
 
+.Bf.Em { font-style: italic; }
+
 .Bd {
   margin: 1em 0;
   padding: 1em;
