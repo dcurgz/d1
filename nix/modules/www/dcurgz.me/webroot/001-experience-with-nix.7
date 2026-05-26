@@ -306,6 +306,24 @@ follows a well-defined schema (for the most part):
 __HTML
 @flake-schema'@__ENDHTML
 .Ed
+.Bd warn
+Note that nowadays I use `flake-parts`, which is a convenience library that
+allows you to add attributes to the flake schema from any downstream module in
+your configuration. In practice, this prevents the typical situation with
+flakes; the flake.nix file gets more and more unwieldly as your usage grows.
+.Pp
+For example, here was my
+.Lk https://github.com/dcurgz/d1/blob/2962fb1feb31e1defb18dc3de7415c55d694e002/flake.nix flake.nix
+file before I refactored to use `flake-parts`.
+.Pp
+I might write a follow-up article on my use of `flake-parts`, but I would
+recommend using "vanilla" flakes to start with; there is a 
+.Bf -emphasis
+ton
+.Ef
+of misdirection and layered abstraction to NixOS, and adding more layers to
+this is probably not good for learning.
+.Ed
 .Sh SEE ALSO
 .Bd -decorate aside
 You can click on the '↩' to jump back to where you were. ♡
