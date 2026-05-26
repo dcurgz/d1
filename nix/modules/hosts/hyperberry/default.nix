@@ -275,9 +275,12 @@ in
       nix.settings.trusted-users = [ "dcurgz" ];
 
       systemd.tmpfiles.rules = [
-        "Z /etc/nixos 770 root wheel"
-        "Z /media 770 root media" 
-        "Z /data 770 root data" 
+        # Ensure home directories are correctly configured.
+        "Z /home/dcurgz 700 dcurgz dcurgz"
+        "Z /root        700 root   root"
+        # Set custom / directories to the correct groups.
+        "Z /media       770 root   media" 
+        "Z /data        770 root   data" 
       ];
 
       ##########################################################################################

@@ -37,20 +37,14 @@ update-local-inputs:
 
 # Build host-specific configurations
 hyperberry: update-local-inputs update-index
-	# Fix permissions
-	sudo chown -R root:wheel /etc/nixos
-	sudo chmod -R 774 /etc/nixos
 	# Go!
 	$(CHECK_MINECRAFT)
 	@read -p "Proceed? [y/N] " ans && ans=$${ans:-N} ; \
 	if [ $${ans} = y ] || [ $${ans} = Y ]; then \
-		sudo nixos-rebuild switch --offline --flake .#hyperberry ; \
+		sudo nixos-rebuild switch --flake .#hyperberry ; \
 	fi
 
 blueberry: update-local-inputs update-index
-	# Fix permissions
-	sudo chown -R root:wheel /etc/nixos
-	sudo chmod -R 774 /etc/nixos
 	# Go!
 	sudo nixos-rebuild switch --flake .#blueberry \
 		$(BUILDER_OPTS) \
