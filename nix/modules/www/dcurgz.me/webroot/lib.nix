@@ -40,7 +40,7 @@ in
 
       # syntax sugar for preformatted inline blocks
       renderInlineBlock = ''
-        perl -0777 -pe 's{`(.*?)`}{<code class="inline">$1</code>}g' \
+        perl -0777 -pe 's{`([^`]+)`}{<code class="inline">$1</code>}g' \
       '';
     in
     {

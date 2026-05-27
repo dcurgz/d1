@@ -78,6 +78,57 @@ in
         lang = "nix";
         path = pkgs.writeText "flake-schema" flake-schema;
       };
+
+      flake-simple = ''
+        # flake.nix
+        {
+          inputs = {
+            # The last part of the URL here describes the Git branch for nixpkgs.
+            nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+          };
+
+          outputs = inputs: {
+            nixosConfigurations.your-server = inputs.nixpkgs.lib.nixosSystem {
+              system = "x86_64-linux";
+              modules = [
+                # This is short for ./systems/your-server/default.nix.
+                ./systems/your-server 
+                # This file doesn't exist yet, as it will be generated inside
+                # the installer environment.
+                ./systems/your-server/hardware-configuration.nix
+              ];
+            };
+          };
+        }
+      '';
+      flake-simple' = lib'.renderCode {
+        name = "flake-simple-rendered";
+        lang = "nix";
+        path = pkgs.writeText "flake-simple" flake-simple;
+      };
+
+      flake-default = ''
+        # ./systems/your-server/default.nix
+        {
+          lib,
+          pkgs,
+          config,
+          ...
+        }:
+
+        {
+          ### Humble beginnings.
+          networking.hostName = "your-server";
+
+          # This means something important, but nobody knows what.
+          system.stateVersion = "25.05";
+        }
+      '';
+      flake-default' = lib'.renderCode {
+        name = "flake-default-rendered";
+        lang = "nix";
+        path = pkgs.writeText "flake-default" flake-default;
+      };
     in
     {
       config.by.www."dcurgz.me".pages = [
@@ -91,7 +142,7 @@ in
           src = lib.pipe ./001-experience-with-nix.7 [
             (path: replaceOptionalVars path {
               inherit title description slug permalink;
-              inherit flake-schema';
+              inherit flake-schema' flake-simple' flake-default';
             })
             (path: replaceOptionalVars path templates)
             (path: lib'.renderMdoc "index.html" path)

@@ -13,6 +13,10 @@ BUILDERS := \
 		ssh://builder@miniberry aarch64-darwin - 16 4 ; \
 		ssh://root@vm-mb-build-aarch64 aarch64-linux - 8 4 big-parallel,kvm
 
+BUILDERS_WIFI_OUT := \
+		ssh://builder@publicproxy aarch64-linux - 4 1 ; \
+		ssh://builder@weirdfi.sh aarch64-linux - 4 1 ;
+
 HOME_MANAGER := home-manager --extra-experimental-features "nix-command flakes"
 
 NIX := nix --extra-experimental-features "nix-command flakes" --extra-deprecated-features url-literals
@@ -109,7 +113,7 @@ else
 		--rollback-succeeded false \
 		-- \
 		$(BUILDER_OPTS) \
-		--builders '$(BUILDERS)' \
+		--builders '$(BUILDERS_WIFI_OUT)' \
 		--max-jobs 0 \
 		$(NOM) 
 endif

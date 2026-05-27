@@ -296,17 +296,16 @@ device management. ♥
 .Ss Month 5 - Down the rabbit hole
 You hear the advice loud and clear: the benefits of NixOS scale with the amount
 that you use it. It's time to re-provision the server.
-.Pp
+.Pp -decorate anchor-7
 Nix flakes, despite the fact that they're confusingly experimental, seem like
 the best bet. Most of the examples you can find seem to use flakes in some capacity.
 .Pp
 The entrypoint to a Nix flake is the `flake.nix` file. The `flake.nix` file
 follows a well-defined schema (for the most part):
 .Bd -literal
-__HTML
-@flake-schema'@__ENDHTML
+__HTML@flake-schema'@__ENDHTML
 .Ed
-.Bd warn
+.Bd -decorate "aside aside-7"
 Note that nowadays I use `flake-parts`, which is a convenience library that
 allows you to add attributes to the flake schema from any downstream module in
 your configuration. In practice, this prevents the typical situation with
@@ -323,6 +322,51 @@ ton
 .Ef
 of misdirection and layered abstraction to NixOS, and adding more layers to
 this is probably not good for learning.
+.Ed
+From what you've gathered over the noticeably sparse documentation NixOS has to
+offer, the steps to a provisioned NixOS server from nothing seem to be as
+follows:
+.Bl
+.It
+Write a minimal Nix flake, specifying a valid `nixosConfiguration` via
+`nixpkgs.lib.nixosSystem`. Call it `my-server`, or whatever you want. Make it
+accessible somewhere, like on a GitHub repository or Git server. You'll need it
+once you're in the NixOS installer environment.
+.It
+Download the
+.Lk https://nixos.org/download/#nix-install-linux "NixOS installer ISO" ,
+flash it to a USB stick, and boot into it as with Arch Linux.
+.It
+Partition the drives as desired and mount under `/mnt`.
+.It
+Generate a hardware configuration module for your system, and import it into to
+your NixOS flake, using `nixos-generate-config --show-hardware-config | tee ./path/to/hardware-configuration.nix`.
+The Nix source file generated should automatically include the partitions that
+you just created.
+.It
+Run `nixos-install --flake ./path/to/your/flake#your-server --root /mnt` and
+resolve any issues. A bootloader will be installed to `/mnt/boot` just like
+other Linux distro installers, and EFI variables updated if you've enabled that
+option.
+.It
+???
+.It
+Profit.
+.El
+.Pp -decorate anchor-8
+Let's get started. First, the flake.nix file:
+.Bd -literal
+__HTML@flake-simple'@__ENDHTML
+.Ed
+.Bd -decorate "aside aside-8"
+See
+.Lk https://discourse.nixos.org/t/differences-between-nix-channels/13998 this
+post for a helpful description of the different nixpkgs channels.
+.Ed
+.Pp
+Now, the contents of the systems module we imported:
+.Bd -literal
+__HTML@flake-default'@__ENDHTML
 .Ed
 .Sh SEE ALSO
 .Bd -decorate aside
