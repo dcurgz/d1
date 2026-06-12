@@ -1,7 +1,7 @@
 let
-  inherit (import ../.) inputs;
+  inherit (import ../default.nix) inputs;
   inherit (inputs.nixpkgs) lib;
-  flake = import ../.;
+  flake = import ../default.nix;
   keys  = flake.outputs.flakeModules.berry-keys;
   withDefault = k: (k ++ keys.ssh.groups.privileged.keys);
 in
@@ -35,6 +35,7 @@ with keys.ssh.hosts;
   "agenix/tailscale/guests/vm-vikunja.age".publicKeys      = (withDefault vm-vikunja.keys);
   "agenix/tailscale/guests/vx-jupiter.age".publicKeys      = (withDefault vx-jupiter.keys);
   "agenix/tailscale/guests/vm-mb-build-aarch64.age".publicKeys = (withDefault vm-mb-build-aarch64.keys);
+  "agenix/tailscale/guests/vm-gos-update-server.age".publicKeys = (withDefault vm-gos-update-server.keys);
   # hyperberry
   "agenix/backup/restic-password.age".publicKeys     = (withDefault hyperberry.keys);
   "agenix/backup/restic-envvars.age".publicKeys      = (withDefault hyperberry.keys);
@@ -45,6 +46,8 @@ with keys.ssh.hosts;
   "agenix/piberry/cloudflare-key.age".publicKeys     = (withDefault wg.keys);
   # tauberry
   "agenix/tauberry/mopidy-conf.age".publicKeys       = (withDefault tauberry.keys);
+  # weirdfi.sh
+  "agenix/weirdfi.sh/cloudflare-key.age".publicKeys  = (withDefault vm-gos-update-server.keys);
   # wg
   "agenix/wg/Wi-Fi.age".publicKeys = (withDefault wg.keys);
 }

@@ -116,10 +116,10 @@ in
              extraDomainNames = [ "*.${secrets.home-assistant.domain}" ];
              group = "nginx";
              dnsProvider = "cloudflare";
-           # location of your CLOUDFLARE_DNS_API_TOKEN=[value]
-           environmentFile = config.age.secrets.cloudflare-key.path;
+             # location of your CLOUDFLARE_DNS_API_TOKEN=[value]
+             environmentFile = config.age.secrets.cloudflare-key.path;
+           };
          };
        };
-     };
     });
 }

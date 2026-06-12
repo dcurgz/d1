@@ -73,6 +73,7 @@ let
     (mkGuest "vm-trilium")
     (mkGuest "vm-vikunja")
     (mkGuest "vx-jupiter")
+    (mkGuest "vm-gos-update-server")
     (mkGuest "vm-mb-build-aarch64")
   ];
 

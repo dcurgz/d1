@@ -14,8 +14,9 @@ GUESTS=(
   'vm-trilium'
   'vm-vikunja'
   'vx-jupiter'
+  'vm-gos-update-server'
 )
-OUT_DIR="./keys/ssh"
+OUT_DIR="./modules/keys/ssh"
 
 if [ ! -d "$OUT_DIR" ]; then
   echo "$OUT_DIR is not a directory. Are you in the right place?"

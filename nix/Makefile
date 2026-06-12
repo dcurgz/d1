@@ -45,7 +45,7 @@ hyperberry: update-local-inputs update-index
 	$(CHECK_MINECRAFT)
 	@read -p "Proceed? [y/N] " ans && ans=$${ans:-N} ; \
 	if [ $${ans} = y ] || [ $${ans} = Y ]; then \
-		sudo nixos-rebuild switch --flake .#hyperberry ; \
+		sudo nixos-rebuild switch --no-reexec --flake .#hyperberry ; \
 	fi
 
 blueberry: update-local-inputs update-index
@@ -123,6 +123,15 @@ weirdfi.sh:
 
 publicproxy:
 	HOST=.#publicproxy-cax11-4gb make deploy 
+
+midnight:
+	nix build .#robotnixConfigurations.midnight.img $(NOM)
+
+midnight-generate-keys:
+	nix build .#robotnixConfigurations.midnight.generateKeysScript --out-link generate-keys.sh $(NOM)
+
+midnight-release:
+	nix build .#robotnixConfigurations.midnight.releaseScript --out-link make-release.sh $(NOM)
 
 # Update flake inputs and lock file
 update:

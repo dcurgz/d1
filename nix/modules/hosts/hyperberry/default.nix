@@ -78,8 +78,13 @@ in
       nixos.vm-trilium
       nixos.vm-vikunja
       nixos.vx-jupiter
+      nixos.vm-gos-update-server
       # Services
       nixos.ollama
+      # Packages
+      nixos.packages-android
+      # Robotnix impurity
+      nixos.robotnix-host
       # Home-manager
       nixos.home-manager
       {

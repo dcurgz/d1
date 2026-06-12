@@ -61,6 +61,7 @@ let
     # Encryption
     git-crypt
     gnupg
+    inputs.agenix.packages.${pkgs.system}.default
     # Local scripts
     by.bin'
   ] ++ (lib.optionals pkgs.stdenv.isLinux [

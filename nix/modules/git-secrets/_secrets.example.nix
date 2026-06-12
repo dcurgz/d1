@@ -69,17 +69,18 @@ in
           publicproxy-cax11-4gb = mkNormalHost "publicproxy" "a.b.c.d" "dcurgz";
 
           # guests
-          vm-jellyfin     = mkGuest "vm-jellyfin";
-          vm-vikunja      = mkGuest "vm-vikunja";
+          vm-gos-update-server = mkGuest "vm-gos-update-server";
           vm-immich       = mkGuest "vm-immich";
-          vm-teamspeak    = mkGuest "vm-teamspeak";
-          vm-openwebui    = mkGuest "vm-openwebui";
+          vm-jellyfin     = mkGuest "vm-jellyfin";
+          vm-mc-leedlemon = mkGuest "vm-mc-leedlemon";
           vm-mc-slime-0   = mkGuest "vm-mc-slime-0";
           vm-mc-slime-1   = mkGuest "vm-mc-slime-1";
           vm-mc-wg-0      = mkGuest "vm-mc-wg-0";
           vm-mc-wg-1      = mkGuest "vm-mc-wg-1";
-          vm-mc-leedlemon = mkGuest "vm-mc-leedlemon";
+          vm-openwebui    = mkGuest "vm-openwebui";
+          vm-teamspeak    = mkGuest "vm-teamspeak";
           vm-trilium      = mkGuest "vm-trilium";
+          vm-vikunja      = mkGuest "vm-vikunja";
         };
         home-assistant = {
           domain = "example.com";
