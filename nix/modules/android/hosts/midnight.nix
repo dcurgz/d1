@@ -36,10 +36,21 @@ in
         url = "https://ota.weirdfi.sh/midnight";
       };
 
+      # Patch in custom logo for Android boot animation.
+      source.dirs."frameworks/base".postPatch =
+        let
+          android-logo-mask  = ./android-logo-mask.png;
+          android-logo-shine = ./android-logo-shine.png;
+        in
+        ''
+          cp -rv ${android-logo-mask} ./core/res/assets/images/android-logo-mask.png
+          cp -rv ${android-logo-shine} ./core/res/assets/images/android-logo-shine.png
+        '';
+
       # Uses /var/cache/ccache impurely.
       ccache.enable = true;
 
       stateVersion = "3";
-      buildDateTime = 1781299620;
+      buildDateTime = inputs.self.lastModified;
     });
 }
