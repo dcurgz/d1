@@ -28,7 +28,7 @@ in
 
       # Enable F-Droid.
       apps.fdroid.enable = true;
-      apps.fdroid.additionalRepos = import ./fdroid.nix;
+      apps.fdroid.additionalRepos = import ./_fdroid.nix;
 
       # Enable updater.
       apps.updater = {
@@ -40,5 +40,6 @@ in
       ccache.enable = true;
 
       stateVersion = "3";
+      buildDateTime = 1781299620;
     });
 }
