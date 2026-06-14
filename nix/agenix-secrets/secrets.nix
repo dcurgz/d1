@@ -40,6 +40,7 @@ with keys.ssh.hosts;
   "agenix/backup/restic-password.age".publicKeys     = (withDefault hyperberry.keys);
   "agenix/backup/restic-envvars.age".publicKeys      = (withDefault hyperberry.keys);
   "agenix/hyperberry/jenkins-gpg-key.age".publicKeys = (withDefault hyperberry.keys);
+  "agenix/hyperberry/jjb-token.age".publicKeys       = (withDefault hyperberry.keys);
   # fooberry
   "agenix/fooberry/cloudflare-key.age".publicKeys    = (withDefault fooberry.keys);
   "agenix/fooberry/Wi-Fi.age".publicKeys             = (withDefault fooberry.keys);

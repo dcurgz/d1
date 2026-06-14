@@ -25,6 +25,13 @@ in
         group = "root";
       }; 
 
+      age.secrets.jjb-token = {
+        file = "${FLAKE_ROOT}/agenix-secrets/agenix/hyperberry/jjb-token.age";
+        mode = "770";
+        owner = "jenkins";
+        group = "root";
+      }; 
+
       services.jenkins = {
         enable = true;
         packages = with pkgs; [
@@ -32,6 +39,8 @@ in
           cacert
           coreutils
           git
+          git-crypt
+          gnumake
           gnupg
           lix
         ];
@@ -39,10 +48,13 @@ in
           SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
         };
         jobBuilder.enable = true;
+        jobBuilder.accessUser = "jjb";
+        jobBuilder.accessTokenFile = config.age.secrets.jjb-token.path;
         jobBuilder.nixJobs = [
           {
             job = {
               name = "grapheneos-weekly";
+              triggers.timed = "0 3 * * MON";
               builders = [
                 {
                   shell = builtins.readFile ./grapheneos-weekly.sh;
@@ -52,5 +64,7 @@ in
           }
         ];
       };
+
+      users.users.jenkins.extraGroups = [ "data" ];
     });
 }
