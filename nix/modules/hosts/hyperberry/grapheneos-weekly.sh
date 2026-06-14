@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x
 KEYS=/data/keys/midnight
 
 gpg --import /run/agenix/jenkins-gpg-key || exit 1
@@ -26,17 +27,16 @@ BUILD=$(nix eval .#robotnixConfigurations.midnight.config.buildDateTime)
 OUT="$WORKSPACE/releases/$BUILD"
 if [ -d $OUT ]; then
     echo "This version has already been built, exiting..."
-    exit 0
 fi
 
-nix build .#robotnixConfigurations.midnight.img | tee "$LOGS/build_output_$BUILD.log"
-BUILD_PID=$!
-nix build .#robotnixConfigurations.midnight.releaseScript | tee "$LOGS/make_release_script_$BUILD.log"
+nix build .#robotnixConfigurations.midnight.releaseScript --out-link release.sh | tee "$LOGS/make_release_script_$BUILD.log" || exit 1
 BUILD_PID=$!
 
 mkdir "$OUT"
-cd "$OUT"
-./release.sh $KEYS 2>&1 | tee "$LOGS/sign_output_$BUILD.log"
+cp -rv $FLAKE/release.sh $OUT || exit 1
+cd "$OUT" || exit 1
+
+./release.sh $KEYS 2>&1 | tee "$LOGS/sign_output_$BUILD.log" || exit 1
 BUILD_PID=$!
 
 trap "kill -- -$BUILD_PID" SIGINT SIGTERM
