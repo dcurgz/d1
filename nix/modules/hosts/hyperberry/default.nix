@@ -81,6 +81,7 @@ in
       nixos.vm-gos-update-server
       # Services
       nixos.ollama
+      nixos.hyperberry-jenkins
       # Packages
       nixos.packages-android
       # Robotnix impurity

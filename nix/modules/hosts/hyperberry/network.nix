@@ -37,6 +37,9 @@ in
           interfaces."br0".allowedTCPPorts = [
             11434 # ollama
           ];
+          interfaces."tailscale0".allowedTCPPorts = [
+            8080 # jenkins
+          ];
         };
         interfaces."${by.hardware.interfaces.ethernet}" = {
           ipv4.addresses = [{
