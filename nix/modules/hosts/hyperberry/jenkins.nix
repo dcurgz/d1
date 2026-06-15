@@ -68,6 +68,8 @@ in
       users.users.jenkins.extraGroups = [ "data" ];
 
       systemd.paths.grapheneos-release-watch = {
+        wantedBy = [ "multi-user.target" ];
+        requires = [ "grapheneos-release-publish.service" ];
         pathConfig = {
           Unit = "grapheneos-release-publish";
           PathChanged = "/var/lib/jenkins/workspace/grapheneos-weekly/releases/latest";
@@ -75,13 +77,26 @@ in
       };
       
       systemd.services.grapheneos-release-publish = {
-        serviceConfig.Type = "oneshot";
-        script = ''
-          RELEASE=/var/lib/jenkins/workspace/grapheneos-weekly/release/latest/
-          OUT=/data/gos-update-server/midnight
-          rm -rf "$OUT/*"
-          cp -rv "$RELEASE" "$OUT"
-        '';
+        enable = true;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = pkgs.writeScript "publish-gos-release" ''
+            #!/${pkgs.bash}/bin/bash
+            SRC=/var/lib/jenkins/workspace/grapheneos-weekly/releases/latest
+            BUILDNO=$(readlink $SRC)
+
+            DEST="/data/gos-update-server/midnight.$BUILDNO"
+            cp -rLv "$SRC" "$DEST"
+
+            chmod -R 770 $DEST
+            chown -R root:data $DEST
+
+            OUT=/data/gos-update-server/midnight
+            LINK=/data/gos-update-server/midnight.tmp
+            ln -s $DEST $LINK
+            mv -T $LINK $OUT
+          '';
+        };
       };
     });
 }

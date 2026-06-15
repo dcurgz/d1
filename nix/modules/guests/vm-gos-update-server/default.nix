@@ -70,6 +70,14 @@ in
           proto = "virtiofs";
           socket = "ssl-certs.sock";
         }
+        # This is needed to prevent continuous registration of the same ACME account.
+        {
+          source = "/var/lib/microvms/${config.networking.hostName}/acme";
+          mountPoint = "/var/lib/acme";
+          tag = "acme";
+          proto = "virtiofs";
+          socket = "acme.sock";
+        }
       ];
 
       nix.channel.enable = false;
@@ -85,17 +93,20 @@ in
           recommendedOptimisation = true;
           recommendedTlsSettings = true;
           virtualHosts.${tailscale_address} = {
-            default = true;
             forceSSL = true;
             sslCertificate = "/etc/ssl/certs/${tailscale_address}.crt";
             sslCertificateKey = "/etc/ssl/certs/${tailscale_address}.key";
             locations."/midnight" = {
               root = images_dir;
               tryFiles = "$uri $uri/ =404";
+              extraConfig = ''
+                autoindex on;
+              '';
             };
           };
 
           virtualHosts.${public_address} = {
+            default = true;
             forceSSL = true;
             useACMEHost = public_address;
              # Disable ACME challenge generation to force DNS-01.
@@ -103,6 +114,9 @@ in
             locations."/midnight" = {
               root = images_dir;
               tryFiles = "$uri $uri/ =404";
+              extraConfig = ''
+                autoindex on;
+              '';
             };
           };
         };
@@ -113,7 +127,7 @@ in
          certs = {
            ${public_address} = {
              domain = public_address;
-             extraDomainNames = [ "*.${public_address}" ];
+             #extraDomainNames = [ "*.${public_address}" ];
              group = "nginx";
              dnsProvider = "cloudflare";
              # location of your CLOUDFLARE_DNS_API_TOKEN=[value]
