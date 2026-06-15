@@ -66,5 +66,22 @@ in
       };
 
       users.users.jenkins.extraGroups = [ "data" ];
+
+      systemd.paths.grapheneos-release-watch = {
+        pathConfig = {
+          Unit = "grapheneos-release-publish";
+          PathChanged = "/var/lib/jenkins/workspace/grapheneos-weekly/releases/latest";
+        };
+      };
+      
+      systemd.services.grapheneos-release-publish = {
+        serviceConfig.Type = "oneshot";
+        script = ''
+          RELEASE=/var/lib/jenkins/workspace/grapheneos-weekly/release/latest/
+          OUT=/data/gos-update-server/midnight
+          rm -rf "$OUT/*"
+          cp -rv "$RELEASE" "$OUT"
+        '';
+      };
     });
 }

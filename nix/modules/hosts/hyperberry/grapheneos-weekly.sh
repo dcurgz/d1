@@ -41,6 +41,6 @@ BUILD_PID=$!
 
 trap "kill -- -$BUILD_PID" SIGINT SIGTERM
 
-LINK="$WORKSPACE/releases/latest"
-rm -f "$LINK"
-ln -s "$OUT" "$LINK"
+cd "$WORKSPACE/releases"
+ln -nsf $OUT release
+mv -T release latest
