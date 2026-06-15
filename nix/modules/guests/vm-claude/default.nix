@@ -63,15 +63,15 @@ in
           socket = "ssl-certs.sock";
         }
         # rw-store
-        {
-          source = "/var/lib/microvms/${hostName}/rw-store";
-          mountPoint = "/nix/.rw-store";
-          tag = "rw-store";
-          proto = "virtiofs";
-          socket = "rw-store.sock";
-        }
+        #{
+        #  source = "/var/lib/microvms/${hostName}/rw-store";
+        #  mountPoint = "/nix/.rw-store";
+        #  tag = "rw-store";
+        #  proto = "virtiofs";
+        #  socket = "rw-store.sock";
+        #}
       ];
-      microvm.writableStoreOverlay = "/nix/.rw-store";
+      #microvm.writableStoreOverlay = "/nix/.rw-store";
 
       nix.channel.enable = false;
 

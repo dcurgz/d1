@@ -65,7 +65,7 @@ in
           socket = "openwebui-data.sock";
         }
       ];
-      microvm.writableStoreOverlay = "/nix/.rw-store";
+      #microvm.writableStoreOverlay = "/nix/.rw-store";
 
       nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       nix.channel.enable = false;
