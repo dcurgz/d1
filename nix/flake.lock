@@ -819,7 +819,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-WQlAqkbVFlRdI9dqKE205lK59tHE6/k7CANVG4Fjkpk=",
+        "narHash": "sha256-9KYb/6Q6vx08oaXq2+RFUJe2GODShFVvp6XjFPNb1pY=",
         "path": "./vendor/mandoc",
         "type": "path"
       },
@@ -1166,6 +1166,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-aseprite": {
+      "locked": {
+        "lastModified": 1781268102,
+        "narHash": "sha256-Zn5KTggEmUB3lXn/ccERNcBdddE6IaOFber9dWViWDg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "49a4bd0573c376468dd7996ddb6f9fa31d8c4d97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "49a4bd0573c376468dd7996ddb6f9fa31d8c4d97",
+        "type": "github"
+      }
+    },
     "nixpkgs-immich": {
       "locked": {
         "lastModified": 1772585379,
@@ -1342,11 +1358,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1781268102,
-        "narHash": "sha256-Zn5KTggEmUB3lXn/ccERNcBdddE6IaOFber9dWViWDg=",
+        "lastModified": 1781607440,
+        "narHash": "sha256-rxO+uc/KFbSJp+pgyXRuAX6QlG9hJdnt0BXpEQRXY+U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "49a4bd0573c376468dd7996ddb6f9fa31d8c4d97",
+        "rev": "3e41b24abd260e8f71dbe2f5737d24122f972158",
         "type": "github"
       },
       "original": {
@@ -1537,6 +1553,7 @@
         "nixgl": "nixgl",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_7",
+        "nixpkgs-aseprite": "nixpkgs-aseprite",
         "nixpkgs-immich": "nixpkgs-immich",
         "nixpkgs-ollama": "nixpkgs-ollama",
         "nixpkgs-tailscale": "nixpkgs-tailscale",

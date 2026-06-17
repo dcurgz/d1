@@ -172,7 +172,10 @@ in
     }:
 
     let
-      pkgs-aseprite = import inputs.nixpkgs-aseprite { inherit (pkgs) system; };
+      pkgs-aseprite = import inputs.nixpkgs-aseprite {
+        inherit (pkgs) system;
+        config.allowUnfree = true;
+      };
     in
     {
       home.stateVersion = "25.05";
@@ -185,6 +188,7 @@ in
         darktable
         zed-editor
         helix
+        libreoffice
         # Browsers
         # - firefox included with module
         chromium
@@ -196,7 +200,8 @@ in
         tidal-hifi
         # Virtualization
         qemu
-        rpcs3
+        #TODO: pin 
+        #rpcs3
         eden
         # Media
         vlc

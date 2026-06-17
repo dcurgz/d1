@@ -79,6 +79,10 @@
             config.allowUnfree = true;
             config.nvidia.acceptLicense = true;
             config.android_sdk.accept_license = true;
+            # bitwarden-desktop https://github.com/NixOS/nixpkgs/issues/526914
+            config.permittedInsecurePackages = [
+              "electron-39.8.10"
+            ];
             overlays = import ./overlays {
               inherit inputs globals;
               inherit (inputs.nixpkgs) lib;
