@@ -171,6 +171,9 @@ in
       ...
     }:
 
+    let
+      pkgs-aseprite = import inputs.nixpkgs-aseprite { inherit (pkgs) system; };
+    in
     {
       home.stateVersion = "25.05";
       home.packages = with pkgs; [
@@ -178,7 +181,7 @@ in
         vesktop
         signal-desktop
         # Editors
-        aseprite
+        pkgs-aseprite.aseprite
         darktable
         zed-editor
         helix

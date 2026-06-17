@@ -46,6 +46,7 @@
     nixpkgs-immich.url = "github:nixos/nixpkgs?rev=0fd2db475afdde93c9e4b1625aafb8eb41b99807";
     nixpkgs-ollama.url = "github:nixos/nixpkgs?rev=9d29d5f667d7467f98efc31881e824fa586c927e";
     nixpkgs-tailscale.url = "github:nixos/nixpkgs?rev=7aaa00e7cc9be6c316cb5f6617bd740dd435c59d";
+    nixpkgs-aseprite.url = "github:nixos/nixpkgs?rev=49a4bd0573c376468dd7996ddb6f9fa31d8c4d97";
 
     # friends
     keys-natter = { url = "https://github.com/Naterjack.keys"; flake = false; };
