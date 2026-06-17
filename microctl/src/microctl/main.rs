@@ -36,7 +36,7 @@ enum Command {
         id: String,
         /// When a new node is added to the configuration, start it automatically. Default: y
         #[arg(long, value_parser = parse_yn, value_name = "y|n")]
-        auto_run: Option<bool>,
+        auto_create: Option<bool>,
         /// When a node has its runner derivation replaced, restart it automatically. Default: y
         #[arg(long, value_parser = parse_yn, value_name = "y|n")]
         auto_upgrade: Option<bool>,
@@ -65,9 +65,17 @@ fn main() {
         Command::Stop { kill, id } => Message::Stop { kill, id },
         Command::Restart { kill, id } => Message::Restart { kill, id },
         Command::Info { id } => Message::Info { id },
-        Command::Configure { id, auto_run, auto_upgrade, auto_delete } => {
-            Message::Configure { id, auto_run, auto_upgrade, auto_delete }
-        }
+        Command::Configure {
+            id,
+            auto_create,
+            auto_upgrade,
+            auto_delete,
+        } => Message::Configure {
+            id,
+            auto_create,
+            auto_upgrade,
+            auto_delete,
+        },
         Command::Reload => Message::Reload,
     };
 

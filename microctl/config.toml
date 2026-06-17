@@ -11,6 +11,6 @@ id = "node-3"
 runner = "/nix/store/cccccccccccccccccccccccccccccccccc-node-3"
 
 [nodes.settings]
-auto_run = false
+auto_create = false
 auto_upgrade = false
 auto_delete = false

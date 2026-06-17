@@ -17,7 +17,7 @@ pub struct NodeConfig {
 #[derive(Debug, Deserialize, Default)]
 pub struct NodeSettings {
     #[serde(default)]
-    pub auto_run: bool,
+    pub auto_create: bool,
     #[serde(default)]
     pub auto_upgrade: bool,
     #[serde(default)]

@@ -5,13 +5,23 @@ pub const DAEMON_ADDR: &str = "127.0.0.1:9090";
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Message {
     List,
-    Start { id: String },
-    Stop { kill: bool, id: String },
-    Restart { kill: bool, id: String },
-    Info { id: String },
+    Start {
+        id: String,
+    },
+    Stop {
+        kill: bool,
+        id: String,
+    },
+    Restart {
+        kill: bool,
+        id: String,
+    },
+    Info {
+        id: String,
+    },
     Configure {
         id: String,
-        auto_run: Option<bool>,
+        auto_create: Option<bool>,
         auto_upgrade: Option<bool>,
         auto_delete: Option<bool>,
     },
