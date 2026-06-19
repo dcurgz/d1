@@ -20,5 +20,6 @@ in
     darwin       = option;
     home-manager = option;
     generic      = option;
+    android      = option;
   };
 }

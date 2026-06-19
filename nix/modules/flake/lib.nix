@@ -59,6 +59,8 @@ in
       tags: (flake.lib.mkAspect { class = "darwin"; inherit tags; });
     home-manager.mkAspect =
       tags: (flake.lib.mkAspect { class = "home-manager"; inherit tags; });
+    android.mkAspect =
+      tags: (flake.lib.mkAspect { class = "android"; inherit tags; });
 
     mkNixOS =
       {
@@ -98,6 +100,26 @@ in
           modules = lib.lists.unique
             (darwinModules ++ (builtins.map (aspect: aspect._module) darwinAspects));
           specialArgs = specialArgs // { _classArgs = args; };
+        };
+
+    # Robotnix (AOSP) counterpart of mkNixOS/mkDarwin. Takes a list mixing
+    # `android`-class aspects and plain Robotnix modules, resolves the aspects
+    # to their underlying modules, and evaluates a Robotnix configuration.
+    # robotnixSystem takes a single configuration module, so we hand it one
+    # with the resolved list as `imports`.
+    mkAOSP =
+      {
+        modules,
+      } @args:
+
+      let
+        flat = lib.lists.flatten modules;
+        aspects = builtins.filter (a: builtins.isAttrs a && a ? "_type" && a._type == "aspect") flat;
+        androidAspects = builtins.filter (a: a.class == "android") aspects;
+        robotnixModules = lib.lists.subtractLists aspects flat;
+      in
+        inputs.robotnix.lib.robotnixSystem {
+          imports = robotnixModules ++ (builtins.map (aspect: aspect._module) androidAspects);
         };
   };
 }

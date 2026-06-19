@@ -1,0 +1,27 @@
+# Android init service for the robotnix OpenSSH server.
+# Installed to /system/etc/init/sshd.rc; init picks it up automatically.
+#
+# This is the init.rc equivalent of the Magisk module's common/service.sh +
+# opensshd.init: it brings up the runtime state directory, generates host keys
+# on first boot, and starts sshd in the background.
+#
+# NOTE on SELinux: on an enforcing GrapheneOS/AOSP build the `seclabel` below
+# must resolve to a domain that is allowed to run sshd (bind the port, exec a
+# shell, read /data/ssh). A complete sepolicy for that is out of scope here and
+# must be added via BOARD_SEPOLICY_DIRS; until then the service will be denied
+# under enforcing policy. See _openssh.nix for details.
+
+on post-fs-data
+    mkdir /data/ssh 0700 root root
+
+service sshd /system/bin/ssh_start
+    class late_start
+    user root
+    group root shell inet
+    seclabel u:r:shell:s0
+    oneshot
+
+# Allow disabling autostart by creating /data/ssh/no-autostart, mirroring the
+# Magisk module behaviour.
+on property:sys.boot_completed=1 && property:persist.sshd.disabled=1
+    stop sshd

@@ -1,0 +1,42 @@
+#!/system/bin/sh
+# Startup wrapper for the robotnix OpenSSH server.
+#
+# This is the init.rc equivalent of the Magisk module's opensshd.init start
+# logic: it prepares /data/ssh, generates host keys on first boot, then execs
+# sshd. The binaries are statically linked (musl), so there are no shared
+# libraries to locate -- no LD_LIBRARY_PATH wrapper is needed, unlike the
+# original Magisk module. Read-only program files live under
+# /system/opt/openssh; mutable runtime state lives under /data/ssh.
+
+set -eu
+
+OPT=/system/opt/openssh
+SSHDIR=/data/ssh
+
+# Honour the Magisk-style opt-out file.
+[ -f "$SSHDIR/no-autostart" ] && exit 0
+
+mkdir -p "$SSHDIR"
+chmod 0700 "$SSHDIR"
+
+# Per-user home dirs (root + shell), mirroring the Magisk module layout.
+for u in root shell; do
+    mkdir -p "$SSHDIR/$u/.ssh"
+    chmod 0700 "$SSHDIR/$u" "$SSHDIR/$u/.ssh"
+done
+
+# Generate host keys into /data/ssh on first boot if absent. `ssh-keygen -A`
+# only writes to the compiled-in sysconfdir, so generate each key explicitly to
+# match the HostKey paths in sshd_config.
+for t in ed25519 rsa ecdsa; do
+    [ -f "$SSHDIR/ssh_host_${t}_key" ] || \
+        "$OPT/bin/ssh-keygen" -q -t "$t" -N "" -f "$SSHDIR/ssh_host_${t}_key"
+done
+
+# Prefer a user-supplied config in /data, falling back to the baked-in one.
+CONFIG="$OPT/etc/sshd_config"
+[ -f "$SSHDIR/sshd_config" ] && CONFIG="$SSHDIR/sshd_config"
+
+# -D keeps sshd in the foreground so init can supervise it; -e logs to stderr,
+# which init routes to the kernel log / logcat.
+exec "$OPT/sbin/sshd" -D -e -f "$CONFIG"
