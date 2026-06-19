@@ -54,7 +54,8 @@ in
           {
             job = {
               name = "grapheneos-weekly";
-              triggers.timed = "0 3 * * MON";
+              # daily for now
+              triggers.timed = "0 3 * * *";
               builders = [
                 {
                   shell = builtins.readFile ./grapheneos-weekly.sh;
