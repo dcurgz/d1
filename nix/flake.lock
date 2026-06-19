@@ -23,6 +23,18 @@
         "type": "github"
       }
     },
+    "agenix-secrets": {
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-0K4fCX8kcmrnQeK6P32dkVhBHoss0PUVxT8KuLiUnWk=",
+        "path": "./agenix-secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "./agenix-secrets",
+        "type": "path"
+      }
+    },
     "androidPkgs": {
       "inputs": {
         "devshell": "devshell",
@@ -1525,6 +1537,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "agenix-secrets": "agenix-secrets",
         "awww": "awww",
         "dankMaterialShell": "dankMaterialShell",
         "deploy-rs": "deploy-rs",

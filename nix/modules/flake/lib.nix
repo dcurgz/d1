@@ -7,7 +7,6 @@
 }:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (config) flake;
 
   # https://discourse.nixos.org/t/list-compare-diff-or-substraction/62367/5
@@ -40,7 +39,7 @@ in
         class,
         tags ? [],
       } @args:
-      
+
       (module: (args // { _type = "aspect"; _module = module; }));
 
     use = useTags: lib.pipe flake.modules [
@@ -53,13 +52,13 @@ in
 
     # helpers for specific classes
     generic.mkAspect =
-      tags: (flake.lib.mkAspect { class = "generic"; inherit tags; }); 
+      tags: (flake.lib.mkAspect { class = "generic"; inherit tags; });
     nixos.mkAspect =
-      tags: (flake.lib.mkAspect { class = "nixos"; inherit tags; }); 
+      tags: (flake.lib.mkAspect { class = "nixos"; inherit tags; });
     darwin.mkAspect =
-      tags: (flake.lib.mkAspect { class = "darwin"; inherit tags; }); 
+      tags: (flake.lib.mkAspect { class = "darwin"; inherit tags; });
     home-manager.mkAspect =
-      tags: (flake.lib.mkAspect { class = "home-manager"; inherit tags; }); 
+      tags: (flake.lib.mkAspect { class = "home-manager"; inherit tags; });
 
     mkNixOS =
       {
@@ -96,9 +95,9 @@ in
       in
         inputs.nix-darwin.lib.darwinSystem {
           inherit system;
-          modules = lib.lists.unique 
+          modules = lib.lists.unique
             (darwinModules ++ (builtins.map (aspect: aspect._module) darwinAspects));
           specialArgs = specialArgs // { _classArgs = args; };
         };
-  }; 
+  };
 }

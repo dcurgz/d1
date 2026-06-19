@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 {
   flake.modules.nixos.nix-signing-key = flake.lib.nixos.mkAspect (with flake.tags; [ nixos-privileged ])
@@ -15,7 +14,7 @@ in
 
     {
       age.secrets.nix-signing-secret-key = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/nix/berry-privileged.age";
+        file = "${inputs.agenix-secrets}/agenix/nix/berry-privileged.age";
       };
       nix.settings.secret-key-files = [ config.age.secrets.nix-signing-secret-key.path ];
     });
@@ -28,7 +27,7 @@ in
     
     {
       age.secrets.nix-signing-secret-key = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/nix/berry-privileged.age";
+        file = "${inputs.agenix-secrets}/agenix/nix/berry-privileged.age";
       };
       nix.settings.secret-key-files = [ config.age.secrets.nix-signing-secret-key.path ];
     });

@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -20,7 +19,7 @@ in
     let
       inherit (pkgs) stdenv;
       inherit (inputs) nix-time;
-    
+
       inherit (pkgs.by.lib) replaceOptionalVars;
 
       domain = "dcurgz.me";
@@ -47,7 +46,7 @@ in
           type = lib.types.attrsOf lib.types.anything;
         };
       };
-    
+
       config.by.websites.sites.${domain}.web-server.webroot =
         let
           cfg = config.by.www.${domain};
@@ -88,4 +87,3 @@ in
         pkgs.linkFarm "webroot" (files ++ permalinks ++ resources);
     });
 }
-

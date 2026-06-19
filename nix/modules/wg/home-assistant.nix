@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -23,7 +22,7 @@ in
       secrets = config.by.git-secrets;
     in
     {
-     age.secrets.cloudflare-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/piberry/cloudflare-key.age";
+     age.secrets.cloudflare-key.file = "${inputs.agenix-secrets}/agenix/piberry/cloudflare-key.age";
 
      users.users.hass.extraGroups = [ "data" ];
 

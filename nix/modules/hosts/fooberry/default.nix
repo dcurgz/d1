@@ -1,13 +1,11 @@
 {
   inputs,
   lib,
-  globals,
   prebuiltPackages,
   ...
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys;
 in
@@ -66,9 +64,9 @@ in
       secrets = config.by.git-secrets;
     in
     {
-      age.secrets.cloudflare-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/fooberry/cloudflare-key.age";
+      age.secrets.cloudflare-key.file = "${inputs.agenix-secrets}/agenix/fooberry/cloudflare-key.age";
       age.secrets.wifi = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/fooberry/Wi-Fi.age";
+        file = "${inputs.agenix-secrets}/agenix/fooberry/Wi-Fi.age";
         mode = "770";
         owner = "root";
         group = "wpa_supplicant";

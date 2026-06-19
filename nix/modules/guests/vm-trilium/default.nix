@@ -7,7 +7,6 @@
 
 let
   inherit (args.config) flake;
-  inherit (globals) FLAKE_ROOT;
 
   hostName = "vm-trilium";
   trilium_data = "/data/trilium-data";

@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -18,7 +17,7 @@ in
     let
       secrets = config.by.secrets.weirdfish;
       ports   = config.by.portmap;
-    
+
       domain = "dcurgz.me";
     in
     {

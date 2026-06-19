@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -29,7 +28,7 @@ in
       ];
     
       age.secrets.mopidy-conf = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/tauberry/mopidy-conf.age";
+        file = "${inputs.agenix-secrets}/agenix/tauberry/mopidy-conf.age";
         owner = "mopidy";
       };
     

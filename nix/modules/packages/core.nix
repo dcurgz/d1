@@ -62,8 +62,6 @@ let
     git-crypt
     gnupg
     inputs.agenix.packages.${pkgs.system}.default
-    # Local scripts
-    by.bin'
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     # Linux-specific packages
     busybox

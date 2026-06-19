@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -193,7 +192,7 @@ in
                 root = site.web-server.webroot;
                 locations."/" = {
                   tryFiles = "$uri $uri.html $uri/ =404";
-                }; 
+                };
                 extraConfig = ''
                   port_in_redirect off;
                 '';

@@ -7,7 +7,6 @@
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys;
 in

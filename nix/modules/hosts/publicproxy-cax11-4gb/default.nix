@@ -1,13 +1,11 @@
 {
   inputs,
   lib,
-  globals,
   prebuiltPackages,
   ...
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys;
 in
@@ -124,7 +122,7 @@ in
       users.groups.dcurgz = { };
       nix.settings.trusted-users = [ "dcurgz" ];
 
-      age.secrets.tailscale-auth-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/tailscale/hosts/publicproxy.age";
+      age.secrets.tailscale-auth-key.file = "${inputs.agenix-secrets}/agenix/tailscale/hosts/publicproxy.age";
 
       services.tailscale = {
         enable = true;

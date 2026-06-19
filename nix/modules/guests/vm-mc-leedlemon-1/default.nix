@@ -7,7 +7,6 @@
 
 let
   inherit (args.config) flake;
-  inherit (globals) FLAKE_ROOT;
 
   hostName = "vm-mc-leedl-sta";
   dataDir = "/data/minecraft-leedlemon_staging";

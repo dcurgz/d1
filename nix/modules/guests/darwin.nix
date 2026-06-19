@@ -8,10 +8,9 @@
 let
   inherit (args.config) flake;
   inherit (args.config.by) keys;
-  inherit (globals) FLAKE_ROOT;
 in
 {
-  flake.lib.darwin.mkMicroVM = 
+  flake.lib.darwin.mkMicroVM =
     {
       hostName,
       system, # must be aarch64-linux
@@ -59,7 +58,7 @@ in
       };
     in
 
-    flake.lib.darwin.mkAspect tags 
+    flake.lib.darwin.mkAspect tags
     ({
       config,
       pkgs,
@@ -69,7 +68,7 @@ in
       pkgs' = if ("pkgs" ? args) then args.pkgs else prebuiltPackages.${system};
       specialArgs' = if ("specialArgs" ? args) then args.specialArgs else { };
       specialArgs = specialArgs' // { inherit inputs; };
-      
+
       vm = lib.recursiveUpdate microvmDefaults microvmConfig;
 
       microvm-home = "/var/lib/microvms/${hostName}";
@@ -176,8 +175,8 @@ in
         fileSystems."/var/lib/ssh-host-keys".neededForBoot = true;
 
         age.secrets.tailscale-auth-key = lib.mkIf (vm.tailscale.enable && vm.tailscale.autologin) {
-          file = "${FLAKE_ROOT}/secrets/agenix/tailscale/guests/${hostName}.age"; 
-          mode = "0440"; 
+          file = "${inputs.agenix-secrets}/agenix/tailscale/guests/${hostName}.age";
+          mode = "0440";
         };
 
         services.tailscale = lib.mkIf (vm.tailscale.enable) {
@@ -226,7 +225,7 @@ in
         trap 'kill $BROKER_PID' EXIT
 
         until [ -S ${vfkit-sock} ]; do sleep 1; done
-        
+
         ${lib.getExe pkgs.unixtools.script} -q /tmp/${hostName}.log ${lib.getExe microvm-runner} &
 
         wait -n

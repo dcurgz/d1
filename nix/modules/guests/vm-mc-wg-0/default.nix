@@ -7,7 +7,6 @@
 
 let
   inherit (args.config) flake;
-  inherit (globals) FLAKE_ROOT;
 
   hostName = "vm-mc-wg-0";
   dataDir = "/data/minecraft-wg-0";

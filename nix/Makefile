@@ -45,7 +45,7 @@ hyperberry: update-local-inputs update-index
 	$(CHECK_MINECRAFT)
 	@read -p "Proceed? [y/N] " ans && ans=$${ans:-N} ; \
 	if [ $${ans} = y ] || [ $${ans} = Y ]; then \
-		sudo nixos-rebuild switch --no-reexec --flake .#hyperberry ; \
+		sudo nixos-rebuild switch --no-reexec --flake .#hyperberry $(NOM) ; \
 	fi
 
 blueberry: update-local-inputs update-index

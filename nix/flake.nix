@@ -54,6 +54,7 @@
     keys-raka = { url = "https://github.com/raka-gunarto.keys"; flake = false; };
 
     ## local flakes
+    agenix-secrets.url = "path:./agenix-secrets";
     mandoc-forked.url = "path:./vendor/mandoc";
     neoforge-1-21-1.inputs.nixpkgs.follows = "nixpkgs";
     neoforge-1-21-1.url = "path:./vendor/neoforge-1-21-1";

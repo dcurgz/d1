@@ -8,7 +8,6 @@
 let
   inherit (args.config) flake;
   inherit (args.config.by) keys;
-  inherit (globals) FLAKE_ROOT;
 
   hostName = "vm-mb-build-aarch64";
 in

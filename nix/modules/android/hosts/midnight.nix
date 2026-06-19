@@ -7,7 +7,6 @@
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys git-secrets;
 in
@@ -17,9 +16,9 @@ in
       pkgs,
       ...
     }:
-    
+
     {
-      flavor = "grapheneos";   
+      flavor = "grapheneos";
       device = "shiba"; # Pixel 8
 
       grapheneos = {

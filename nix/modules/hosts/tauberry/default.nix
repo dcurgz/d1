@@ -1,13 +1,11 @@
 {
   inputs,
   lib,
-  globals,
   prebuiltPackages,
   ...
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys;
   
@@ -66,7 +64,7 @@ in
     in
     {
       age.secrets.wifi = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/wg/Wi-Fi.age";
+        file = "${inputs.agenix-secrets}/agenix/wg/Wi-Fi.age";
         mode = "770";
         owner = "root";
         group = "wpa_supplicant";
@@ -182,7 +180,7 @@ in
       };
       systemd.services.mopidy.serviceConfig.SupplementaryGroups = [ "pipewire" ];
 
-      age.secrets.tailscale-auth-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/tailscale/hosts/${hostName}.age";
+      age.secrets.tailscale-auth-key.file = "${inputs.agenix-secrets}/agenix/tailscale/hosts/${hostName}.age";
     
       services.tailscale = {
         enable = true; 

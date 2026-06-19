@@ -1,13 +1,11 @@
 {
   inputs,
   lib,
-  globals,
   ...
 } @args:
 
 let
   inherit (args.config) flake;
-  inherit (globals) FLAKE_ROOT;
 
   hostName = "vm-gos-update-server";
   images_dir = "/data/gos-update-server";
@@ -49,7 +47,7 @@ in
       frontend_hostname = secrets.hosts.${hostName}.ssh.hostName;
     in
     {
-      age.secrets.cloudflare-key.file = "${FLAKE_ROOT}/agenix-secrets/agenix/weirdfi.sh/cloudflare-key.age";
+      age.secrets.cloudflare-key.file = "${inputs.agenix-secrets}/agenix/weirdfi.sh/cloudflare-key.age";
 
       microvm.vcpu = 1;
       microvm.mem = 1024 * 1 + 1;

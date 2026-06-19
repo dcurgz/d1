@@ -1,14 +1,12 @@
 {
   inputs,
   lib,
-  globals,
   prebuiltPackages,
   ...
 } @args:
 let
   inherit (args.config) flake;
   inherit (args.config.by) keys;
-  inherit (globals) FLAKE_ROOT;
 
   guestOptions = {
     networking = {
@@ -65,7 +63,7 @@ let
         description = ''
           Use a Tailscale auth key in the flake root to automatically login to Tailscale.
 
-          Expects $${FLAKE_ROOT}/agenix-secrets/agenix/tailscale/guests/$${hostName}.age to exist.
+          Expects agenix/tailscale/guests/$${hostName}.age to exist in the agenix-secrets flake input.
         '';
       };
     };
@@ -260,7 +258,7 @@ in
             boot.loader.timeout = lib.mkDefault 1;
 
             age.secrets.tailscale-auth-key = lib.mkIf (vm.tailscale.enable && vm.tailscale.autologin) {
-              file = "${FLAKE_ROOT}/agenix-secrets/agenix/tailscale/guests/${hostName}.age"; 
+              file = "${inputs.agenix-secrets}/agenix/tailscale/guests/${hostName}.age";
               mode = "0440"; 
             };
 

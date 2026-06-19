@@ -18,6 +18,8 @@ let
     apksigner
     # Nix
     direnv
+    # Local scripts
+    by.bin'
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     # Linux-specific packages
   ]) ++ (lib.optionals pkgs.stdenv.isDarwin [

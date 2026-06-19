@@ -4,7 +4,6 @@
 } @args:
 let
   inherit (args.config) flake;
-  inherit (args.globals) FLAKE_ROOT;
 in
 
 {
@@ -21,7 +20,7 @@ in
     in
     {
       age.secrets.wg0-key = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/wireguard/001-key.age";
+        file = "${inputs.agenix-secrets}/agenix/wireguard/001-key.age";
       };
 
       networking = {

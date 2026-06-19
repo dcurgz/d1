@@ -7,7 +7,6 @@
 } @args:
 
 let
-  inherit (globals) FLAKE_ROOT;
   inherit (args.config) flake;
   inherit (args.config.by) keys;
 in
@@ -28,7 +27,7 @@ in
       services.anubis = {
         description = ''
           Anubis is a filter proxy for my website, which is configured to allow
-          only genuine visitors and typical search engine crawlers. 
+          only genuine visitors and typical search engine crawlers.
         '';
       };
     };

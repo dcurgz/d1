@@ -1,11 +1,9 @@
 {
   inputs,
-  globals,
   ...
 } @args:
 let
   inherit (args.config) flake;
-  inherit (globals) FLAKE_ROOT;
 in
 
 {
@@ -19,14 +17,14 @@ in
 
     {
       age.secrets.jenkins-gpg-key = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/hyperberry/jenkins-gpg-key.age";
+        file = "${inputs.agenix-secrets}/agenix/hyperberry/jenkins-gpg-key.age";
         mode = "770";
         owner = "jenkins";
         group = "root";
       }; 
 
       age.secrets.jjb-token = {
-        file = "${FLAKE_ROOT}/agenix-secrets/agenix/hyperberry/jjb-token.age";
+        file = "${inputs.agenix-secrets}/agenix/hyperberry/jjb-token.age";
         mode = "770";
         owner = "jenkins";
         group = "root";
