@@ -69,9 +69,8 @@ in
 
       systemd.paths.grapheneos-release-watch = {
         wantedBy = [ "multi-user.target" ];
-        requires = [ "grapheneos-release-publish.service" ];
         pathConfig = {
-          Unit = "grapheneos-release-publish";
+          Unit = "grapheneos-release-publish.service";
           PathChanged = "/var/lib/jenkins/workspace/grapheneos-weekly/releases/latest";
         };
       };
@@ -83,7 +82,9 @@ in
           ExecStart = pkgs.writeScript "publish-gos-release" ''
             #!/${pkgs.bash}/bin/bash
             SRC=/var/lib/jenkins/workspace/grapheneos-weekly/releases/latest
-            BUILDNO=$(readlink $SRC)
+            REALPATH=$(readlink -f $SRC)
+            echo $REALPATH
+            BUILDNO=$(basename $REALPATH)
 
             DEST="/data/gos-update-server/midnight.$BUILDNO"
             cp -rLv "$SRC" "$DEST"
