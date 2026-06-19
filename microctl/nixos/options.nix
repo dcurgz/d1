@@ -1,22 +1,22 @@
-{ microctl }:
-
-{ lib, ... }:
-
+{
+  lib,
+  microctl,
+}:
 let
   nodeSettings = {
-    autoRun = lib.mkOption {
+    autoCreate = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Start this node automatically when it is added to the configuration.";
     };
     autoUpgrade = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Restart this node automatically when its runner derivation changes.";
     };
     autoDelete = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Stop this node automatically when it is removed from the configuration.";
     };
   };
@@ -31,7 +31,6 @@ let
     };
   });
 in
-
 {
   options.services.microctld = {
     enable = lib.mkEnableOption "microctld, the MicroVM management daemon";

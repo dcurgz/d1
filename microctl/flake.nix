@@ -26,9 +26,18 @@
         };
       }
     ) // {
-      nixosModules.default = { pkgs, ... }@args:
-        (import ./nixos/options.nix {
+      nixosModules.default =
+        {
+          lib,
+          pkgs,
+          ...
+        }:
+        let
           microctl = self.packages.${pkgs.system}.default;
-        }) args;
-    };
+        in
+        mkMerge
+        [
+          (import ./nixos/options { inherit lib microctl; })
+          (import ./nixos/module { })
+        ];
 }
