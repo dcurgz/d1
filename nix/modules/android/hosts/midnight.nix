@@ -20,6 +20,7 @@ in
     {
       flavor = "grapheneos";
       device = "shiba"; # Pixel 8
+      deviceDisplayName = "midnight";
 
       grapheneos = {
         channel = "beta";
@@ -35,16 +36,12 @@ in
         url = "https://ota.weirdfi.sh/midnight";
       };
 
-      # Patch in custom logo for Android boot animation.
-      source.dirs."frameworks/base".postPatch =
-        let
-          android-logo-mask  = ./android-logo-mask.png;
-          android-logo-shine = ./android-logo-shine.png;
-        in
-        ''
-          cp -rv ${android-logo-mask} ./core/res/assets/images/android-logo-mask.png
-          cp -rv ${android-logo-shine} ./core/res/assets/images/android-logo-shine.png
-        '';
+      # Enable custom boot "animation".
+      bootanimation = {
+        enable = true;
+        logoMask = ./android-logo-mask.png;
+        logoShine = ./android-logo-shine.png;
+      };
 
       # Uses /var/cache/ccache impurely.
       ccache.enable = true;
