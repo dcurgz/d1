@@ -105,6 +105,9 @@ let
           # ...), so strip them here to drop debug info and shrink the image.
           find "$base/sbin" "$base/bin" "$base/libexec" -type f \
             -exec "$STRIP" --strip-unneeded {} +
+          # Ensure execute bits are set; strip can clear them and BUILD_PREBUILT
+          # does not restore them from the source file's mode.
+          find "$base/sbin" "$base/bin" "$base/libexec" -type f -exec chmod 0755 {} +
           # Privilege-separation chroot dir. OpenSSH checks at startup that
           # this path exists and fatals if not; make install creates it but we
           # copy binaries manually.
@@ -184,6 +187,7 @@ let
         cp ${./sshd_config}  $out/sshd_config
         cp ${./sshd.rc}      $out/sshd.rc
         cp ${./ssh_start}    $out/ssh_start
+        chmod 0755           $out/ssh_start
         ${lib.optionalString (authorizedKeyFiles != { }) ''
           mkdir -p $out/authorized_keys.d
           ${lib.concatStringsSep "\n" (
