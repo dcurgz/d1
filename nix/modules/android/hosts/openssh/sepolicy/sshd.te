@@ -27,7 +27,6 @@ init_daemon_domain(sshd)
 net_domain(sshd)
 allow sshd self:tcp_socket { create_stream_socket_perms listen accept };
 allow sshd sshd_port_t:tcp_socket name_bind;
-allow sshd node_t:tcp_socket node_bind;
 
 #
 # Capabilities sshd needs to drop privileges, chroot the privsep child, and
