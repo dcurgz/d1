@@ -207,6 +207,8 @@ let
         source.dirs."system/sepolicy".postPatch = ''
           cp ${./sepolicy/sshd.te} private/sshd.te
           cat ${./sepolicy/file_contexts} >> private/file_contexts
+          # Label port 8022 so sshd_port_t name_bind is satisfied.
+          echo 'portcon tcp 8022 u:object_r:sshd_port_t:s0' >> private/port_contexts
         '';
       };
     };
