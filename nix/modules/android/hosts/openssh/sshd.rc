@@ -14,7 +14,7 @@ on post-fs-data
     mkdir /data/ssh 0700 root root
     restorecon_recursive /data/ssh
 
-service sshd /system/bin/logwrapper /system/bin/ssh_start
+service sshd /system/bin/ssh_start
     class late_start
     user root
     group root shell inet
