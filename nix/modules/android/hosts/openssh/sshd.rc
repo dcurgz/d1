@@ -5,20 +5,19 @@
 # opensshd.init: it brings up the runtime state directory, generates host keys
 # on first boot, and starts sshd in the background.
 #
-# NOTE on SELinux: on an enforcing GrapheneOS/AOSP build the `seclabel` below
-# must resolve to a domain that is allowed to run sshd (bind the port, exec a
-# shell, read /data/ssh). A complete sepolicy for that is out of scope here and
-# must be added via BOARD_SEPOLICY_DIRS; until then the service will be denied
-# under enforcing policy. See _openssh.nix for details.
+# SELinux: there is NO explicit `seclabel` here on purpose. /system/bin/ssh_start
+# is labelled `sshd_exec` (see sepolicy/file_contexts) and sepolicy/sshd.te uses
+# init_daemon_domain(sshd), so init transitions this service into the `sshd`
+# domain automatically when it execs the launcher.
 
 on post-fs-data
     mkdir /data/ssh 0700 root root
+    restorecon_recursive /data/ssh
 
-service sshd /system/bin/ssh_start
+service sshd /system/bin/logwrapper /system/bin/ssh_start
     class late_start
     user root
     group root shell inet
-    seclabel u:r:shell:s0
     oneshot
 
 # Allow disabling autostart by creating /data/ssh/no-autostart, mirroring the

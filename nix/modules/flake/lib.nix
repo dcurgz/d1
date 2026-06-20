@@ -102,11 +102,6 @@ in
           specialArgs = specialArgs // { _classArgs = args; };
         };
 
-    # Robotnix (AOSP) counterpart of mkNixOS/mkDarwin. Takes a list mixing
-    # `android`-class aspects and plain Robotnix modules, resolves the aspects
-    # to their underlying modules, and evaluates a Robotnix configuration.
-    # robotnixSystem takes a single configuration module, so we hand it one
-    # with the resolved list as `imports`.
     mkAOSP =
       {
         modules,
