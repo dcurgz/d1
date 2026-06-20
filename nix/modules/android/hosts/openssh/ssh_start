@@ -37,6 +37,9 @@ done
 CONFIG="$OPT/etc/sshd_config"
 [ -f "$SSHDIR/sshd_config" ] && CONFIG="$SSHDIR/sshd_config"
 
-# -D keeps sshd in the foreground so init can supervise it; -e logs to stderr,
-# which init routes to the kernel log / logcat.
-exec "$OPT/sbin/sshd" -D -e -f "$CONFIG"
+# -D keeps sshd in the foreground so init can supervise it; -e logs to stderr.
+# Pre-create a world-readable log file so the adb shell user can diagnose
+# failures without a root shell.
+touch /data/local/tmp/sshd.log
+chmod 0644 /data/local/tmp/sshd.log
+exec "$OPT/sbin/sshd" -D -e -f "$CONFIG" 2>>/data/local/tmp/sshd.log

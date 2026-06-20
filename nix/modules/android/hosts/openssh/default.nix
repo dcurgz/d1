@@ -105,6 +105,11 @@ let
           # ...), so strip them here to drop debug info and shrink the image.
           find "$base/sbin" "$base/bin" "$base/libexec" -type f \
             -exec "$STRIP" --strip-unneeded {} +
+          # Privilege-separation chroot dir. OpenSSH checks at startup that
+          # this path exists and fatals if not; make install creates it but we
+          # copy binaries manually.
+          mkdir -p "$base/var/empty"
+          touch "$base/var/empty/.keep"
           runHook postInstall
         '';
 
@@ -134,6 +139,9 @@ let
           { name = "sshd_config"; src = "sshd_config";               class = "ETC";         dir = "opt/openssh/etc";     stem = "sshd_config"; }
           { name = "sshd_rc";     src = "sshd.rc";                   class = "ETC";         dir = "etc/init";            stem = "sshd.rc"; }
           { name = "ssh_start";   src = "ssh_start";                 class = "EXECUTABLES"; dir = "bin";                 stem = "ssh_start"; }
+          # Placeholder that causes the build system to create the privsep
+          # chroot directory (/system/opt/openssh/var/empty) in the image.
+          { name = "sshd_privsep_empty"; src = "tree/var/empty/.keep"; class = "ETC"; dir = "opt/openssh/var/empty"; stem = ".keep"; }
         ]
         ++ lib.mapAttrsToList (user: _: {
           name = "authorized_keys_${user}";

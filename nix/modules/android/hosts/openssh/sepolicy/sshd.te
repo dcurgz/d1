@@ -80,3 +80,8 @@ allow sshd self:udp_socket create_socket_perms;
 
 # Resolve user/group info and read system properties.
 allow sshd proc_net:file r_file_perms;
+
+# Write a startup log to /data/local/tmp/sshd.log (shell_data_file) so it
+# is readable by the adb shell user for post-mortem diagnosis without root.
+allow sshd shell_data_file:dir { search write add_name };
+allow sshd shell_data_file:file { create write open getattr };
