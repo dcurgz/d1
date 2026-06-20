@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+MAX_CORES=20
+
 set -x
 KEYS=/data/keys/midnight
 
@@ -29,7 +31,10 @@ if [ -d $OUT ]; then
     echo "This version has already been built, exiting..."
 fi
 
-nix build .#robotnixConfigurations.midnight.releaseScript --out-link release.sh | tee "$LOGS/make_release_script_$BUILD.log" || exit 1
+nix build .#robotnixConfigurations.midnight.releaseScript \
+    --out-link release.sh \
+    --cores $MAX_CORES \
+    || exit 1
 BUILD_PID=$!
 
 mkdir "$OUT"
