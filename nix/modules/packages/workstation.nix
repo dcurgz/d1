@@ -16,6 +16,7 @@ let
     uv
     # Android
     apksigner
+    android-tools
     # Nix
     direnv
     # Local scripts
