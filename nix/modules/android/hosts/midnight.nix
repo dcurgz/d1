@@ -26,6 +26,7 @@ in
       {
         flavor = "grapheneos";
         device = "shiba"; # Pixel 8
+        variant = "userdebug";
         deviceDisplayName = "midnight";
 
         grapheneos = {
