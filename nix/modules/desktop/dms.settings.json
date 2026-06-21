@@ -300,7 +300,7 @@
   "notepadLastCustomTransparency": 0.7,
   "soundsEnabled": true,
   "useSystemSoundTheme": false,
-  "soundLogin": true,
+  "soundLogin": false,
   "soundNewNotification": true,
   "soundVolumeChanged": true,
   "soundPluggedIn": true,
@@ -499,10 +499,10 @@
   "displaySnapToEdge": true,
   "connectedFrameBarStyleBackups": {
     "default": {
-      "shadowIntensity": 0,
-      "squareCorners": true,
+      "borderEnabled": false,
       "gothCornersEnabled": false,
-      "borderEnabled": false
+      "shadowIntensity": 0,
+      "squareCorners": true
     }
   },
   "barConfigs": [
@@ -556,36 +556,36 @@
       "position": 0,
       "rightWidgets": [
         {
-          "id": "colorPicker",
-          "enabled": true
-        },
-        {
-          "id": "capsLockIndicator",
-          "enabled": true
-        },
-        {
-          "id": "systemTray",
-          "enabled": true
-        },
-        {
-          "id": "controlCenterButton",
           "enabled": true,
-          "showNetworkIcon": false,
-          "showBluetoothIcon": false,
+          "id": "colorPicker"
+        },
+        {
+          "enabled": true,
+          "id": "capsLockIndicator"
+        },
+        {
+          "enabled": true,
+          "id": "systemTray"
+        },
+        {
+          "enabled": true,
+          "id": "controlCenterButton",
           "showAudioIcon": true,
           "showAudioPercent": false,
-          "showVpnIcon": false,
+          "showBluetoothIcon": false,
           "showBrightnessIcon": false,
           "showBrightnessPercent": false,
-          "showMicIcon": true
+          "showMicIcon": true,
+          "showNetworkIcon": false,
+          "showVpnIcon": false
         },
         {
-          "id": "notificationButton",
-          "enabled": true
+          "enabled": true,
+          "id": "notificationButton"
         },
         {
-          "id": "clock",
-          "enabled": true
+          "enabled": true,
+          "id": "clock"
         }
       ],
       "screenPreferences": [
@@ -674,59 +674,59 @@
   "desktopWidgetGridSettings": {},
   "desktopWidgetInstances": [
     {
-      "id": "dw_1781828440533_42njin5sd",
-      "widgetType": "systemMonitor",
-      "name": "System Monitor",
-      "enabled": true,
       "config": {
-        "showHeader": true,
-        "transparency": 0.65,
         "colorMode": "primary",
         "customColor": "#4768ac",
+        "displayPreferences": [
+          "all"
+        ],
+        "gpuPciId": "",
+        "graphInterval": 60,
+        "layoutMode": "list",
         "showCpu": true,
         "showCpuGraph": true,
         "showCpuTemp": true,
+        "showDisk": true,
         "showGpuTemp": false,
-        "gpuPciId": "",
+        "showHeader": true,
         "showMemory": true,
         "showMemoryGraph": true,
         "showNetwork": true,
         "showNetworkGraph": true,
-        "showDisk": true,
+        "showOnOverview": true,
         "showTopProcesses": true,
+        "syncPositionAcrossScreens": true,
         "topProcessCount": 10,
         "topProcessSortBy": "cpu",
-        "layoutMode": "list",
-        "graphInterval": 60,
-        "displayPreferences": [
-          "all"
-        ],
-        "syncPositionAcrossScreens": true,
-        "showOnOverview": true
+        "transparency": 0.65
       },
+      "enabled": false,
+      "id": "dw_1781828440533_42njin5sd",
+      "name": "System Monitor",
       "positions": {
         "DP-2": {
-          "width": 416.6484375,
           "height": 509.48046875,
+          "width": 416.6484375,
           "x": 2120.73046875,
           "y": 63.81640625
         },
         "_synced": {
-          "x": 0.8284103393554687,
-          "y": 0.04431694878472222,
+          "height": 509.48046875,
           "width": 416.6484375,
-          "height": 509.48046875
+          "x": 0.8284103393554687,
+          "y": 0.04431694878472222
         }
-      }
+      },
+      "widgetType": "systemMonitor"
     }
   ],
   "desktopWidgetGroups": [],
   "builtInPluginSettings": {
-    "dms_settings_search": {
-      "trigger": "?"
-    },
     "dms_clipboard_search": {
       "trigger": "cb"
+    },
+    "dms_settings_search": {
+      "trigger": "?"
     }
   },
   "clipboardEnterToPaste": false,
