@@ -71,6 +71,14 @@ _final: prev: {
           substr = builtins.substring 0 (builtins.stringLength prefix) str;
         in
           prefix == substr;
+
+      strings.endsWith = suffix: str:
+        let
+          lengthSuffix = builtins.stringLength suffix;
+          length = builtins.stringLength str;
+          substr = builtins.substring (length - lengthSuffix) length;
+        in
+          suffix == substr;
     };
   };
 }
