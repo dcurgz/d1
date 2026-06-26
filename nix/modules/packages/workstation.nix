@@ -20,7 +20,7 @@ let
     # Nix
     direnv
     # Local scripts
-    by.bin-nix'
+    #by.bin-nix'
     by.bin'
   ] ++ (lib.optionals pkgs.stdenv.isLinux [
     # Linux-specific packages

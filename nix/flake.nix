@@ -18,7 +18,6 @@
     flake-compat.url = "github:NixOS/flake-compat";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    robotnix.url = "github:nix-community/robotnix";
     isd.url = "github:kainctl/isd"; # systemd tui
     maccel.url = "github:Gnarus-G/maccel"; # mouse acceleration kernel driver
     microvm.inputs.nixpkgs.follows = "nixpkgs";
@@ -40,8 +39,12 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nurpkgs.inputs.nixpkgs.follows = "nixpkgs";
     nurpkgs.url = "github:nix-community/NUR"; # Nix user repository
+    robotnix.url = "github:nix-community/robotnix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:nix-community/stylix";
+    # TODO: use fork until fix is merged
+    sunsetr.url = "github:dcurgz/sunsetr";
+    sunsetr.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-immich.url = "github:nixos/nixpkgs?rev=0fd2db475afdde93c9e4b1625aafb8eb41b99807";
     nixpkgs-ollama.url = "github:nixos/nixpkgs?rev=9d29d5f667d7467f98efc31881e824fa586c927e";

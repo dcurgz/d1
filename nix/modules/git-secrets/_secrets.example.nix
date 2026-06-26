@@ -95,6 +95,10 @@ in
         weirdfish-acme = {
           email = "acme+john.doe@example.com";
         };
+        cave = {
+          latitude = 0.0;
+          longitude = 0.0;
+        };
       };
     });
 }

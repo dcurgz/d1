@@ -1573,6 +1573,7 @@
         "nurpkgs": "nurpkgs",
         "robotnix": "robotnix",
         "stylix": "stylix",
+        "sunsetr": "sunsetr",
         "weirdfish-server": "weirdfish-server"
       }
     },
@@ -1631,6 +1632,27 @@
         "type": "github"
       }
     },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "sunsetr",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782443907,
+        "narHash": "sha256-P+pADLtK7qC1mz0/5Xq9uF77oahUR4zYLTaitiHsUHg=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "4b06ff4acf3491ff69721df852507fcc51d0a13d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
     "spectrum": {
       "flake": false,
       "locked": {
@@ -1677,6 +1699,27 @@
       "original": {
         "owner": "nix-community",
         "repo": "stylix",
+        "type": "github"
+      }
+    },
+    "sunsetr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1782460987,
+        "narHash": "sha256-TLYWCSr04kJSEBx3WxrGjOx6EcSAEQB407znJvayHbQ=",
+        "owner": "dcurgz",
+        "repo": "sunsetr",
+        "rev": "9539fcaffba948ee3f8500a0ba85e7741064e3f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dcurgz",
+        "repo": "sunsetr",
         "type": "github"
       }
     },

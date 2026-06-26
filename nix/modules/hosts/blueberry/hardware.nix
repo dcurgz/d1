@@ -12,6 +12,7 @@ in
     ({
       lib,
       config,
+      pkgs,
       ...
     }:
 
@@ -42,6 +43,8 @@ in
           timeout: no
         '';
       };
+
+      environment.systemPackages = with pkgs; [ sbctl ];
 
       boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "uas" "usbhid" "sd_mod" ];
       boot.initrd.kernelModules = [ ];

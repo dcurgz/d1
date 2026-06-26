@@ -32,7 +32,7 @@ _final: prev: {
     neoforge-1-21-1 =  inputs.neoforge-1-21-1.packages.${prev.system}.default;
     weirdfish-server = inputs.weirdfish-server.packages.${prev.system}.default;
 
-    bin-nix' = import ../bin args;
+    #bin-nix' = import ../bin args;
 
     # Local bin scripts
     bin' = prev.stdenv.mkDerivation {
