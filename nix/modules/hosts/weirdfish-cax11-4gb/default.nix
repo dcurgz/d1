@@ -9,6 +9,9 @@
 let
   inherit (args.config) flake;
   inherit (args.config.by) keys;
+
+  genAttrs' = names: f: lib.listToAttrs (map f names);
+  stripLocation = cfg: lib.removeSuffix "/" cfg.nginx.location;
 in
 {
   flake.metadata.weirdfish-cax11-4gb = {
@@ -111,16 +114,49 @@ in
       users.groups.dcurgz = { };
       nix.settings.trusted-users = [ "dcurgz" ];
 
+      systemd.tmpfiles.rules = [
+        "Z /data/git 770 git wheel"
+      ];
+
+      services.gitDaemon = {
+        enable = true;
+        basePath = "/data/git";
+        port = config.by.portmap.internal.git-server;
+      };
+
+      users.users.git = {
+        isSystemUser = true;
+        group = "git";
+      };
+      users.groups.git = { };
+
+      services.lighttpd = {
+        enable = true;
+        port = config.by.portmap.internal.lighttpd;
+        cgit.enable = true;
+      };
+
+      services.nginx = {
+        enable = lib.mkForce true;
+        virtualHosts."git.weirdfi.sh" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.by.portmap.internal.lighttpd}/cgit";
+          };
+        };
+      };
+
       system.stateVersion = "24.05";
     });
 
-  flake.deploy.nodes.weirdfish-cax11-4gb = {
-    hostname = "weirdfi.sh";
-    sshUser = "root";
-    remoteBuild = true;
-    profiles.system = {
-      user = "root";
-      path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos flake.nixosConfigurations.weirdfish-cax11-4gb;
+    flake.deploy.nodes.weirdfish-cax11-4gb = {
+      hostname = "weirdfi.sh";
+      sshUser = "root";
+      remoteBuild = true;
+      profiles.system = {
+        user = "root";
+        path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos flake.nixosConfigurations.weirdfish-cax11-4gb;
+      };
     };
-  };
-}
+  }

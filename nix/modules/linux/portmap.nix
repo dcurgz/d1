@@ -28,7 +28,10 @@ in
             # Note, leave gaps to allow for multiple instances.
             anubis = __base + 1;
             nginx  = __base + 5;
+            lighttpd = __base + 7;
             weirdfish = __base + 9;
+            # Standards
+            git-server = 9418;
           };
       };
     });
