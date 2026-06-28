@@ -145,3 +145,16 @@ render-flakegraph:
 
 show-flakegraph: render-flakegraph
 	qiv ./result/hosts.png
+
+setup-remotes:
+	git remote add github git@github.com:dcurgz/d1.git || true
+	git remote add srv dcurgz@weirdfi.sh:/data/git/d1.git || true
+	git branch -u srv/master
+
+push:
+	git push github master
+	git push srv master
+
+force-push:
+	git push github master -f
+	git push srv master -f
