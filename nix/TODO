@@ -1,0 +1,8 @@
+I've just setup a cgit web server at git.weirdfi.sh.
+
+I can't figure out how to render READMEs in the subtree.
+
+[ ] setup a Josh git proxy and serve it like how TV are doing it.
+[ ] move all of my local clones to use the Josh proxy.
+[ ] configure a cronjob to mirror from the Josh proxy to GitHub repositories.
+[ ] check managing forks this way works well.

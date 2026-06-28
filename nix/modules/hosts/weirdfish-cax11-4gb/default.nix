@@ -169,7 +169,7 @@ in
                 execlp("${pkgs.mandoc}/bin/mandoc", "mandoc", "-T", "html", (char*)NULL);
                 err(127, "mandoc");
               } else if (!fnmatch("README.md", argv[1], 0)) {
-                execlp("${pkgs.md4c}/bin/md4c", "md4c", "--github", (char*)NULL);
+                execlp("${pkgs.md4c}/bin/md2html", "md2html", "--github", (char*)NULL);
                 err(127, "md4c");
               }
               return 1;
