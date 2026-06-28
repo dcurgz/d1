@@ -18,6 +18,7 @@ let
     findutils
     gawk
     git
+    git-lfs
     gnugrep
     gnused
     gnutar
@@ -68,6 +69,7 @@ let
     iproute2
     powertop
     bubblewrap
+    firejail
   ]) ++ (lib.optionals pkgs.stdenv.isDarwin [
     # Darwin-specific packages
     libiconv
