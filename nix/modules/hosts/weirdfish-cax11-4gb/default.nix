@@ -190,10 +190,6 @@ in
             '';
             meta.mainProgram = "filter";
           };
-          about-script = pkgs.writeScript "about-filter.sh" ''
-            #!/${pkgs.bash}/bin/bash
-            ${about-filter'}/bin/filter "$@" 2>&1 >/tmp/filter.log
-          '';
         in
         {
           enable = lib.mkForce true;
@@ -232,7 +228,7 @@ in
                     CGIT_CONFIG = pkgs.writeText "cgitrc" ''
                       virtual-root=/
                       
-                      about-filter=${about-script}
+                      about-filter=${about-filter'}/bin/filter
                       readme=:README
                       readme=:README.md
                       readme=:README.7
