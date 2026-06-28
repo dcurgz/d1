@@ -26,7 +26,7 @@
     "agenix-secrets": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-0K4fCX8kcmrnQeK6P32dkVhBHoss0PUVxT8KuLiUnWk=",
+        "narHash": "sha256-IfpXUViKS/uwRYtLnWSzDxaswVXM+C9J6GFfVr+pmLY=",
         "path": "./agenix-secrets",
         "type": "path"
       },
@@ -1521,15 +1521,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1780035230,
-        "narHash": "sha256-u1xJwSMWHPIju3q4KlP4MjsEVK5dnUxb7sEX0Gl/abc=",
-        "owner": "nix-community",
+        "lastModified": 1782633487,
+        "narHash": "sha256-RJbqgLDT9AQHDSTDfJSx1JVZ1bi7BH5z8CZH+bPeDp0=",
+        "owner": "dcurgz",
         "repo": "robotnix",
-        "rev": "b731f1aa2bfd26763714495a12ad50f6a9bd12ca",
+        "rev": "1824b89dc41d7ccfde3d3e0f0a64a060266eeb75",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "dcurgz",
         "repo": "robotnix",
         "type": "github"
       }

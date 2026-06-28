@@ -9,6 +9,9 @@ with keys.ssh.groups;
 with keys.ssh.hosts;
 
 {
+  # GitHub
+  "agenix/nix/github-access-token.age".publicKeys = keys.ssh.groups.privileged.keys;
+  # Nix
   "agenix/nix/berry-privileged.age".publicKeys = keys.ssh.groups.privileged.keys;
   ### Wireguard
   "agenix/wireguard/001-key.age".publicKeys = (withDefault hyperberry.keys);

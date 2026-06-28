@@ -40,6 +40,7 @@ update-local-inputs:
 	nix flake update neoforge-1-21-1
 	nix flake update nix-time
 	nix flake update weirdfish-server
+	nix flake update agenix-secrets
 
 # Build host-specific configurations
 hyperberry: update-local-inputs update-index
