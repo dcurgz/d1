@@ -154,7 +154,11 @@ in
 
       services.nginx =
         let
-          cgit = pkgs.cgit;
+          cgit = pkgs.cgit.overrideAttrs (_:prev: {
+            postPatch = prev.postPatch + ''
+              ${pkgs.git}/bin/git apply ${./cgit-about-subtree.patch}
+            '';
+          });
           git-root = "/data/git/";
           about-filter = pkgs.writeText "filter.c" ''
             #include <err.h>
@@ -165,12 +169,21 @@ in
           
             int main(int argc, char *argv[]) {
               if (argc < 1) return 1;
-              if (!fnmatch("README.[1-9]", argv[1], 0)) {
+              if (!fnmatch("README.[1-9]", argv[1], 0) ||
+                  !fnmatch("*README.[1-9]", argv[1], 0)) {
                 execlp("${pkgs.mandoc}/bin/mandoc", "mandoc", "-T", "html", (char*)NULL);
                 err(127, "mandoc");
-              } else if (!fnmatch("README.md", argv[1], 0)) {
+              } else if (!fnmatch("README.md", argv[1], 0) || 
+                  !fnmatch("*README.md", argv[1], 0)) {
                 execlp("${pkgs.md4c}/bin/md2html", "md2html", "--github", (char*)NULL);
-                err(127, "md4c");
+                err(127, "md2html");
+              } else {
+                //TODO this is broken i guess
+                int c;
+                while((c = getchar()) != EOF) {
+                  putchar(c);
+                }
+                return 0;
               }
               return 1;
             }
@@ -213,7 +226,6 @@ in
                     HOME = GIT_PROJECT_ROOT;
                   };
                   extraConfig = ''
-                    fastcgi_param PATH_INFO $uri;
                     fastcgi_pass unix:${config.services.fcgiwrap.instances."cgit-weirdfish".socket.address};
                   '';
                 };
@@ -224,7 +236,6 @@ in
                     SCRIPT_FILENAME = "${cgit}/cgit/cgit.cgi";
                     PATH_INFO = "$uri";
                     QUERY_STRING = "$args";
-                    HTTP_HOST = "$server_name";
                     CGIT_CONFIG = pkgs.writeText "cgitrc" ''
                       virtual-root=/
                       
@@ -232,6 +243,8 @@ in
                       readme=:README
                       readme=:README.md
                       readme=:README.7
+
+                      enable-blame=1
 
                       scan-path=${git-root} 
 
@@ -241,7 +254,6 @@ in
                     '';
                   };
                   extraConfig = ''
-                    fastcgi_param PATH_INFO $uri;
                     fastcgi_pass unix:${config.services.fcgiwrap.instances."cgit-weirdfish".socket.address};
                   '';
                 };
