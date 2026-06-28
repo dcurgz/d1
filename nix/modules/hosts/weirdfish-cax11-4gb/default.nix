@@ -55,7 +55,7 @@ in
       {
         by.presets.authorized-keys.groups = [
           {
-            users = [ "root" "dcurgz" "builder" ];
+            users = [ "root" "dcurgz" "builder" "git" ];
             keys = keys.ssh.groups.privileged.paths;
           }
         ];
@@ -115,7 +115,7 @@ in
       nix.settings.trusted-users = [ "dcurgz" ];
 
       systemd.tmpfiles.rules = [
-        "Z /data/git 744 cgit cgit"
+        "Z /data/git 775 root wheel"
       ];
 
       services.gitDaemon = {
@@ -124,7 +124,9 @@ in
         port = config.by.portmap.internal.git-server;
       };
 
-      # The Git user is an unprivileged account meant for anonymous login.
+      # Git user currently has RO access to all Git repositories.
+      # This is provided by the world-readable /data/git permissions.
+      # wheel has write access to the directory, so dcurgz can make changes.
       users.users.git = {
         isSystemUser = true;
         group = "git";
@@ -134,6 +136,7 @@ in
       # The cgit user is a privileged account that the cgit service runs as.
       users.users.cgit = {
         isSystemUser = true;
+        extraGroups = [ "git" ];
         group = "cgit";
       };
       users.groups.cgit = { };
@@ -170,9 +173,10 @@ in
                 "~ /.+/(info/refs|git-upload-pack)" = {
                   fastcgiParams = rec {
                     SCRIPT_FILENAME = "${pkgs.git}/libexec/git-core/git-http-backend";
+                    PATH_INFO = "$uri";
+                    GIT_HTTP_EXPORT_ALL = "1";
                     GIT_PROJECT_ROOT = git-root;
                     HOME = GIT_PROJECT_ROOT;
-                    GIT_HTTP_EXPORT_ALL = "1";
                   };
                   extraConfig = ''
                     fastcgi_param PATH_INFO $uri;
@@ -184,10 +188,17 @@ in
                 "/" = {
                   fastcgiParams = {
                     SCRIPT_FILENAME = "${cgit}/cgit/cgit.cgi";
+                    PATH_INFO = "$uri";
                     QUERY_STRING = "$args";
                     HTTP_HOST = "$server_name";
                     CGIT_CONFIG = pkgs.writeText "cgitrc" ''
-                      scan-path = ${git-root} 
+                      virtual-root=/
+                      
+                      scan-path=${git-root} 
+
+                      repo.url=d1
+                      repo.path=/data/git/d1.git
+                      repo.desc=dcurgz's monorepo
                     '';
                   };
                   extraConfig = ''
