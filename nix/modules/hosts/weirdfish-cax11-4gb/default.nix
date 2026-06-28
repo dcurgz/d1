@@ -115,7 +115,7 @@ in
       nix.settings.trusted-users = [ "dcurgz" ];
 
       systemd.tmpfiles.rules = [
-        "Z /data/git 770 git wheel"
+        "Z /data/git 744 cgit cgit"
       ];
 
       services.gitDaemon = {
@@ -124,28 +124,80 @@ in
         port = config.by.portmap.internal.git-server;
       };
 
+      # The Git user is an unprivileged account meant for anonymous login.
       users.users.git = {
         isSystemUser = true;
         group = "git";
       };
       users.groups.git = { };
 
-      services.lighttpd = {
-        enable = true;
-        port = config.by.portmap.internal.lighttpd;
-        cgit.enable = true;
+      # The cgit user is a privileged account that the cgit service runs as.
+      users.users.cgit = {
+        isSystemUser = true;
+        group = "cgit";
       };
+      users.groups.cgit = { };
 
-      services.nginx = {
-        enable = lib.mkForce true;
-        virtualHosts."git.weirdfi.sh" = {
-          enableACME = true;
-          forceSSL = true;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.by.portmap.internal.lighttpd}/cgit";
-          };
+      services.fcgiwrap.instances."cgit-weirdfish" = {
+        process = {
+          user = "cgit";
+          group = "cgit";
+        };
+        socket = {
+          user = "nginx";
+          group = "nginx";
         };
       };
+
+      services.nginx =
+        let
+          cgit = pkgs.cgit;
+          git-root = "/data/git/";
+        in
+        {
+          enable = lib.mkForce true;
+          virtualHosts."git.weirdfi.sh" = {
+            enableACME = true;
+            forceSSL = true;
+            locations =
+              (genAttrs' [ "cgit.css" "cgit.js" "cgit.png" "favicon.ico" ] (
+                fileName:
+                lib.nameValuePair "= /${fileName}" {
+                  alias = lib.mkDefault "${cgit}/cgit/${fileName}";
+                }
+              ))
+              // {
+                "~ /.+/(info/refs|git-upload-pack)" = {
+                  fastcgiParams = rec {
+                    SCRIPT_FILENAME = "${pkgs.git}/libexec/git-core/git-http-backend";
+                    GIT_PROJECT_ROOT = git-root;
+                    HOME = GIT_PROJECT_ROOT;
+                    GIT_HTTP_EXPORT_ALL = "1";
+                  };
+                  extraConfig = ''
+                    fastcgi_param PATH_INFO $uri;
+                    fastcgi_pass unix:${config.services.fcgiwrap.instances."cgit-weirdfish".socket.address};
+                  '';
+                };
+              }
+              // {
+                "/" = {
+                  fastcgiParams = {
+                    SCRIPT_FILENAME = "${cgit}/cgit/cgit.cgi";
+                    QUERY_STRING = "$args";
+                    HTTP_HOST = "$server_name";
+                    CGIT_CONFIG = pkgs.writeText "cgitrc" ''
+                      scan-path = ${git-root} 
+                    '';
+                  };
+                  extraConfig = ''
+                    fastcgi_param PATH_INFO $uri;
+                    fastcgi_pass unix:${config.services.fcgiwrap.instances."cgit-weirdfish".socket.address};
+                  '';
+                };
+              };
+          };
+        };
 
       system.stateVersion = "24.05";
     });
