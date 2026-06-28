@@ -190,6 +190,10 @@ in
             '';
             meta.mainProgram = "filter";
           };
+          about-script = pkgs.writeScript "about-filter.sh" ''
+            #!/${pkgs.bash}/bin/bash
+            ${about-filter'}/bin/filter "$@" 2>&1 >/tmp/filter.log
+          '';
         in
         {
           enable = lib.mkForce true;
@@ -228,16 +232,16 @@ in
                     CGIT_CONFIG = pkgs.writeText "cgitrc" ''
                       virtual-root=/
                       
+                      about-filter=${about-script}
+                      readme=:README
+                      readme=:README.md
+                      readme=:README.7
+
                       scan-path=${git-root} 
 
                       repo.url=d1
                       repo.path=/data/git/d1.git
                       repo.desc=dcurgz's monorepo
-
-                      about-filter=${about-filter'}/bin/filter
-                      readme=:README
-                      readme=:README.md
-                      readme=:README.7
                     '';
                   };
                   extraConfig = ''
