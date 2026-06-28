@@ -156,6 +156,40 @@ in
         let
           cgit = pkgs.cgit;
           git-root = "/data/git/";
+          about-filter = pkgs.writeText "filter.c" ''
+            #include <err.h>
+            #include <fnmatch.h>
+            #include <stdio.h>
+            #include <stdlib.h>
+            #include <unistd.h>
+          
+            int main(int argc, char *argv[]) {
+              if (argc < 1) return 1;
+              if (!fnmatch("README.[1-9]", argv[1], 0)) {
+                execlp("${pkgs.mandoc}/bin/mandoc", "mandoc", "-T", "html", (char*)NULL);
+                err(127, "mandoc");
+              } else if (!fnmatch("README.md", argv[1], 0)) {
+                execlp("${pkgs.md4c}/bin/md4c", "md4c", "--github", (char*)NULL);
+                err(127, "md4c");
+              }
+              return 1;
+            }
+          '';
+          about-filter' = pkgs.stdenv.mkDerivation {
+            name = "about-filter";
+            src = about-filter;
+            dontUnpack = true;
+            nativeBuildInputs = with pkgs; [ gcc ];
+            buildPhase = ''
+              gcc $src -o filter
+            '';
+            installPhase = ''
+              mkdir -p $out/bin
+              cp -v ./filter $out/bin
+              chmod +x $out/bin/filter
+            '';
+            meta.mainProgram = "filter";
+          };
         in
         {
           enable = lib.mkForce true;
@@ -199,6 +233,11 @@ in
                       repo.url=d1
                       repo.path=/data/git/d1.git
                       repo.desc=dcurgz's monorepo
+
+                      about-filter=${about-filter'}/bin/filter
+                      readme=:README
+                      readme=:README.md
+                      readme=:README.7
                     '';
                   };
                   extraConfig = ''
