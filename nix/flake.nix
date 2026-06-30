@@ -40,7 +40,7 @@
     nurpkgs.inputs.nixpkgs.follows = "nixpkgs";
     nurpkgs.url = "github:nix-community/NUR"; # Nix user repository
     # TODO: use fork whenever upstream is outdated
-    robotnix.url = "github:dcurgz/robotnix";
+    robotnix.url = "github:mio-19/robotnix/gos17";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:nix-community/stylix";
     # TODO: use fork until fix is merged

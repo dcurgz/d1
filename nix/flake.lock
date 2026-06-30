@@ -1521,15 +1521,16 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1782662058,
-        "narHash": "sha256-jGKZeSPBg2elmV1KbF/LnmRqpWjjS3TgN/qNMj7y+FU=",
-        "owner": "dcurgz",
+        "lastModified": 1782736509,
+        "narHash": "sha256-Zr1cHOdg8aaPCMiLkDu0GEpCinaBp1ogRfbS1kb6qKA=",
+        "owner": "mio-19",
         "repo": "robotnix",
-        "rev": "1842cbf1b8808c16a5a2f1a52822ec7606f26c8a",
+        "rev": "c80ffcf8336ee83bbee33cfa8f403a115d6f774c",
         "type": "github"
       },
       "original": {
-        "owner": "dcurgz",
+        "owner": "mio-19",
+        "ref": "gos17",
         "repo": "robotnix",
         "type": "github"
       }
