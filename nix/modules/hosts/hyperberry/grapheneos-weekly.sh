@@ -33,6 +33,7 @@ fi
 
 nix build .#robotnixConfigurations.midnight.releaseScript \
     --out-link release.sh \
+    --max-jobs 4 \
     --cores $MAX_CORES \
     || exit 1
 BUILD_PID=$!
