@@ -63,6 +63,12 @@ in
             path = page.src;
           }) (builtins.filter (x: x.permalink != null) cfg.pages);
           resources = [
+            (let
+              ttf_EB_Garamond = pkgs.fetchurl {
+                url = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap";
+                hash = "sha256-QmSjvJ0CacqZTN8FQ9/Zp+gO1K5ken116CHMBAYfZ38=";
+              };
+            in
             {
               name = "style.css";
               path = (stdenv.mkDerivation {
@@ -70,12 +76,13 @@ in
                 src = ./stylesheets;
                 buildPhase = ''
                   cat *.css > ./output.css
+                  cat ${ttf_EB_Garamond} >> ./output.css
                 '';
                 installPhase = ''
                   cp ./output.css $out
                 '';
               });
-            }
+            })
             {
               name = "rss.xml";
               path = (pkgs.replaceVars ./rss.xml {
