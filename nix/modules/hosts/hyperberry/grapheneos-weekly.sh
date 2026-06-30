@@ -42,7 +42,7 @@ mkdir "$OUT"
 cp -rv $FLAKE/release.sh $OUT || exit 1
 cd "$OUT" || exit 1
 
-./release.sh $KEYS 2>&1 | tee "$LOGS/sign_output_$BUILD.log" || exit 1
+./release.sh $KEYS || exit 1
 BUILD_PID=$!
 
 trap "kill -- -$BUILD_PID" SIGINT SIGTERM
