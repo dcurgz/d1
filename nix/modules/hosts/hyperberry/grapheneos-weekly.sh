@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-MAX_CORES=20
+MAX_CORES=16
 
 set -x
 KEYS=/data/keys/midnight
