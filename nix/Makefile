@@ -106,7 +106,8 @@ ifeq ($(HOSTNAME),hyperberry)
 		-- \
 		$(BUILDER_OPTS) \
 		--max-jobs 16 \
-		--builders '$(BUILDERS_HB)'
+		--builders '$(BUILDERS_HB)' \
+		--show-trace
 else
 	# build remotely
 	deploy $(HOST) \

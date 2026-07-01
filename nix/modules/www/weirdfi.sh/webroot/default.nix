@@ -91,7 +91,7 @@ in
             }
             {
               name = "marbled-healthy.png";
-              path = ./marbled-healthy.png;
+              path = ./resources/marbled-healthy.png;
             }
           ];
         in
