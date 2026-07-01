@@ -39,58 +39,13 @@ in
             };
           });
         };
-        templates = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-        };
-        lib = lib.mkOption {
-          type = lib.types.attrsOf lib.types.anything;
-        };
       };
 
-      config.by.websites.sites.${domain}.web-server.webroot =
-        let
-          cfg = config.by.www.${domain};
-
-          removeLeadingSlash = uri:
-            lib.strings.substring 1 (builtins.stringLength uri) uri;
-
-          files = builtins.map (page: {
-            name = (removeLeadingSlash page.slug) + "index.html";
-            path = page.src;
-          }) cfg.pages;
-          permalinks = builtins.map (page: {
-            name = (removeLeadingSlash page.permalink) + "index.html";
-            path = page.src;
-          }) (builtins.filter (x: x.permalink != null) cfg.pages);
-          resources = [
-            (let
-              ttf_EB_Garamond = pkgs.fetchurl {
-                url = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap";
-                hash = "sha256-QmSjvJ0CacqZTN8FQ9/Zp+gO1K5ken116CHMBAYfZ38=";
-              };
-            in
-            {
-              name = "style.css";
-              path = (stdenv.mkDerivation {
-                name = "compiled-styles";
-                src = ./stylesheets;
-                buildPhase = ''
-                  cat *.css > ./output.css
-                  cat ${ttf_EB_Garamond} >> ./output.css
-                '';
-                installPhase = ''
-                  cp ./output.css $out
-                '';
-              });
-            })
-            {
-              name = "rss.xml";
-              path = (pkgs.replaceVars ./rss.xml {
-                nix-rfc822 = nix-time.lib.RFC-822 "GMT" inputs.self.lastModified;
-              });
-            }
-          ];
-        in
-        pkgs.linkFarm "webroot" (files ++ permalinks ++ resources);
+      config.by.websites.sites.${domain}.web-server.webroot = pkgs.linkFarm "${domain}-webroot" [
+        {
+          name = "index.html";
+          path = ./index.html;
+        }
+      ];
     });
 }

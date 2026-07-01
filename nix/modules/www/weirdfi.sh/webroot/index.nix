@@ -7,7 +7,7 @@ let
 in
 
 {
-  flake.modules.nixos."dcurgz.me-index" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
+  flake.modules.nixos."weirdfi.sh-index" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
     ({
       lib,
       config,
@@ -17,14 +17,14 @@ in
 
     let
       inherit (pkgs.by.lib) replaceOptionalVars;
-      cfg = config.by.www."dcurgz.me";
+      cfg = config.by.www."weirdfi.sh";
       inherit (cfg) templates;
       lib' = cfg.lib;
     in
     {
-      config.by.www."dcurgz.me".pages = [
+      config.by.www."weirdfi.sh".pages = [
         {
-          title = "DCURGZ.ME";
+          title = "WEIRDFI.SH";
           description = "Site Index";
           date = "2026-05-12";
           slug = "/";

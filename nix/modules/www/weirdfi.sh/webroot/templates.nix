@@ -7,7 +7,7 @@ let
 in
 
 {
-  flake.modules.nixos."dcurgz.me-templates" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
+  flake.modules.nixos."weirdfi.sh-templates" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
     ({
       lib,
       config,
@@ -16,18 +16,18 @@ in
     }:
 
     let
-      cfg = config.by.www."dcurgz.me";
+      cfg = config.by.www."weirdfi.sh";
       lib' = cfg.lib;
     in
     {
-      config.by.www."dcurgz.me".templates = {
+      config.by.www."weirdfi.sh".templates = {
         back = ''
           .Lk / "↩ take me home"
         '';
         build-time = ''
           .Pp
           The source code for this website is available:
-          .Lk https://github.com/dcurgz/d1/blob/master/nix/modules/www/dcurgz.me/default.nix link .
+          .Lk https://github.com/dcurgz/d1/blob/master/nix/modules/www/weirdfi.sh/default.nix link .
           This page was last built declaratively on `@nix-rfc822@`.
         '';
         thoughts = ''
@@ -53,7 +53,7 @@ in
           '';
         header = ''
           .Dd @color-scheme@
-          .Dt DCURGZ.ME 7
+          .Dt WEIRDFI.SH 7
           .Os @nix-gitrev@
         '';
         recent-posts =

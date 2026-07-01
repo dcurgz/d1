@@ -7,7 +7,7 @@ let
 in
 
 {
-  flake.modules.nixos."dcurgz.me-lib" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
+  flake.modules.nixos."weirdfi.sh-lib" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
     ({
       lib,
       config,
@@ -44,7 +44,7 @@ in
       '';
     in
     {
-      by.www."dcurgz.me".lib = {
+      by.www."weirdfi.sh".lib = {
         renderMdoc = name: path: (lib.pipe path [
           ### (1.) render mdoc(7) to html.
           (path: pkgs.stdenv.mkDerivation (

@@ -50,8 +50,8 @@ in
       nixos.weirdfish-cax11-4gb-hardware
       nixos.weirdfish-cax11-4gb-disk
       nixos.authorized-keys
-      # Build and host dcurgz.me website
       nixos."dcurgz.me"
+      nixos."weirdfi.sh"
       {
         by.presets.authorized-keys.groups = [
           {

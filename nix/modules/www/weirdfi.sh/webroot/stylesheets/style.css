@@ -1,27 +1,31 @@
 /* vim: ts=2:sw=2
 /* thanks https://causal.agency for the inspiration <3 */
 :root {
-  --bg: #fffbe8;
-  --bg-darken: #fffbe8;
-  --fg: #3c3836;
-  --fg-lighten: #6e6f71;
-  --c1: #d9865d;
+  --bg: #2b3029;
+  --fg: #fffcfa;
+  --c1: #e5bfac;
   --c2: #bba481;
   --c3: #879274;
   --c4: #645e72;
   --c5: #453a4f;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
-
 html {
-  /*font-family: monospace;*/
   font-family: "EB Garamond", serif;
-  font-size: 16pt;
   line-height: 1.5em;
   background-color: var(--bg);
   color: var(--fg);
   scroll-behavior: smooth;
+}
+
+.Pp {
+  font-size: 16pt;
+  margin: 1em auto;
+  text-indent: 0.5em;
+}
+
+h1,h2,td,code {
+  font-family: monospace;
 }
 
 * { scroll-margin-top: 10px; }
@@ -81,7 +85,7 @@ table { border-collapse: collapse; }
 table.Nm code.Nm { padding-right: 1ch; }
 table.foot { margin-top: 1em; }
 
-a { color: var(--c4); }
+a { color: var(--c1); }
 a.Sx:before { content: "→ "; }
 
 .Bf.Em { font-style: italic; }
@@ -149,6 +153,26 @@ sup {
   100% { background-color: #fff6cb; }
 }
 
+/* anchor for top of page */
+#NAME {
+  anchor-name: --anchor-head;
+}
+
+.Bd.aside-h {
+  position: absolute;
+  position-anchor: --anchor-head;
+  border: none;
+}
+.Bd.aside-h:after {
+  background: url("/marbled-healthy.png");
+  width: 114px;
+  height: 432px;
+  content: "";
+  display: inline-block;
+  background-size: 114px 432px;
+  image-rendering: pixelated;
+}
+
 .anchor-1 { anchor-name: --anchor-1; }
 .anchor-2 { anchor-name: --anchor-2; }
 .anchor-3 { anchor-name: --anchor-3; }
@@ -177,6 +201,7 @@ sup {
 }
 
 /* aside positioning */
+.Bd.aside-h,
 .Bd.aside-1,
 .Bd.aside-2,
 .Bd.aside-3,
