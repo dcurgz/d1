@@ -95,7 +95,7 @@ bootstrap-weirdfi.sh: update-local-inputs update-index
 bootstrap-publicproxy: update-local-inputs update-index
 	$(NIX) run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-generate-config ./systems/publicproxy-cax11-4gb/hardware-configuration.nix --flake .#publicproxy-cax11-4gb --target-host "root@publicproxy"
 
-deploy: update-local-inputs update-index
+deploy: update-index
 ifeq ($(HOSTNAME),hyperberry)
 	# build locally
 	deploy $(HOST) \
