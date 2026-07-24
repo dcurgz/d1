@@ -13,15 +13,6 @@ in
 {
   flake.robotnixConfigurations.midnight = flake.lib.mkAOSP {
     modules = with flake.modules; [
-      # Install OpenSSH daemon
-      android.openssh
-      # Configure authorized keys
-      {
-        sshd.authorizedKeys = {
-          # Allow all privileged keys to login as root.
-          root = keys.ssh.groups.privileged.paths;
-        };
-      }
       # Device configuration
       {
         flavor = "grapheneos";
