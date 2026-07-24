@@ -1536,11 +1536,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1782817808,
-        "narHash": "sha256-JGi/O61Izxum4/F3qAUcBlvD/6hNQFpznqKg089Q2HM=",
+        "lastModified": 1784330167,
+        "narHash": "sha256-snN+QCWJG6IEWppkDcS9+iJmmcsxd9wKELUDTgfwqrM=",
         "owner": "mio-19",
         "repo": "robotnix",
-        "rev": "44a3feb48064941f5aa12cd72593b55a1029600d",
+        "rev": "7d3990e7023a3edd0a0c245312c36da57dd11b49",
         "type": "github"
       },
       "original": {

@@ -26,8 +26,6 @@ NOM := --log-format internal-json -v 2>&1 | nom --json
 
 HOSTNAME := $(shell cat /etc/hostname)
 
-CHECK_MINECRAFT := ssh vm-mc-leedlemon-0 -o "ConnectTimeout=3" "rcon-cli --password leedlemon list" || true
-
 .PHONY: hyperberry piberry airberry update
 
 update-index:
@@ -44,12 +42,7 @@ update-local-inputs:
 
 # Build host-specific configurations
 hyperberry: update-local-inputs update-index
-	# Go!
-	$(CHECK_MINECRAFT)
-	@read -p "Proceed? [y/N] " ans && ans=$${ans:-N} ; \
-	if [ $${ans} = y ] || [ $${ans} = Y ]; then \
-		sudo nixos-rebuild switch --no-reexec --flake .#hyperberry $(NOM) ; \
-	fi
+	sudo nixos-rebuild switch --no-reexec --flake .#hyperberry $(NOM) ; \
 
 blueberry: update-local-inputs update-index
 	# Go!
