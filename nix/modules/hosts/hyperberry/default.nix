@@ -67,14 +67,9 @@ in
       nixos.avahi
       nixos.linux-builder
       # Declarative VMs
-      nixos.vm-claude
       nixos.vm-immich
       nixos.vm-jellyfin
-      nixos.vm-mc-leedlemon-0
-      nixos.vm-mc-slime-0
-      nixos.vm-openwebui
       nixos.vm-trilium
-      nixos.vm-vikunja
       nixos.vx-jupiter
       nixos.vm-gos-update-server
       # Services
