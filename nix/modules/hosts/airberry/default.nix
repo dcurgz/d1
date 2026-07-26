@@ -42,7 +42,7 @@ in
         by.presets.authorized-keys = {
           groups = [
             {
-              users = [ "root" "dylan" ];
+              users = [ "root" "jasper" ];
               keys = keys.ssh.groups.privileged.paths;
             }
           ];
@@ -50,7 +50,7 @@ in
       }
       darwin.home-manager
       {
-        by.presets.home-manager.user = "dylan";
+        by.presets.home-manager.user = "jasper";
       }
       home-manager.airberry
       home-manager.airberry-hardware
@@ -81,7 +81,7 @@ in
         settings = {
           trusted-users = [
             "@admin"
-            "dylan"
+            "jasper"
           ];
         };
       };
@@ -91,7 +91,7 @@ in
         enable = true;
 
         # User owning the Homebrew prefix
-        user = "dylan";
+        user = "jasper";
 
         autoMigrate = true;
       };
@@ -123,10 +123,10 @@ in
       # Set Git commit hash for darwin-version.
       system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-      system.primaryUser = "dylan";
-      users.users.dylan = {
-        name = "dylan";
-        home = "/Users/dylan";
+      system.primaryUser = "jasper";
+      users.users.jasper = {
+        name = "jasper";
+        home = "/Users/jasper";
       };
 
       environment.shells = [ pkgs.fish ];
@@ -152,7 +152,7 @@ in
 
   flake.deploy.nodes.airberry = {
     hostname = "airberry";
-    sshUser = "dylan";
+    sshUser = "jasper";
     remoteBuild = false;
     profiles.system = {
       user = "root";

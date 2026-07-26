@@ -46,13 +46,13 @@ let
   };
 
   host_defs = [
-    (mkPrivilegedHost "airberry"    ["host" "dcurgz"])
-    (mkPrivilegedHost "blueberry"   ["host" "root" "dcurgz"])
-    (mkPrivilegedHost "hyperberry"  ["host" "root" "dcurgz"])
+    (mkPrivilegedHost "airberry"    ["host" "jaspine"])
+    (mkPrivilegedHost "blueberry"   ["host" "root" "jaspine"])
+    (mkPrivilegedHost "hyperberry"  ["host" "root" "jaspine"])
     (mkSpecialKey "swiss")
     (mkSpecialKey "blueberry-nt")
 
-    (mkGroupHost "miniberry"  ["host" "dcurgz"]    [g_WG])
+    (mkGroupHost "miniberry"  ["host" "jaspine"]    [g_WG])
     (mkGroupHost "piberry"    ["host" "piberry"]   [g_WG])
     (mkGroupHost "tauberry"   ["host" "tauberry"]  [g_WG])
     (mkGroupHost "fooberry"   ["host" "root"]      [g_CRZ])

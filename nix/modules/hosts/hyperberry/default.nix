@@ -54,7 +54,7 @@ in
         by.presets.authorized-keys = {
           groups = [
             {
-              users = [ "root" "dcurgz" ];
+              users = [ "root" "jaspine" ];
               keys = keys.ssh.groups.privileged.paths;
             }
             {
@@ -82,7 +82,7 @@ in
       # Home-manager
       nixos.home-manager
       {
-        by.presets.home-manager.user = "dcurgz";
+        by.presets.home-manager.user = "jaspine";
       }
       home-manager.hyperberry
       home-manager.hyperberry-hardware
@@ -258,24 +258,24 @@ in
         };
       };
 
-      users.users.dcurgz = {
+      users.users.jaspine = {
         isNormalUser = true;
         shell = pkgs.fish;
-        group = "dcurgz";
+        group = "jaspine";
         extraGroups = [
           "wheel"
           "docker"
           "media"
           "data"
         ];
-        home = "/home/dcurgz";
+        home = "/home/jaspine";
       };
-      users.groups.dcurgz = { };
-      nix.settings.trusted-users = [ "dcurgz" ];
+      users.groups.jaspine = { };
+      nix.settings.trusted-users = [ "jaspine" ];
 
       systemd.tmpfiles.rules = [
         # Ensure home directories are correctly configured.
-        "Z /home/dcurgz 700 dcurgz dcurgz"
+        "Z /home/jaspine 700 jaspine jaspine"
         "Z /root        700 root   root"
         # Set custom / directories to the correct groups.
         "Z /media       770 root   media" 
@@ -303,7 +303,7 @@ in
 
   #flake.deploy.nodes.hyperberry = {
   #  hostname = "hyperberry";
-  #  sshUser = "dcurgz";
+  #  sshUser = "jaspine";
   #  remoteBuild = false;
   #  profiles.system = {
   #    user = "root";

@@ -50,12 +50,12 @@ in
       nixos.weirdfish-cax11-4gb-hardware
       nixos.weirdfish-cax11-4gb-disk
       nixos.authorized-keys
-      nixos."dcurgz.me"
+      nixos."jaspine.me"
       nixos."weirdfi.sh"
       {
         by.presets.authorized-keys.groups = [
           {
-            users = [ "root" "dcurgz" "builder" "git" ];
+            users = [ "root" "jaspine" "builder" "git" ];
             keys = keys.ssh.groups.privileged.paths;
           }
         ];
@@ -105,14 +105,14 @@ in
         };
       };
 
-      users.users.dcurgz = {
+      users.users.jaspine = {
         isNormalUser = true;
-        group = "dcurgz";
+        group = "jaspine";
         extraGroups = [ "wheel" ];
-        home = "/home/dcurgz";
+        home = "/home/jaspine";
       };
-      users.groups.dcurgz = { };
-      nix.settings.trusted-users = [ "dcurgz" ];
+      users.groups.jaspine = { };
+      nix.settings.trusted-users = [ "jaspine" ];
 
       systemd.tmpfiles.rules = [
         "Z /data/git 775 root wheel"
@@ -126,7 +126,7 @@ in
 
       # Git user currently has RO access to all Git repositories.
       # This is provided by the world-readable /data/git permissions.
-      # wheel has write access to the directory, so dcurgz can make changes.
+      # wheel has write access to the directory, so jaspine can make changes.
       users.users.git = {
         isSystemUser = true;
         group = "git";
@@ -250,7 +250,7 @@ in
 
                       repo.url=d1
                       repo.path=/data/git/d1.git
-                      repo.desc=dcurgz's monorepo
+                      repo.desc=jaspine's monorepo
                     '';
                   };
                   extraConfig = ''

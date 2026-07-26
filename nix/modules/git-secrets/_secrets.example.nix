@@ -46,27 +46,27 @@ in
         tailscale = { inherit magic_dns; };
         hosts = {
           # hosts
-          blueberry  = mkTailnetHost "blueberry"   "dcurgz";
-          airberry   = mkTailnetHost "airberry"    "dylan";
+          blueberry  = mkTailnetHost "blueberry"   "jaspine";
+          airberry   = mkTailnetHost "airberry"    "jasper";
           piberry    = mkTailnetHost "piberry"     "piberry";
           tauberry   = mkTailnetHost "tauberry"    "tauberry";
           fooberry   = mkTailnetHost "fooberry"    "fooberry";
           
           hyperberry = lib.mkMerge [
-            (mkTailnetHost "hyperberry" "dcurgz")
+            (mkTailnetHost "hyperberry" "jaspine")
             {
               ssh.builder.enable = true;
             }
           ];
           miniberry = lib.mkMerge [
-            (mkTailnetHost "miniberry" "dcurgz") 
+            (mkTailnetHost "miniberry" "jaspine") 
             {
               ssh.builder.enable = true;
             }
           ];
 
-          weirdfish-cax11-4gb   = mkNormalHost "weirdfi.sh" "a.b.c.d" "dcurgz";
-          publicproxy-cax11-4gb = mkNormalHost "publicproxy" "a.b.c.d" "dcurgz";
+          weirdfish-cax11-4gb   = mkNormalHost "weirdfi.sh" "a.b.c.d" "jaspine";
+          publicproxy-cax11-4gb = mkNormalHost "publicproxy" "a.b.c.d" "jaspine";
 
           # guests
           vm-gos-update-server = mkGuest "vm-gos-update-server";

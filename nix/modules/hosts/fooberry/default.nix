@@ -44,7 +44,7 @@ in
       {
         by.presets.authorized-keys.groups = [
           {
-            users = [ "root" "dcurgz" ];
+            users = [ "root" "jaspine" ];
             keys = keys.ssh.groups.privileged.paths;
           }
         ];
@@ -123,14 +123,14 @@ in
         RestartSec = 5;
       };
 
-      users.users.dcurgz = {
+      users.users.jaspine = {
         isNormalUser = true;
-        group = "dcurgz";
+        group = "jaspine";
         extraGroups = [ "wheel" ];
-        home = "/home/dcurgz";
+        home = "/home/jaspine";
       };
-      users.groups.dcurgz = { };
-      nix.settings.trusted-users = [ "dcurgz" ];
+      users.groups.jaspine = { };
+      nix.settings.trusted-users = [ "jaspine" ];
 
       services.tailscale = {
         enable = true;
@@ -175,7 +175,7 @@ in
 
   flake.deploy.nodes.fooberry = {
     hostname = "fooberry";
-    sshUser = "dcurgz";
+    sshUser = "jaspine";
     remoteBuild = false;
     profiles.system = {
       user = "root";

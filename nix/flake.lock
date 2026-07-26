@@ -231,14 +231,14 @@
       "locked": {
         "lastModified": 1779901244,
         "narHash": "sha256-Z4w0bLE+Mbtp+QHo1TceAChCJ9/Kkf8dKLZNoyfJh/s=",
-        "owner": "dcurgz",
+        "owner": "jaspine",
         "repo": "deploy-rs",
         "rev": "2c3d77789916297a3dd44a65aa8b0f192a58436a",
         "type": "github"
       },
       "original": {
-        "owner": "dcurgz",
-        "ref": "dcurgz/add-skip-offline",
+        "owner": "jaspine",
+        "ref": "jaspine/add-skip-offline",
         "repo": "deploy-rs",
         "type": "github"
       }
@@ -831,7 +831,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-WQlAqkbVFlRdI9dqKE205lK59tHE6/k7CANVG4Fjkpk=",
+        "narHash": "sha256-/cuScBg6TmMqSJcEzMXKA5JpSav2Gham2q0PvGo32rs=",
         "path": "./vendor/mandoc",
         "type": "path"
       },
@@ -1729,13 +1729,13 @@
       "locked": {
         "lastModified": 1782460987,
         "narHash": "sha256-TLYWCSr04kJSEBx3WxrGjOx6EcSAEQB407znJvayHbQ=",
-        "owner": "dcurgz",
+        "owner": "jaspine",
         "repo": "sunsetr",
         "rev": "9539fcaffba948ee3f8500a0ba85e7741064e3f4",
         "type": "github"
       },
       "original": {
-        "owner": "dcurgz",
+        "owner": "jaspine",
         "repo": "sunsetr",
         "type": "github"
       }

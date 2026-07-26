@@ -40,7 +40,7 @@ in
       {
         by.presets.authorized-keys.groups = [
           {
-            users = [ "root" "dcurgz" "builder" ];
+            users = [ "root" "jaspine" "builder" ];
             keys = keys.ssh.groups.privileged.paths;
           }
         ];
@@ -113,14 +113,14 @@ in
         };
       };
 
-      users.users.dcurgz = {
+      users.users.jaspine = {
         isNormalUser = true;
-        group = "dcurgz";
+        group = "jaspine";
         extraGroups = [ "wheel" ];
-        home = "/home/dcurgz";
+        home = "/home/jaspine";
       };
-      users.groups.dcurgz = { };
-      nix.settings.trusted-users = [ "dcurgz" ];
+      users.groups.jaspine = { };
+      nix.settings.trusted-users = [ "jaspine" ];
 
       age.secrets.tailscale-auth-key.file = "${inputs.agenix-secrets}/agenix/tailscale/hosts/publicproxy.age";
 

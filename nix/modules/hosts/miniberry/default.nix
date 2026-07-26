@@ -40,7 +40,7 @@ in
         by.presets.authorized-keys = {
           groups = [
             {
-              users = [ "root" "dcurgz" ];
+              users = [ "root" "jaspine" ];
               keys = keys.ssh.groups.privileged.paths;
             }
             {
@@ -55,7 +55,7 @@ in
       # Home-manager
       darwin.home-manager
       {
-        by.presets.home-manager.user = "dcurgz";
+        by.presets.home-manager.user = "jaspine";
       }
       #home-manager.miniberry
       home-manager.miniberry-hardware
@@ -83,7 +83,7 @@ in
 
       nix-homebrew = {
         enable = true;
-        user = "dcurgz";
+        user = "jaspine";
         autoMigrate = true;
       };
 
@@ -111,10 +111,10 @@ in
 
       services.openssh.enable = true;
 
-      system.primaryUser = "dcurgz";
-      users.users.dcurgz = {
-        name = "dcurgz";
-        home = "/Users/dcurgz";
+      system.primaryUser = "jaspine";
+      users.users.jaspine = {
+        name = "jaspine";
+        home = "/Users/jaspine";
         uid = 501;
         gid = 20; # staff
       };
@@ -134,14 +134,14 @@ in
 
       users.knownUsers = [ "builder" ];
 
-      nix.settings.trusted-users = [ "@admin" "dcurgz" "builder" ];
+      nix.settings.trusted-users = [ "@admin" "jaspine" "builder" ];
 
       system.stateVersion = 6;
     });
 
   flake.deploy.nodes.miniberry = {
     hostname = "miniberry";
-    sshUser = "dcurgz";
+    sshUser = "jaspine";
     remoteBuild = false;
     profiles.system = {
       user = "root";

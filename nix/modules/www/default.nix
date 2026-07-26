@@ -21,7 +21,7 @@ in
     in
     {
       options.by.websites = {
-        enable = lib.mkEnableOption "dcurgz's websites module.";
+        enable = lib.mkEnableOption "jaspine's websites module.";
         debug = lib.mkOption {
           type = lib.types.bool;
           description = "Enable nginx debug.";

@@ -31,7 +31,7 @@ in
       options.by.presets.home-manager = {
         user = lib.mkOption {
           type = lib.types.str;
-          default = "dcurgz";
+          default = "jaspine";
         };
       };
 
@@ -73,7 +73,7 @@ in
       options.by.presets.home-manager = {
         user = lib.mkOption {
           type = lib.types.str;
-          default = "dcurgz";
+          default = "jaspine";
         };
       };
 

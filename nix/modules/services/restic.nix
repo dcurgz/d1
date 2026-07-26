@@ -63,7 +63,7 @@ in
       });
     in
     {
-      options.by.restic.enable = lib.mkEnableOption "Enable dcurgz's restic module.";
+      options.by.restic.enable = lib.mkEnableOption "Enable jaspine's restic module.";
       options.by.restic.defaults = lib.mkOption {
         type = lib.types.submodule ({ ... }: { options = resticOptions; });
         default = { };

@@ -11,7 +11,7 @@
     dankMaterialShell.inputs.nixpkgs.follows = "nixpkgs";
     dankMaterialShell.url = "github:AvengeMedia/DankMaterialShell";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
-    deploy-rs.url = "github:dcurgz/deploy-rs/dcurgz/add-skip-offline";
+    deploy-rs.url = "github:jaspine/deploy-rs/jaspine/add-skip-offline";
     dgop.inputs.nixpkgs.follows = "nixpkgs";
     dgop.url = "github:AvengeMedia/dgop";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +46,7 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:nix-community/stylix";
     sunsetr.inputs.nixpkgs.follows = "nixpkgs";
-    sunsetr.url = "github:dcurgz/sunsetr";
+    sunsetr.url = "github:jaspine/sunsetr";
 
     nixpkgs-immich.url = "github:nixos/nixpkgs?rev=0fd2db475afdde93c9e4b1625aafb8eb41b99807";
     nixpkgs-ollama.url = "github:nixos/nixpkgs?rev=9d29d5f667d7467f98efc31881e824fa586c927e";

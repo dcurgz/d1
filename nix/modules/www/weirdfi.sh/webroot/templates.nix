@@ -30,7 +30,7 @@ in
         build-time = ''
           .Pp
           The source code for this website is available:
-          .Lk https://github.com/dcurgz/d1/blob/master/nix/modules/www/weirdfi.sh/default.nix link .
+          .Lk https://github.com/jaspine/d1/blob/master/nix/modules/www/weirdfi.sh/default.nix link .
           This page was last built declaratively on `@nix-rfc822@`.
         '';
         thoughts = ''

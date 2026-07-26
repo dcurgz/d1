@@ -40,7 +40,7 @@ in
         ({ config, ... }: {
           by.presets.authorized-keys.groups = [
             {
-              users = [ "root" "dcurgz" ];
+              users = [ "root" "jaspine" ];
               keys = config.by.keys.ssh.groups.privileged.paths;
             }
           ];
@@ -51,7 +51,7 @@ in
         nixos.desktop-wooting
         nixos.home-manager
         {
-          by.presets.home-manager.user = "dcurgz";
+          by.presets.home-manager.user = "jaspine";
         }
         home-manager.blueberry
         home-manager.blueberry-hardware
@@ -127,18 +127,18 @@ in
       };
     
       # Define users.
-      users.users.dcurgz = {
+      users.users.jaspine = {
         isNormalUser = true;
         shell = pkgs.fish;
-        group = "dcurgz";
+        group = "jaspine";
         extraGroups = [
           "wheel"
           "input"
         ];
-        home = "/home/dcurgz";
+        home = "/home/jaspine";
       };
-      users.groups.dcurgz = { };
-      nix.settings.trusted-users = [ "dcurgz" ];
+      users.groups.jaspine = { };
+      nix.settings.trusted-users = [ "jaspine" ];
     
       age.secrets.tailscale-auth-key.file = "${inputs.agenix-secrets}/agenix/tailscale/hosts/blueberry.age";
     
@@ -211,7 +211,7 @@ in
 
   flake.deploy.nodes.blueberry = {
     hostname = "blueberry";
-    sshUser = "dcurgz";
+    sshUser = "jaspine";
     remoteBuild = false;
     profiles.system = {
       user = "root";

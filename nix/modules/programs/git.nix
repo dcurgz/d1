@@ -23,7 +23,7 @@ in
         enable = true;
         settings = {
           user.email = "${hostName}@curz.sh";
-          user.name = "Dylan Curzon";
+          user.name = "Jasper Pine";
         };
       };
     });
