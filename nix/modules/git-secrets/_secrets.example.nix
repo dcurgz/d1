@@ -47,7 +47,7 @@ in
         hosts = {
           # hosts
           blueberry  = mkTailnetHost "blueberry"   "jaspine";
-          airberry   = mkTailnetHost "airberry"    "jasper";
+          airberry   = mkTailnetHost "airberry"    "jaspine";
           piberry    = mkTailnetHost "piberry"     "piberry";
           tauberry   = mkTailnetHost "tauberry"    "tauberry";
           fooberry   = mkTailnetHost "fooberry"    "fooberry";

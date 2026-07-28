@@ -26,7 +26,7 @@
     "agenix-secrets": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-z8wtwCJ40zui/JVATnCVWYx9CQ2EUGOVCE9H1rOdshA=",
+        "narHash": "sha256-y6NZAR6Eu0f5tpBXoC1OUmSIHYhDjR45cb58b1LtJ8E=",
         "path": "./agenix-secrets",
         "type": "path"
       },
@@ -231,14 +231,14 @@
       "locked": {
         "lastModified": 1779901244,
         "narHash": "sha256-Z4w0bLE+Mbtp+QHo1TceAChCJ9/Kkf8dKLZNoyfJh/s=",
-        "owner": "jaspine",
+        "owner": "jaspinegz",
         "repo": "deploy-rs",
         "rev": "2c3d77789916297a3dd44a65aa8b0f192a58436a",
         "type": "github"
       },
       "original": {
-        "owner": "jaspine",
-        "ref": "jaspine/add-skip-offline",
+        "owner": "jaspinegz",
+        "ref": "dcurgz/add-skip-offline",
         "repo": "deploy-rs",
         "type": "github"
       }
@@ -914,7 +914,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-hfrRwxtHW9N+r/Lm2PENytTs+T4kTzsY8l70xcz0JHI=",
+        "narHash": "sha256-bn45r6ry064KM6lJnY/oEdid38eejAdqOR/d3Hw6D2c=",
         "path": "./vendor/neoforge-1-21-1",
         "type": "path"
       },
@@ -1101,7 +1101,7 @@
     "nix-time": {
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-CmwZKPlhcySy0lxLyW/c7exgDb4evrzFyRrbERPAdDY=",
+        "narHash": "sha256-B3hdQtg/9/DFeYxl3SEjA5qqmKBmFnk6yBU3GlaH23k=",
         "path": "./vendor/flockenzeit",
         "type": "path"
       },
@@ -1729,13 +1729,13 @@
       "locked": {
         "lastModified": 1782460987,
         "narHash": "sha256-TLYWCSr04kJSEBx3WxrGjOx6EcSAEQB407znJvayHbQ=",
-        "owner": "jaspine",
+        "owner": "jaspinegz",
         "repo": "sunsetr",
         "rev": "9539fcaffba948ee3f8500a0ba85e7741064e3f4",
         "type": "github"
       },
       "original": {
-        "owner": "jaspine",
+        "owner": "jaspinegz",
         "repo": "sunsetr",
         "type": "github"
       }
@@ -2028,7 +2028,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-8RSR6bwh8L6pcyQC1fvU2ooDF9wJ+7nlcv6AOjgt+Qs=",
+        "narHash": "sha256-Ol7GfuqSsH1T4isIAK6tM9/ghI4e9yKZQfvepXFkXNg=",
         "path": "./vendor/weirdfish-server",
         "type": "path"
       },

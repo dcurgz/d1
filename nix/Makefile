@@ -71,8 +71,6 @@ tauberry-sdcard: update-local-inputs update-index
 airberry: update-local-inputs update-index
 	sudo darwin-rebuild switch \
 		$(BUILDER_OPTS) \
-		--option builders '$(BUILDERS)' \
-		--max-jobs 0 \
 		--flake .#airberry 
 
 miniberry: update-local-inputs update-index
