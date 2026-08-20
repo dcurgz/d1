@@ -50,7 +50,7 @@ in
       nixos.weirdfish-cax11-4gb-hardware
       nixos.weirdfish-cax11-4gb-disk
       nixos.authorized-keys
-      nixos."jaspine.me"
+      nixos."dcurgz.me"
       nixos."weirdfi.sh"
       {
         by.presets.authorized-keys.groups = [

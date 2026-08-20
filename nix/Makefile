@@ -6,14 +6,12 @@ BUILDER_OPTS := \
 
 BUILDERS_HB := \
 		ssh://builder@miniberry aarch64-darwin - 16 4 ; \
-		ssh://root@vm-mb-build-aarch64 aarch64-linux - 8 4 big-parallel,kvm ; \
 		ssh://builder@publicproxy aarch64-linux - 4 1 ; \
 		ssh://builder@weirdfi.sh aarch64-linux - 4 1
 
 BUILDERS := \
 		ssh://builder@hyperberry x86_64-linux - 16 2 ; \
-		ssh://builder@miniberry aarch64-darwin - 16 4 ; \
-		ssh://root@vm-mb-build-aarch64 aarch64-linux - 8 4 big-parallel,kvm
+		ssh://builder@miniberry aarch64-darwin - 16 4 ;
 
 BUILDERS_WIFI_OUT := \
 		ssh://builder@publicproxy aarch64-linux - 4 1 ; \

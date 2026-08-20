@@ -7,8 +7,8 @@ let
 in
 
 {
-  # Install to flake-default; jaspine.me is enabled based on the uppermost module.
-  flake.modules.nixos."jaspine.me-webroot" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
+  # Install to flake-default; dcurgz.me is enabled based on the uppermost module.
+  flake.modules.nixos."dcurgz.me-webroot" = flake.lib.nixos.mkAspect (with flake.tags; [ flake-default ])
     ({
       lib,
       config,
@@ -22,7 +22,7 @@ in
 
       inherit (pkgs.by.lib) replaceOptionalVars;
 
-      domain = "jaspine.me";
+      domain = "dcurgz.me";
     in
     {
       options.by.www.${domain} = {

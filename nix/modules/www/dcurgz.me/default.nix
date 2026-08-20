@@ -7,7 +7,7 @@ let
 in
 
 {
-  flake.modules.nixos."jaspine.me" = flake.lib.nixos.mkAspect []
+  flake.modules.nixos."dcurgz.me" = flake.lib.nixos.mkAspect []
     ({
       lib,
       config,
@@ -18,7 +18,7 @@ in
       secrets = config.by.secrets.weirdfish;
       ports   = config.by.portmap;
 
-      domain = "jaspine.me";
+      domain = "dcurgz.me";
     in
     {
       config.by.websites.enable = true;

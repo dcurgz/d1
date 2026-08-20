@@ -26,7 +26,7 @@ maintainable.
 
 | Hostname | Path | Description |
 | --- | --- | --- |
-| weirdfish-cax11-4gb | [./modules/hosts/weirdfish-cax11-4gb/default.nix](https://github.com/jaspine/d1/tree/master/nix/modules/hosts/weirdfish-cax11-4gb/default.nix) | Hosts my personal blog, [jaspine.me](https://jaspine.me/). |
+| weirdfish-cax11-4gb | [./modules/hosts/weirdfish-cax11-4gb/default.nix](https://github.com/jaspine/d1/tree/master/nix/modules/hosts/weirdfish-cax11-4gb/default.nix) | Hosts my personal blog, [dcurgz.me](https://dcurgz.me/). |
 | publicproxy-cax11-4gb | [./modules/hosts/publicproxy-cax11-4gb/default.nix](https://github.com/jaspine/d1/tree/master/nix/modules/hosts/publicproxy-cax11-4gb/default.nix) | Simple reverse proxy for various self-hosted services e.g. Minecraft servers. |
 
 ## Guests
