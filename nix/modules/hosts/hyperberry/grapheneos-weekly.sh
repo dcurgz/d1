@@ -15,7 +15,7 @@ mkdir -p $LOGS
 
 SOURCE=$WORKSPACE/d1
 rm -rf $SOURCE
-git clone https://github.com/jaspine/d1.git $SOURCE || exit 1
+git clone https://github.com/jaspinegz/d1.git $SOURCE || exit 1
 
 ls $SOURCE
 cd $SOURCE

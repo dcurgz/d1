@@ -137,7 +137,7 @@ show-flakegraph: render-flakegraph
 	qiv ./result/hosts.png
 
 setup-remotes:
-	git remote add github git@github.com:jaspine/d1.git || true
+	git remote add github git@github.com:jaspinegz/d1.git || true
 	git remote add srv jaspine@weirdfi.sh:/data/git/d1.git || true
 	git branch -u srv/master
 

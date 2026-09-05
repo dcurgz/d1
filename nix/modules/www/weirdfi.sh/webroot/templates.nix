@@ -30,8 +30,9 @@ in
         build-time = ''
           .Pp
           The source code for this website is available:
-          .Lk https://github.com/jaspine/d1/blob/master/nix/modules/www/weirdfi.sh/default.nix link .
-          This page was last built declaratively on `@nix-rfc822@`.
+          .Lk https://github.com/jaspinegz/d1/blob/master/nix/modules/www/weirdfi.sh/default.nix link .
+          This page was last built declaratively on `@nix-rfc822@`, which might
+          be cool if anybody knew what it means.
         '';
         thoughts = ''
           .Pp
