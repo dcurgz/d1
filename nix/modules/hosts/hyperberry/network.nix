@@ -25,7 +25,7 @@ in
 
       networking = {
         hostName = "hyperberry";
-        enableIPv6 = true;
+        enableIPv6 = false;
         # ...nameservers are handled by the DNS aspect.
         firewall = {
           enable = true;
